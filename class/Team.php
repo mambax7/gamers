@@ -750,7 +750,7 @@ class Team extends \XoopsObject
      */
     final public function addTeamSize(int $sizeId): bool
     {
- 
+
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamsizes') . ' (teamid, sizeid) VALUES (' . $this->getVar('teamid') . ", $sizeId)";
 
         if (!$this->db->query($sql)) {

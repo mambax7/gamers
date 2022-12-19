@@ -40,7 +40,7 @@ class Tactics extends \XoopsObject
 
     public \XoopsDatabase $db;
 
-    public string $map;
+    public Map $map;
 
     //Constructor
 
