@@ -121,7 +121,7 @@ class Tactics extends \XoopsObject
     /**
      * @return void
      */
-    public function show()
+    public function show(): void
     {
         $positionHandler = Helper::getInstance()->getHandler('TacticsPosition');
 

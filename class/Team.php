@@ -533,7 +533,7 @@ class Team extends \XoopsObject
     /**
      * @return void
      */
-    final public function select()
+    final public function select(): void
     {
         global $xoopsTpl;
 
@@ -872,7 +872,7 @@ class Team extends \XoopsObject
      * @param string $caption
      * @param array  $array
      */
-    final public function positions(string $caption, array $array)
+    final public function positions(string $caption, array $array): void
     {
         global $xoopsTpl;
 
