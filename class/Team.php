@@ -509,7 +509,7 @@ class Team extends \XoopsObject
      */
     final public function isTeamMember(int $uid): bool
     {
-        $uid = (int)$uid;
+        $uid = $uid;
 
         $sql = 'SELECT rank FROM ' . $this->db->prefix('gamers_teamstatus') . ' WHERE teamid=' . $this->getVar('teamid') . " AND uid=$uid";
 
@@ -564,7 +564,7 @@ class Team extends \XoopsObject
      */
     final public function addTeamMember(int $memberid): bool
     {
-        $memberid = (int)$memberid;
+        $memberid = $memberid;
 
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamstatus') . " (uid, teamid, status, rank) VALUES ($memberid, " . $this->getVar('teamid') . ", '1', '3')";
 
@@ -600,7 +600,7 @@ class Team extends \XoopsObject
      */
     final public function delTeamMember(int $uid): bool
     {
-        $uid = (int)$uid;
+        $uid = $uid;
 
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamstatus') . " WHERE uid=$uid AND teamid=" . $this->getVar('teamid');
 
@@ -636,7 +636,7 @@ class Team extends \XoopsObject
      */
     final public function addTeamPosition(int $positionid): bool
     {
-        $positionid = (int)$positionid;
+        $positionid = $positionid;
 
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teampositions') . " (posid, teamid) VALUES ($positionid, " . $this->getVar('teamid') . ')';
 
@@ -653,7 +653,7 @@ class Team extends \XoopsObject
      */
     final public function delTeamPosition(int $positionid): bool
     {
-        $positionid = (int)$positionid;
+        $positionid = $positionid;
 
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teampositions') . " WHERE posid=$positionid AND teamid=" . $this->getVar('teamid');
 
@@ -670,7 +670,7 @@ class Team extends \XoopsObject
      */
     final public function addTeamSkill(int $positionid): bool
     {
-        $positionid = (int)$positionid;
+        $positionid = $positionid;
 
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teampositions') . " (posid, teamid) VALUES ($positionid, " . $this->getVar('teamid') . ')';
 
@@ -687,7 +687,7 @@ class Team extends \XoopsObject
      */
     final public function delTeamSkill(int $positionid): bool
     {
-        $positionid = (int)$positionid;
+        $positionid = $positionid;
 
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teampositions') . " WHERE posid=$positionid AND teamid=" . $this->getVar('teamid');
 
@@ -704,7 +704,7 @@ class Team extends \XoopsObject
      */
     final public function addTeamServer(int $serverid): bool
     {
-        $serverid = (int)$serverid;
+        $serverid = $serverid;
 
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamservers') . " (serverid, teamid) VALUES ($serverid, " . $this->getVar('teamid') . ')';
 
@@ -721,7 +721,7 @@ class Team extends \XoopsObject
      */
     final public function delTeamServer(int $serverid): bool
     {
-        $serverid = (int)$serverid;
+        $serverid = $serverid;
 
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamservers') . " WHERE serverid=$serverid AND teamid=" . $this->getVar('teamid');
 
@@ -738,7 +738,7 @@ class Team extends \XoopsObject
      */
     final public function addMap(int $mapid): bool
     {
-        $mapid = (int)$mapid;
+        $mapid = $mapid;
 
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teammaps') . " (mapid, teamid) VALUES ($mapid, " . $this->getVar('teamid') . ')';
 
@@ -755,7 +755,7 @@ class Team extends \XoopsObject
      */
     final public function delMap(int $mapid): bool
     {
-        $mapid = (int)$mapid;
+        $mapid = $mapid;
 
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teammaps') . " WHERE mapid=$mapid AND teamid=" . $this->getVar('teamid');
 
@@ -772,7 +772,7 @@ class Team extends \XoopsObject
      */
     final public function addTeamSize(int $size_id): bool
     {
-        $size_id = (int)$size_id;
+        $size_id = $size_id;
 
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamsizes') . ' (teamid, sizeid) VALUES (' . $this->getVar('teamid') . ", $size_id)";
 
@@ -789,7 +789,7 @@ class Team extends \XoopsObject
      */
     final public function delTeamSize(int $sizeid): bool
     {
-        $sizeid = (int)$sizeid;
+        $sizeid = $sizeid;
 
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamsizes') . " WHERE sizeid=$sizeid AND teamid=" . $this->getVar('teamid');
 
@@ -806,7 +806,7 @@ class Team extends \XoopsObject
      */
     final public function addTeamSide(int $side_id): bool
     {
-        $side_id = (int)$side_id;
+        $side_id = $side_id;
 
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamsides') . ' (teamid, sideid) VALUES (' . $this->getVar('teamid') . ", $side_id)";
 
@@ -823,7 +823,7 @@ class Team extends \XoopsObject
      */
     final public function delTeamSide(int $sideid): bool
     {
-        $sideid = (int)$sideid;
+        $sideid = $sideid;
 
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamsides') . " WHERE sideid=$sideid AND teamid=" . $this->getVar('teamid');
 
@@ -840,7 +840,7 @@ class Team extends \XoopsObject
      */
     final public function addTeamRank(int $rank_id): bool
     {
-        $rank_id = (int)$rank_id;
+        $rank_id = $rank_id;
 
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamrank') . ' (teamid, rankid) VALUES (' . $this->getVar('teamid') . ", $rank_id)";
 
@@ -857,7 +857,7 @@ class Team extends \XoopsObject
      */
     final public function delTeamRank(int $rankid): bool
     {
-        $rankid = (int)$rankid;
+        $rankid = $rankid;
 
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamrank') . " WHERE rankid=$rankid AND teamid=" . $this->getVar('teamid');
 
@@ -874,7 +874,7 @@ class Team extends \XoopsObject
      */
     final public function addTeamLadder(int $ladder_id): bool
     {
-        $ladder_id = (int)$ladder_id;
+        $ladder_id = $ladder_id;
 
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamladders') . ' (teamid, ladderid) VALUES (' . $this->getVar('teamid') . ", $ladder_id)";
 
@@ -891,7 +891,7 @@ class Team extends \XoopsObject
      */
     final public function delTeamLadder(int $ladderid): bool
     {
-        $ladderid = (int)$ladderid;
+        $ladderid = $ladderid;
 
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamladders') . " WHERE ladderid=$ladderid AND teamid=" . $this->getVar('teamid');
 
