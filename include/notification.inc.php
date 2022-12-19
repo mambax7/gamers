@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 /*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -20,6 +19,7 @@
 use XoopsModules\Gamers\{
     Helper
 };
+
 /** @var Helper $helper */
 
 /**
@@ -29,7 +29,7 @@ use XoopsModules\Gamers\{
  */
 function team_notify_iteminfo($category, $item_id)
 {
-    $item = [];
+    $item      = [];
     $pathparts = explode('/', __DIR__);
 
     $moduleDirName = $pathparts[array_search('modules', $pathparts, true) + 1];
@@ -49,7 +49,8 @@ function team_notify_iteminfo($category, $item_id)
     if ('team' == $category) {
         // Assume we have a valid team id
 
-        $teamHandler = Helper::getInstance()->getHandler('Team');
+        $teamHandler = Helper::getInstance()
+                             ->getHandler('Team');
 
         $team = $teamHandler->get($item_id);
 

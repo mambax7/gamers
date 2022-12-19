@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 /*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -20,17 +19,19 @@
 use XoopsModules\Gamers\{
     Helper
 };
+
 /** @var Helper $helper */
 
 if (!defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
 }
 require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$mform = new \XoopsThemeForm(_MD_GAMERS_SCREENSHOTS, 'screenshotform', xoops_getenv('PHP_SELF'));
+$mform      = new \XoopsThemeForm(_MD_GAMERS_SCREENSHOTS, 'screenshotform', xoops_getenv('PHP_SELF'));
 $uid_hidden = new \XoopsFormHidden('uid', $xoopsUser->getVar('uid'));
 $mid_hidden = new \XoopsFormHidden('mid', $mid);
 
-$matchmapHandler = Helper::getInstance()->getHandler('MatchMap');
+$matchmapHandler = Helper::getInstance()
+                         ->getHandler('MatchMap');
 
 // Output list with maps for selected match
 echo "<table width='100%' border='0' cellspacing='1' class='outer'><tr><th>" . _MD_GAMERS_MAPNAME . '</th><th>' . _MD_GAMERS_SIDENAME . '</th><th>' . _MD_GAMERS_SCREENSHOTNAME . '</th><th>' . _MD_GAMERS_EDIT . '</th></tr>';
@@ -49,8 +50,8 @@ for ($mapno = 1; $mapno <= $nummaps; $mapno++) {
 
     echo '<td>' . getSide($thismap->getVar('side')) . '</td>';
 
-    if (mb_strlen((string) $thismap->getVar('screenshot')) > 0) {
-        echo '<td>' . $thismap->getVar('screenshot') . '<br><img src="'. XOOPS_UPLOAD_URL . '/' . $moduleDirName . '/screenshots/thumbs/' . $thismap->getVar('screenshot') . '" alt="" border="0"></td>';
+    if (mb_strlen((string)$thismap->getVar('screenshot')) > 0) {
+        echo '<td>' . $thismap->getVar('screenshot') . '<br><img src="' . XOOPS_UPLOAD_URL . '/' . $moduleDirName . '/screenshots/thumbs/' . $thismap->getVar('screenshot') . '" alt="" border="0"></td>';
 
         echo '<td><a href="index.php?op=deletescreenshot&matchmapid=' . $thismap->getVar('matchmapid') . '">' . _MD_GAMERS_DELETE . '</a></td>';
     } else {

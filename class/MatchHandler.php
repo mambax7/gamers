@@ -55,19 +55,22 @@ class MatchHandler extends \XoopsPersistableObjectHandler
 
             $criteria = new \Criteria('matchid', $matchid);
 
-            $mapHandler = Helper::getInstance()->getHandler('MatchMap');
+            $mapHandler = Helper::getInstance()
+                                ->getHandler('MatchMap');
 
             if (!$mapHandler->deleteAll($criteria, $force)) {
                 return false;
             }
 
-            $availabilityHandler = Helper::getInstance()->getHandler('Availability');
+            $availabilityHandler = Helper::getInstance()
+                                         ->getHandler('Availability');
 
             if (!$availabilityHandler->deleteAll($criteria, $force)) {
                 return false;
             }
 
-            $lineupHandler = Helper::getInstance()->getHandler('LineupPosition');
+            $lineupHandler = Helper::getInstance()
+                                   ->getHandler('LineupPosition');
 
             if (!$lineupHandler->deleteAll($criteria, $force)) {
                 return false;

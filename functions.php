@@ -1,11 +1,10 @@
 <?php declare(strict_types=1);
 
-
 use XoopsModules\Gamers\{
     Helper
 };
-/** @var Helper $helper */
 
+/** @var Helper $helper */
 
 // resize picture and copy it to destination
 /**
@@ -87,7 +86,8 @@ function getTeams()
 
     $team = [];
 
-    $teamHandler = Helper::getInstance()->getHandler('Team');
+    $teamHandler = Helper::getInstance()
+                         ->getHandler('Team');
 
     $criteria = new \CriteriaCompo();
 
@@ -103,7 +103,8 @@ function getDefaultTeam()
 {
     global $xoopsDB;
 
-    $teamHandler = Helper::getInstance()->getHandler('Team');
+    $teamHandler = Helper::getInstance()
+                         ->getHandler('Team');
 
     $criteria = new \Criteria('defteam', 1);
 
@@ -348,9 +349,9 @@ function getAllSides()
 }
 
 /**
- * @param $teamid
+ * @param     $teamid
  * @param int $uid
- * @param $skillid
+ * @param     $skillid
  * @return false|string
  */
 function skillcheck($teamid, $uid, $skillid)
@@ -489,7 +490,7 @@ function getPlayerStatus($statusid)
 }
 
 /**
- * @param $teamid
+ * @param     $teamid
  * @param int $uid
  * @return array|false
  */
@@ -555,7 +556,7 @@ function getCaption($mapno)
 }
 
 /****************************
-/* Fetches and returns layout data from database
+ * /* Fetches and returns layout data from database
  */
 function getLayout()
 {

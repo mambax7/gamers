@@ -16,10 +16,10 @@
  * @author       Mithrandir, Mamba, XOOPS Development Team
  */
 
-
 use XoopsModules\Gamers\{
     Helper
 };
+
 /** @var Helper $helper */
 
 xoops_loadLanguage('main', 'gamers');
@@ -32,7 +32,6 @@ function sh_availability()
     if (!xoops_isActiveModule('gamers')) {
         return [];
     }
-
 
     if (!class_exists(Helper::class)) {
         return [];

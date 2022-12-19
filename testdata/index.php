@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -23,6 +22,7 @@ use XoopsModules\Gamers\{
     Helper,
     Utility
 };
+
 /** @var Helper $helper */
 /** @var Utility $utility */
 /** @var Configurator $configurator */
@@ -32,7 +32,7 @@ require \dirname(__DIR__) . '/preloads/autoloader.php';
 
 $op = Request::getCmd('op', '');
 
-$moduleDirName = \basename(\dirname(__DIR__));
+$moduleDirName      = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 $helper = Helper::getInstance();
@@ -102,7 +102,9 @@ function loadSampleData(): void
     // load permissions
     $table     = 'group_permission';
     $tabledata = Yaml::readWrapped($language . $table . '.yml');
-    $mid       = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
+    $mid       = \Xmf\Module\Helper::getHelper($moduleDirName)
+                                   ->getModule()
+                                   ->getVar('mid');
     loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
 
     //  ---  COPY test folder files ---------------
@@ -127,7 +129,8 @@ function saveSampleData(): void
     $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     $helper             = Helper::getInstance();
-    $tables             = $helper->getModule()->getInfo('tables');
+    $tables             = $helper->getModule()
+                                 ->getInfo('tables');
 
     $languageFolder = __DIR__ . '/' . $xoopsConfig['language'];
     if (!\file_exists($languageFolder . '/')) {
@@ -143,7 +146,12 @@ function saveSampleData(): void
 
     // save permissions
     $criteria = new \CriteriaCompo();
-    $criteria->add(new \Criteria('gperm_modid', $helper->getModule()->getVar('mid')));
+    $criteria->add(
+        new \Criteria(
+            'gperm_modid', $helper->getModule()
+                                  ->getVar('mid')
+        )
+    );
     $skipColumns[] = 'gperm_id';
     TableLoad::saveTableToYamlFile('group_permission', $exportFolder . 'group_permission.yml', $criteria, $skipColumns);
     unset($criteria);
@@ -236,7 +244,8 @@ function clearSampleData(): void
     $helper             = Helper::getInstance();
     // Load language files
     $helper->loadLanguage('common');
-    $tables = $helper->getModule()->getInfo('tables');
+    $tables = $helper->getModule()
+                     ->getInfo('tables');
     // truncate module tables
     foreach ($tables as $table) {
         \Xmf\Database\TableLoad::truncateTable($table);

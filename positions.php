@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-
 use XoopsModules\Gamers\{
     Helper,
     Player
 };
+
 /** @var Helper $helper */
 
 $GLOBALS['xoopsOption']['template_main'] = 'gamers_positions.tpl';
@@ -12,22 +12,23 @@ $GLOBALS['xoopsOption']['template_main'] = 'gamers_positions.tpl';
 require_once __DIR__ . '/header.php';
 
 $teamid = isset($_GET['teamid']) ? (int)$_GET['teamid'] : null;
-$mid = isset($_GET['mid']) ? (int)$_GET['mid'] : null;
+$mid    = isset($_GET['mid']) ? (int)$_GET['mid'] : null;
 if (isset($_POST)) {
     foreach ($_POST as $k => $v) {
         ${$k} = $v;
     }
 }
 if ($xoopsUser) {
-    $teamHandler = Helper::getInstance()->getHandler('Team');
+    $teamHandler = Helper::getInstance()
+                         ->getHandler('Team');
 
     $uid = $xoopsUser->getVar('uid');
 
     require_once XOOPS_ROOT_PATH . '/class/module.textsanitizer.php';
 
-
     if (isset($mid)) {
-        $matchHandler = Helper::getInstance()->getHandler('Match');
+        $matchHandler = Helper::getInstance()
+                              ->getHandler('Match');
 
         $match = $matchHandler->get($mid);
 

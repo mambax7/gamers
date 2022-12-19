@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-
 use XoopsModules\Gamers\{
     Helper,
     Player
 };
+
 /** @var Helper $helper */
 
 $GLOBALS['xoopsOption']['template_main'] = 'gamers_userprofile.tpl';
@@ -101,10 +101,11 @@ $date = $thisUser->getVar('last_login');
 if (!empty($date)) {
     $xoopsTpl->assign('user_lastlogin', formatTimestamp($date, 'm'));
 }
-$thisPlayer = new Player($thisUser->getVar('uid'));
+$thisPlayer  = new Player($thisUser->getVar('uid'));
 $playerteams = $thisPlayer->getTeams();
-$skills = [];
-$teamHandler = Helper::getInstance()->getHandler('Team');
+$skills      = [];
+$teamHandler = Helper::getInstance()
+                     ->getHandler('Team');
 foreach ($playerteams as $statusid => $teamid) {
     $team = $teamHandler->get($teamid);
 
@@ -164,7 +165,8 @@ if ($xoopsUser) {
 
         $match[1] = $thisPlayer->getAvailabilities('');
 
-        $matchHandler = Helper::getInstance()->getHandler('Match');
+        $matchHandler = Helper::getInstance()
+                              ->getHandler('Match');
 
         foreach ($match as $matches) {
             if ((is_countable($matches) ? count($matches) : 0) > 0) {
@@ -182,16 +184,16 @@ if ($xoopsUser) {
                     $teamname = $teams[$match->getVar('teamid')];
 
                     $match_array = [
-'matchid' => $matchid,
-                                            'date' => $matchdate,
-                                            'teamname' => $teamname,
-                                            'opponent' => $match->getVar('opponent'),
-                                            'size' => $match->getVar('teamsize'),
-                                            'type' => $match->getVar('ladder'),
-                                            'result' => $match->getVar('matchresult'),
-                                            'availability' => $availability,
-                                            'class' => $class,
-];
+                        'matchid'      => $matchid,
+                        'date'         => $matchdate,
+                        'teamname'     => $teamname,
+                        'opponent'     => $match->getVar('opponent'),
+                        'size'         => $match->getVar('teamsize'),
+                        'type'         => $match->getVar('ladder'),
+                        'result'       => $match->getVar('matchresult'),
+                        'availability' => $availability,
+                        'class'        => $class,
+                    ];
 
                     if ('Pending' == $match->getVar('matchresult')) {
                         $xoopsTpl->assign('newmatches', true);

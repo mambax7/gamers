@@ -19,6 +19,7 @@
 use XoopsModules\Gamers\{
     Helper
 };
+
 /** @var Helper $helper */
 
 xoops_loadLanguage('main', 'gamers');

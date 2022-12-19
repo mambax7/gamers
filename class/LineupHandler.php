@@ -18,7 +18,6 @@ namespace XoopsModules\Gamers;
  * @author       Mithrandir, Mamba, XOOPS Development Team
  */
 
-
 // Class for Lineup management for Gamers Module
 
 if (!defined('XOOPS_ROOT_PATH')) {
@@ -43,7 +42,8 @@ class LineupHandler extends \XoopsObjectHandler
     {
         $ret = new Lineup();
 
-        $matchmapHandler = Helper::getInstance()->getHandler('MatchMap');
+        $matchmapHandler = Helper::getInstance()
+                                 ->getHandler('MatchMap');
 
         $matchmap = $matchmapHandler->get($matchmapid);
 

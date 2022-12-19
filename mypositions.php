@@ -1,22 +1,23 @@
 <?php declare(strict_types=1);
 
-
 use XoopsModules\Gamers\{
     Helper,
     Player
 };
+
 /** @var Helper $helper */
 
 require_once __DIR__ . '/header.php';
 
 $teamid = isset($_GET['teamid']) ? (int)$_GET['teamid'] : null;
-$uid = isset($_GET['uid']) ? (int)$_GET['uid'] : null;
+$uid    = isset($_GET['uid']) ? (int)$_GET['uid'] : null;
 if (isset($_POST)) {
     foreach ($_POST as $k => $v) {
         ${$k} = $v;
     }
 }
-$teamHandler = Helper::getInstance()->getHandler('Team');
+$teamHandler = Helper::getInstance()
+                     ->getHandler('Team');
 if ($xoopsUser) {
     if (isset($submit)) {
         $team = $teamHandler->get($teamid);

@@ -78,7 +78,7 @@ return (object)[
         '/tcpdf',
     ],
 
-    'renameTables' => [//         'XX_archive'     => 'ZZZZ_archive',
+    'renameTables'  => [//         'XX_archive'     => 'ZZZZ_archive',
     ],
     'renameColumns' => [//        'extcal_event' => ['from' => 'event_etablissement', 'to' => 'event_location'],
     ],

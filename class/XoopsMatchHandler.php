@@ -57,7 +57,7 @@ class XoopsMatchHandler extends \XoopsObjectHandler
 
             $result = $this->db->query($sql);
             if (!$this->db->isResultSet($result)) {
-//                \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+                //                \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
                 return false;
             }
 
@@ -85,19 +85,19 @@ class XoopsMatchHandler extends \XoopsObjectHandler
      */
     public function insert(\XoopsObject $object, bool $force = false)
     {
-        $uid = null;
-        $matchdate = null;
-        $teamid = null;
-        $created = null;
-        $teamsize = null;
-        $opponent = null;
-        $ladder = null;
-        $review = null;
-        $server = null;
+        $uid          = null;
+        $matchdate    = null;
+        $teamid       = null;
+        $created      = null;
+        $teamsize     = null;
+        $opponent     = null;
+        $ladder       = null;
+        $review       = null;
+        $server       = null;
         $customserver = null;
-        $matchresult = null;
-        $alock = null;
-        $matchid = null;
+        $matchresult  = null;
+        $alock        = null;
+        $matchid      = null;
         // If server from list specified do not save customserver
 
         if (0 != $object->getVar('server')) {

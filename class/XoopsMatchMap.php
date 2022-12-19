@@ -26,29 +26,17 @@ namespace XoopsModules\Gamers;
 class XoopsMatchMap extends \XoopsObject
 {
     public $table;
-
     public $db;
-
     public $matchmapid;
-
     public $matchid;
-
     public $mapname;
-
     public $mapid;
-
     public $mapno;
-
     public $ourscore;
-
     public $theirscore;
-
     public $side;
-
     public $general;
-
     public $screenshot;
-
     //Constructor
 
     /**

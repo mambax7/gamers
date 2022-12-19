@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 define('_BL_GAMERS_NOUNSETAVAIL', 'No Unset Availabilities');
 define('_BL_GAMERS_NOUPCOMEMATCHES', 'Keine bevorstehenden Matches');
 

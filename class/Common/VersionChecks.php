@@ -12,7 +12,6 @@ namespace XoopsModules\Gamers\Common;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-
 /**
  * @copyright   XOOPS Project (https://xoops.org)
  * @license     GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
@@ -38,7 +37,7 @@ trait VersionChecks
         \xoops_loadLanguage('common', $moduleDirName);
 
         //check for minimum XOOPS version
-        $currentVer = mb_substr((string) \XOOPS_VERSION, 6); // get the numeric part of string
+        $currentVer = mb_substr((string)\XOOPS_VERSION, 6); // get the numeric part of string
         if (null === $requiredVer) {
             $requiredVer = '' . $module->getInfo('min_xoops'); //making sure it's a string
         }
@@ -120,12 +119,14 @@ trait VersionChecks
                         $update = \constant('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION') . $latestVersion;
                     }
                     //"PHP-standardized" version
-                    $latestVersion = \mb_strtolower((string) $latestVersion);
+                    $latestVersion = \mb_strtolower((string)$latestVersion);
                     if (false !== mb_strpos($latestVersion, 'final')) {
                         $latestVersion = \str_replace('_', '', \mb_strtolower($latestVersion));
                         $latestVersion = \str_replace('final', '', \mb_strtolower($latestVersion));
                     }
-                    $moduleVersion = ($helper->getModule()->getInfo('version') . '_' . $helper->getModule()->getInfo('module_status'));
+                    $moduleVersion = ($helper->getModule()
+                                             ->getInfo('version') . '_' . $helper->getModule()
+                                                                                 ->getInfo('module_status'));
                     //"PHP-standardized" version
                     $moduleVersion = \str_replace(' ', '', \mb_strtolower($moduleVersion));
                     //                    $moduleVersion = '1.0'; //for testing only

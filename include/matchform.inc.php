@@ -19,8 +19,8 @@
 use XoopsModules\Gamers\{
     Helper
 };
-/** @var Helper $helper */
 
+/** @var Helper $helper */
 
 if (!defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
@@ -45,15 +45,15 @@ if (isset($matchdate)) {
 
     $op_hidden = new \XoopsFormHidden('op', 'savematch');
 }
-$mform = new \XoopsThemeForm($op . ' for ' . $team->getVar('teamname'), 'matchform', xoops_getenv('PHP_SELF'));
-$uid_hidden = new \XoopsFormHidden('uid', $xoopsUser->getVar('uid'));
-$mid_hidden = new \XoopsFormHidden('mid', $mid);
+$mform       = new \XoopsThemeForm($op . ' for ' . $team->getVar('teamname'), 'matchform', xoops_getenv('PHP_SELF'));
+$uid_hidden  = new \XoopsFormHidden('uid', $xoopsUser->getVar('uid'));
+$mid_hidden  = new \XoopsFormHidden('mid', $mid);
 $team_hidden = new \XoopsFormHidden('teamid', $teamid);
 
 for ($i = 1; $i <= 31; ++$i) {
     $dayarray[$i] = $i;
 }
-$curday = date('d', $date);
+$curday     = date('d', $date);
 $day_select = new \XoopsFormSelect(_MD_GAMERS_DAYC, 'day', $curday);
 $day_select->addOptionArray($dayarray);
 
@@ -64,12 +64,12 @@ for ($xmonth = 1; $xmonth < 13; $xmonth++) {
 
     $mvalue[$monthno] = $month;
 }
-$curmonth = date('n', $date);
+$curmonth    = date('n', $date);
 $monthselect = new \XoopsFormSelect(_MD_GAMERS_MONTHC, 'month', $curmonth);
 $monthselect->addOptionArray($mvalue);
 
 $curyear = date('Y', $date);
-$xyear = $curyear;
+$xyear   = $curyear;
 for ($i = 1; $i < 6; ++$i) {
     $yvalue[$xyear] = $xyear;
 
@@ -78,12 +78,12 @@ for ($i = 1; $i < 6; ++$i) {
 $yearselect = new \XoopsFormSelect(_MD_GAMERS_YEARC, 'year', $curyear);
 $yearselect->addOptionArray($yvalue);
 
-$clock = date('H:i', $date);
-$clock = new \XoopsFormText(_MD_GAMERS_TIMEC, 'time', 10, 10, $clock, 'E');
+$clock       = date('H:i', $date);
+$clock       = new \XoopsFormText(_MD_GAMERS_TIMEC, 'time', 10, 10, $clock, 'E');
 $button_tray = new \XoopsFormElementTray('', '');
 $button_tray->addElement(new \XoopsFormButton('', 'save', _MD_GAMERS_NW_POST, 'submit'));
 
-$teamsize ??= '';
+$teamsize        ??= '';
 $teamsize_select = new \XoopsFormSelect(_MD_GAMERS_SIZE, 'teamsize', $teamsize);
 foreach ($teamsizes as $size_id => $ts) {
     $teamsize_select->addOption($ts);
@@ -91,7 +91,7 @@ foreach ($teamsizes as $size_id => $ts) {
 $opponent ??= '';
 $opponent = new \XoopsFormText(_MD_GAMERS_OPPONENT, 'opponent', 25, 25, $opponent, 'E');
 
-$ladder ??= '';
+$ladder        ??= '';
 $ladder_select = new \XoopsFormSelect(_MD_GAMERS_MATCHTYPE, 'ladder', $ladder);
 foreach ($teamladders as $ladder_id => $tl) {
     $ladder_select->addOption($tl);
@@ -103,17 +103,18 @@ $ladder_select->addOption("Ladder");
 $ladder_select->addOption("Scrim");
 $ladder_select->addOption("Practice");
 */
-$matchresult ??= '';
+$matchresult   ??= '';
 $result_select = new \XoopsFormSelect(_MD_GAMERS_MATCHRESULT, 'matchresult', $matchresult);
 $result_select->addOption('Pending');
 $result_select->addOption('Win');
 $result_select->addOption('Loss');
 $result_select->addOption('Draw');
 
-$nummaps = $team->getVar('maps');
-$matchmapHandler = Helper::getInstance()->getHandler('MatchMap');
-$matchmaps = $matchmapHandler->getByMatchid($mid);
-$teamsides = $team->getSides();
+$nummaps         = $team->getVar('maps');
+$matchmapHandler = Helper::getInstance()
+                         ->getHandler('MatchMap');
+$matchmaps       = $matchmapHandler->getByMatchid($mid);
+$teamsides       = $team->getSides();
 for ($mapno = 1; $mapno <= $nummaps; $mapno++) {
     if (_MD_GAMERS_EDITMATCH == $op) {
         $thismap = $matchmaps[$mapno] ?? $matchmapHandler->create();
@@ -148,19 +149,19 @@ for ($mapno = 1; $mapno <= $nummaps; $mapno++) {
         $map_select[$mapno]->addOption($mapid, $mapname);
     }
 }
-$server ??= '';
+$server        ??= '';
 $server_select = new \XoopsFormSelect(_MD_GAMERS_SERVER, 'server', $server);
-$myserver = $team->getServers();
+$myserver      = $team->getServers();
 $server_select->addOption(0, _MD_GAMERS_CUSTOMSERVER);
 foreach ($myserver as $serverid => $servername) {
     $server_select->addOption($serverid, $servername);
 }
 
 $customserver_label = new \XoopsFormLabel('', _MD_GAMERS_MAYCHOOSECUSTOMSERVER);
-$customserver ??= '';
-$customserver_text = new \XoopsFormText('', 'customserver', 40, 40, $customserver);
-$review ??= '';
-$review_tarea = new \XoopsFormTextArea(_MD_GAMERS_MATCHREVIEW, 'review', $review);
+$customserver       ??= '';
+$customserver_text  = new \XoopsFormText('', 'customserver', 40, 40, $customserver);
+$review             ??= '';
+$review_tarea       = new \XoopsFormTextArea(_MD_GAMERS_MATCHREVIEW, 'review', $review);
 
 $mform->addElement($uid_hidden);
 $mform->addElement($mid_hidden);

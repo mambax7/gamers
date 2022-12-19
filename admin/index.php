@@ -16,7 +16,6 @@
  * @author       XOOPS Development Team
  */
 
-
 use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Gamers\{

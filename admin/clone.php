@@ -25,7 +25,6 @@ use XoopsModules\Gamers\{
 
 require_once __DIR__ . '/admin_header.php';
 
-
 //constant('CO_' . $moduleDirNameUpper . '_' . 'MIGRATE_OK');
 
 $helper = Helper::getInstance();
@@ -44,7 +43,7 @@ if ('submit' === Request::getString('op', '', 'POST')) {
     $clone = Request::getString('clone', '', 'POST');
 
     //check if name is valid
-    if (empty($clone) || preg_match('/[^a-zA-Z0-9\_\-]/', (string) $clone)) {
+    if (empty($clone) || preg_match('/[^a-zA-Z0-9\_\-]/', (string)$clone)) {
         redirect_header('clone.php', 3, sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_INVALIDNAME'), $clone));
     }
 
@@ -54,19 +53,19 @@ if ('submit' === Request::getString('op', '', 'POST')) {
     }
 
     $patterns = [
-        \mb_strtolower((string) $helper->dirname())          => \mb_strtolower((string) $clone),
-        \mb_strtoupper((string) $helper->dirname())          => \mb_strtoupper((string) $clone),
-        ucfirst(mb_strtolower((string) $helper->dirname())) => ucfirst(mb_strtolower((string) $clone)),
+        \mb_strtolower((string)$helper->dirname())         => \mb_strtolower((string)$clone),
+        \mb_strtoupper((string)$helper->dirname())         => \mb_strtoupper((string)$clone),
+        ucfirst(mb_strtolower((string)$helper->dirname())) => ucfirst(mb_strtolower((string)$clone)),
     ];
 
     $patKeys   = array_keys($patterns);
     $patValues = array_values($patterns);
     Cloner::cloneFileFolder($helper->path());
-    $logocreated = Cloner::createLogo(mb_strtolower((string) $clone));
+    $logocreated = Cloner::createLogo(mb_strtolower((string)$clone));
 
     $msg = '';
-    if (is_dir($GLOBALS['xoops']->path('modules/' . \mb_strtolower((string) $clone)))) {
-        $msg .= sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_CONGRAT'), "<a href='" . XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin'>" . ucfirst(mb_strtolower((string) $clone)) . '</a>') . "<br>\n";
+    if (is_dir($GLOBALS['xoops']->path('modules/' . \mb_strtolower((string)$clone)))) {
+        $msg .= sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_CONGRAT'), "<a href='" . XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin'>" . ucfirst(mb_strtolower((string)$clone)) . '</a>') . "<br>\n";
         if (!$logocreated) {
             $msg .= constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_IMAGEFAIL');
         }
@@ -76,7 +75,12 @@ if ('submit' === Request::getString('op', '', 'POST')) {
     echo $msg;
 } else {
     require_once $GLOBALS['xoops']->path('class/xoopsformloader.php');
-    $form  = new \XoopsThemeForm(sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_TITLE'), (string)$helper->getModule()->getVar('name', 'E')), 'clone', 'clone.php', 'post', true);
+    $form  = new \XoopsThemeForm(
+        sprintf(
+            constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_TITLE'), (string)$helper->getModule()
+                                                                                        ->getVar('name', 'E')
+        ), 'clone', 'clone.php', 'post', true
+    );
     $clone = new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_NAME'), 'clone', 20, 20, '');
     $clone->setDescription(constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_NAME_DSC'));
     $form->addElement($clone, true);

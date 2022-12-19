@@ -31,9 +31,17 @@ use XoopsModules\Gamers\{
  */
 class SysUtility
 {
-    use VersionChecks;    //checkVerXoops, checkVerPhp Traits
-    use ServerStats;    // getServerStats Trait
-    use FilesManagement;    // Files Management Trait
+    use VersionChecks;
+
+    //checkVerXoops, checkVerPhp Traits
+
+    use ServerStats;
+
+    // getServerStats Trait
+
+    use FilesManagement;
+
+    // Files Management Trait
 
     /**
      * truncateHtml can truncate a string up to a number of characters while preserving whole words and HTML tags
@@ -154,7 +162,7 @@ class SysUtility
 
     /**
      * @param \XoopsModules\Gamers\Helper|null $helper
-     * @param array|null                                $options
+     * @param array|null                       $options
      * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
      */
     public static function getEditor(Helper $helper = null, ?array $options = null)
@@ -178,12 +186,12 @@ class SysUtility
 
         if (\class_exists('XoopsFormEditor')) {
             if ($isAdmin) {
-                $descEditor = new \XoopsFormEditor(\ucfirst((string) $options['name']), $helper->getConfig('editorAdmin'), $options, $nohtml = false, $onfailure = 'textarea');
+                $descEditor = new \XoopsFormEditor(\ucfirst((string)$options['name']), $helper->getConfig('editorAdmin'), $options, $nohtml = false, $onfailure = 'textarea');
             } else {
-                $descEditor = new \XoopsFormEditor(\ucfirst((string) $options['name']), $helper->getConfig('editorUser'), $options, $nohtml = false, $onfailure = 'textarea');
+                $descEditor = new \XoopsFormEditor(\ucfirst((string)$options['name']), $helper->getConfig('editorUser'), $options, $nohtml = false, $onfailure = 'textarea');
             }
         } else {
-            $descEditor = new \XoopsFormDhtmlTextArea(\ucfirst((string) $options['name']), $options['name'], $options['value'], '100%', '100%');
+            $descEditor = new \XoopsFormDhtmlTextArea(\ucfirst((string)$options['name']), $options['name'], $options['value'], '100%', '100%');
         }
 
         //        $form->addElement($descEditor);
@@ -217,11 +225,11 @@ class SysUtility
      */
     public static function cloneRecord(string $tableName, string $idField, int $id): ?int
     {
-        $newId = null;
+        $newId     = null;
         $tempTable = [];
-        $table  = $GLOBALS['xoopsDB']->prefix($tableName);
+        $table     = $GLOBALS['xoopsDB']->prefix($tableName);
         // copy content of the record you wish to clone
-        $sql       = "SELECT * FROM $table WHERE $idField='" . $id . "' ";
+        $sql    = "SELECT * FROM $table WHERE $idField='" . $id . "' ";
         $result = $GLOBALS['xoopsDB']->query($sql);
 
         if (!$GLOBALS['xoopsDB']->isResultSet($result)) {
@@ -256,7 +264,7 @@ class SysUtility
      */
     public static function tableExists(string $tablename): bool
     {
-        $ret    = false;
+        $ret   = false;
         $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 1);
         \trigger_error(__FUNCTION__ . " is deprecated, called from {$trace[0]['file']} line {$trace[0]['line']}");
         $GLOBALS['xoopsLogger']->addDeprecated(

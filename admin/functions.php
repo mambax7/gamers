@@ -16,7 +16,6 @@
  * @author       Mithrandir, Mamba, XOOPS Development Team
  */
 
-
 use XoopsModules\Gamers\{
     Helper
 };
@@ -143,7 +142,8 @@ function getAllMembers()
  */
 function getAllMaps()
 {
-    $mapHandler = Helper::getInstance()->getHandler('Map');
+    $mapHandler = Helper::getInstance()
+                        ->getHandler('Map');
 
     return $mapHandler->getList();
 }

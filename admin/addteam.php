@@ -16,7 +16,6 @@
  * @author       Mithrandir, Mamba, XOOPS Development Team
  */
 
-
 use Xmf\Module\Admin;
 use XoopsModules\Gamers\{
     Helper
@@ -28,7 +27,8 @@ require_once __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 if (isset($teamid)) {
-    $teamHandler = Helper::getInstance()->getHandler('Team');
+    $teamHandler = Helper::getInstance()
+                         ->getHandler('Team');
 
     $team = $teamHandler->get($teamid);
 

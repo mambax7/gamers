@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 // Module Info
 
 // The name of this module
@@ -30,7 +29,6 @@ define('_MI_GAMERS_ADMENU8', 'TeamSizes');
 define('_MI_GAMERS_ADMENU9', 'Sides');
 define('_MI_GAMERS_ADMENU10', 'Ranks');
 define('_AM_GAMERS_ABOUT', 'About');
-
 
 //Added 10/9-2003 Mithrandir for Notification
 define('_MI_GAMERS_MATCH_NOTIFY', 'Match');

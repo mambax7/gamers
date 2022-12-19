@@ -51,7 +51,8 @@ class TacticsHandler extends \XoopsPersistableObjectHandler
     {
         $ret = parent::get($id, true);
 
-        $mapHandler = Helper::getInstance()->getHandler('Map');
+        $mapHandler = Helper::getInstance()
+                            ->getHandler('Map');
 
         $map = $mapHandler->get($ret->getVar('mapid'));
 
@@ -63,8 +64,8 @@ class TacticsHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a tactics without tacid
      *
-     * @param int $teamid ID of team
-     * @param int $mapid ID of map
+     * @param int $teamid   ID of team
+     * @param int $mapid    ID of map
      * @param int $teamsize number of players for this tactics
      * @return mixed reference to the {@link XoopsTactics} object, FALSE if failed
      */
@@ -97,7 +98,8 @@ class TacticsHandler extends \XoopsPersistableObjectHandler
             return $tactics;
         }
 
-        $mapHandler = Helper::getInstance()->getHandler('Map');
+        $mapHandler = Helper::getInstance()
+                            ->getHandler('Map');
 
         $map = $mapHandler->get($mapid);
 

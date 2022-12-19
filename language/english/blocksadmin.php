@@ -14,7 +14,7 @@
  * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
- * @author     XOOPS Development Team
+ * @author       XOOPS Development Team
  */
 
 // Blocks & Groups Admin

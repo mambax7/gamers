@@ -19,7 +19,7 @@ namespace XoopsModules\Gamers;
  */
 
 // Class for Match Map management for Gamers Module
-                                      //
+//
 if (!\defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
 }
@@ -58,7 +58,8 @@ class AvailabilityHandler extends \XoopsPersistableObjectHandler
      */
     public function getPendingByUser(int $uid): array
     {
-        $matchHandler = Helper::getInstance()->getHandler('Match');
+        $matchHandler = Helper::getInstance()
+                              ->getHandler('Match');
 
         $sql = 'SELECT * FROM ' . $this->table . ' a, ' . $matchHandler->table . ' m WHERE a.userid=' . $uid . " AND a.matchid=m.matchid AND m.matchresult='Pending' ORDER BY m.matchdate DESC";
 

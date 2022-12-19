@@ -32,7 +32,7 @@ namespace XoopsModules\Gamers\Common;
  */
 class Breadcrumb
 {
-    public  $dirname;
+    public        $dirname;
     private array $bread = [];
 
     public function __construct()

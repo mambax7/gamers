@@ -33,7 +33,6 @@ if (!\defined('XOOPS_ROOT_PATH')) {
 class Team extends \XoopsObject
 {
     public $db;
-
     //Constructor
 
     /**
@@ -70,7 +69,8 @@ class Team extends \XoopsObject
 
         $matches = [];
 
-        $matchHandler = Helper::getInstance()->getHandler('Match');
+        $matchHandler = Helper::getInstance()
+                              ->getHandler('Match');
 
         while (false !== ($row = $this->db->fetchArray($result))) {
             $thismatch = $matchHandler->create(false);
@@ -366,7 +366,7 @@ class Team extends \XoopsObject
     final public function getAllMembers(): array
     {
         $members = [];
-        $sql = 'SELECT t.uid, t.teamid, t.status, t.rank, t.primarypos, t.secondarypos, t.tertiarypos FROM ' . $this->db->prefix('gamers_teamstatus') . ' t WHERE t.teamid=' . $this->getVar('teamid') . ' AND t.status>0 ORDER BY t.status ASC';
+        $sql     = 'SELECT t.uid, t.teamid, t.status, t.rank, t.primarypos, t.secondarypos, t.tertiarypos FROM ' . $this->db->prefix('gamers_teamstatus') . ' t WHERE t.teamid=' . $this->getVar('teamid') . ' AND t.status>0 ORDER BY t.status ASC';
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
@@ -445,7 +445,7 @@ class Team extends \XoopsObject
         $teamadmin = $this->db->fetchArray($result);
 
         if ((1 === $teamadmin['matches']) && (1 === $teamadmin['tactics'])) {
-            $ret =  true;
+            $ret = true;
         }
 
         return $ret;
@@ -750,7 +750,6 @@ class Team extends \XoopsObject
      */
     final public function addTeamSize(int $sizeId): bool
     {
-
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamsizes') . ' (teamid, sizeid) VALUES (' . $this->getVar('teamid') . ", $sizeId)";
 
         if (!$this->db->query($sql)) {
@@ -811,7 +810,6 @@ class Team extends \XoopsObject
      */
     final public function addTeamRank(int $rankId): bool
     {
-
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamrank') . ' (teamid, rankid) VALUES (' . $this->getVar('teamid') . ", $rankId)";
 
         if (!$this->db->query($sql)) {
@@ -842,7 +840,6 @@ class Team extends \XoopsObject
      */
     final public function addTeamLadder(int $ladderId): bool
     {
-
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamladders') . ' (teamid, ladderid) VALUES (' . $this->getVar('teamid') . ", $ladderId)";
 
         if (!$this->db->query($sql)) {

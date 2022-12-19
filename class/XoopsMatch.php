@@ -20,18 +20,15 @@ namespace XoopsModules\Gamers;
 
 // Class for Match management for Gamers Module
 
-
 /**
  * Class XoopsMatch
  */
 class XoopsMatch extends \XoopsObject
 {
-    public string $table;
+    public string         $table;
     public \XoopsDatabase $db;
-    public int $teamid;
-    public int $matchid;
-
-
+    public int            $teamid;
+    public int            $matchid;
     //Constructor
 
     /**

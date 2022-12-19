@@ -18,7 +18,6 @@ namespace XoopsModules\Gamers;
  * @author       Mithrandir, Mamba, XOOPS Development Team
  */
 
-
 // Class for Tactics management for Gamers Module
 
 if (!\defined('XOOPS_ROOT_PATH')) {
@@ -34,7 +33,6 @@ if (!\defined('XOOPS_ROOT_PATH')) {
 class TacticsPosition extends \XoopsObject
 {
     public $db;
-
     //Constructor
 
     /**
@@ -57,7 +55,8 @@ class TacticsPosition extends \XoopsObject
         if (\is_array($tacposid)) {
             $this->assignVars($tacposid);
         } elseif (0 !== $tacposid) {
-            $positionHandler = Helper::getInstance()->getHandler('TacticsPosition');
+            $positionHandler = Helper::getInstance()
+                                     ->getHandler('TacticsPosition');
 
             $position = $positionHandler->get($lineupid);
 

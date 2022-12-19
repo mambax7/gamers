@@ -51,7 +51,8 @@ class MatchMapHandler extends \XoopsPersistableObjectHandler
     {
         $ret = parent::get($id, $fields);
 
-        $mapHandler = Helper::getInstance()->getHandler('Map');
+        $mapHandler = Helper::getInstance()
+                            ->getHandler('Map');
 
         $map = $mapHandler->get($ret->getVar('mapid'));
 
@@ -68,7 +69,8 @@ class MatchMapHandler extends \XoopsPersistableObjectHandler
     {
         $ret = parent::create($isNew);
 
-        $mapHandler = Helper::getInstance()->getHandler('Map');
+        $mapHandler = Helper::getInstance()
+                            ->getHandler('Map');
 
         $map = $mapHandler->create(true);
 
@@ -84,7 +86,7 @@ class MatchMapHandler extends \XoopsPersistableObjectHandler
      */
     public function getByMatchid($matchid, $mapno = null)
     {
-        $mapids = [];
+        $mapids   = [];
         $criteria = new \Criteria('matchid', (int)$matchid);
 
         if (null !== $mapno) {
@@ -104,7 +106,8 @@ class MatchMapHandler extends \XoopsPersistableObjectHandler
                 $mapids[] = $objs[$i]->getVar('mapid');
             }
 
-            $mapHandler = Helper::getInstance()->getHandler('Map');
+            $mapHandler = Helper::getInstance()
+                                ->getHandler('Map');
 
             $maps = $mapHandler->getObjects(new \Criteria('mapid', '(' . \implode(',', \array_unique($mapids)) . ')', 'IN'), true);
 

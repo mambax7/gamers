@@ -14,6 +14,7 @@ namespace XoopsModules\Gamers;
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  *
  * @license      https://www.fsf.org/copyleft/gpl.html GNU public license

@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 use Xmf\Module\Admin;
 
 $pathIcon16    = Admin::iconUrl('', '16');

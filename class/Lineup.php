@@ -18,9 +18,8 @@ namespace XoopsModules\Gamers;
  * @author       Mithrandir, Mamba, XOOPS Development Team
  */
 
-
 // Class for Lineup management for Gamers Module
-                                      //
+//
 if (!defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
 }
@@ -53,7 +52,8 @@ class Lineup extends \XoopsObject
      */
     public function getPositions()
     {
-        $lineupposHandler = Helper::getInstance()->getHandler('LineupPosition');
+        $lineupposHandler = Helper::getInstance()
+                                  ->getHandler('LineupPosition');
 
         $criteria = new \CriteriaCompo(new \Criteria('matchmapid', $this->getVar('matchmapid')));
 
@@ -67,7 +67,8 @@ class Lineup extends \XoopsObject
      */
     public function getMapname()
     {
-        $mapHandler = Helper::getInstance()->getHandler('Map');
+        $mapHandler = Helper::getInstance()
+                            ->getHandler('Map');
 
         $map_list = $mapHandler->getList(new \Criteria('mapid', $this->getVar('mapid')));
 
@@ -79,7 +80,8 @@ class Lineup extends \XoopsObject
      */
     public function fetchGeneral(): string
     {
-        $mapHandler = Helper::getInstance()->getHandler('MatchMap');
+        $mapHandler = Helper::getInstance()
+                            ->getHandler('MatchMap');
 
         $criteria = new \CriteriaCompo('matchmapid', $this->getVar('matchmapid'));
 
@@ -103,7 +105,8 @@ class Lineup extends \XoopsObject
             return false;
         }
 
-        $mapHandler = Helper::getInstance()->getHandler('MatchMap');
+        $mapHandler = Helper::getInstance()
+                            ->getHandler('MatchMap');
 
         $criteria = new \CriteriaCompo('matchmapid', $this->getVar('matchmapid'));
 
@@ -120,7 +123,8 @@ class Lineup extends \XoopsObject
 
     public function show(): void
     {
-        $teamHandler = Helper::getInstance()->getHandler('Team');
+        $teamHandler = Helper::getInstance()
+                             ->getHandler('Team');
 
         $team = $teamHandler->get($this->getVar('teamid'));
 

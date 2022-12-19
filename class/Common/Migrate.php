@@ -30,11 +30,11 @@ class Migrate extends \Xmf\Database\Migrate
     /**
      * @readonly
      */
-    private array  $renameColumns;
+    private array $renameColumns;
     /**
      * @readonly
      */
-    private array  $renameTables;
+    private array $renameTables;
 
     /**
      * Migrate constructor.
@@ -47,8 +47,8 @@ class Migrate extends \Xmf\Database\Migrate
         if (!\class_exists($class)) {
             throw new \RuntimeException("Class '$class' not found");
         }
-        $configurator       = new $class();
-        $this->renameTables = $configurator->renameTables;
+        $configurator        = new $class();
+        $this->renameTables  = $configurator->renameTables;
         $this->renameColumns = $configurator->renameColumns;
 
         $this->moduleDirName = \basename(\dirname(__DIR__, 2));
@@ -60,11 +60,11 @@ class Migrate extends \Xmf\Database\Migrate
      */
     private function changePrefix(): void
     {
-//        foreach ($this->renameTables as $oldName => $newName) {
-//            if ($this->tableHandler->useTable($oldName) && !$this->tableHandler->useTable($newName)) {
-//                $this->tableHandler->renameTable($oldName, $newName);
-//            }
-//        }
+        //        foreach ($this->renameTables as $oldName => $newName) {
+        //            if ($this->tableHandler->useTable($oldName) && !$this->tableHandler->useTable($newName)) {
+        //                $this->tableHandler->renameTable($oldName, $newName);
+        //            }
+        //        }
     }
 
     /**
@@ -75,17 +75,17 @@ class Migrate extends \Xmf\Database\Migrate
      */
     private function convertIPAddresses(string $tableName, string $columnName): void
     {
-//        if ($this->tableHandler->useTable($tableName)) {
-//            $attributes = $this->tableHandler->getColumnAttributes($tableName, $columnName);
-//            if (false !== \mb_strpos($attributes, ' int(')) {
-//                if (false === \mb_strpos($attributes, 'unsigned')) {
-//                    $this->tableHandler->alterColumn($tableName, $columnName, " bigint(16) NOT NULL  DEFAULT '0' ");
-//                    $this->tableHandler->update($tableName, [$columnName => "4294967296 + $columnName"], "WHERE $columnName < 0", false);
-//                }
-//                $this->tableHandler->alterColumn($tableName, $columnName, " varchar(45)  NOT NULL  DEFAULT '' ");
-//                $this->tableHandler->update($tableName, [$columnName => "INET_NTOA($columnName)"], '', false);
-//            }
-//        }
+        //        if ($this->tableHandler->useTable($tableName)) {
+        //            $attributes = $this->tableHandler->getColumnAttributes($tableName, $columnName);
+        //            if (false !== \mb_strpos($attributes, ' int(')) {
+        //                if (false === \mb_strpos($attributes, 'unsigned')) {
+        //                    $this->tableHandler->alterColumn($tableName, $columnName, " bigint(16) NOT NULL  DEFAULT '0' ");
+        //                    $this->tableHandler->update($tableName, [$columnName => "4294967296 + $columnName"], "WHERE $columnName < 0", false);
+        //                }
+        //                $this->tableHandler->alterColumn($tableName, $columnName, " varchar(45)  NOT NULL  DEFAULT '' ");
+        //                $this->tableHandler->update($tableName, [$columnName => "INET_NTOA($columnName)"], '', false);
+        //            }
+        //        }
     }
 
     /**
@@ -94,19 +94,19 @@ class Migrate extends \Xmf\Database\Migrate
      */
     private function moveDoColumns(): void
     {
-//        $tableName    = 'newbb_posts_text';
-//        $srcTableName = 'newbb_posts';
-//        if ($this->tableHandler->useTable($tableName)
-//            && $this->tableHandler->useTable($srcTableName)) {
-//            $attributes = $this->tableHandler->getColumnAttributes($tableName, 'dohtml');
-//            if (false === $attributes) {
-//                $this->synchronizeTable($tableName);
-//                $updateTable = $GLOBALS['xoopsDB']->prefix($tableName);
-//                $joinTable   = $GLOBALS['xoopsDB']->prefix($srcTableName);
-//                $sql         = "UPDATE `$updateTable` t1 INNER JOIN `$joinTable` t2 ON t1.post_id = t2.post_id \n" . "SET t1.dohtml = t2.dohtml,  t1.dosmiley = t2.dosmiley, t1.doxcode = t2.doxcode\n" . '  , t1.doimage = t2.doimage, t1.dobr = t2.dobr';
-//                $this->tableHandler->addToQueue($sql);
-//            }
-//        }
+        //        $tableName    = 'newbb_posts_text';
+        //        $srcTableName = 'newbb_posts';
+        //        if ($this->tableHandler->useTable($tableName)
+        //            && $this->tableHandler->useTable($srcTableName)) {
+        //            $attributes = $this->tableHandler->getColumnAttributes($tableName, 'dohtml');
+        //            if (false === $attributes) {
+        //                $this->synchronizeTable($tableName);
+        //                $updateTable = $GLOBALS['xoopsDB']->prefix($tableName);
+        //                $joinTable   = $GLOBALS['xoopsDB']->prefix($srcTableName);
+        //                $sql         = "UPDATE `$updateTable` t1 INNER JOIN `$joinTable` t2 ON t1.post_id = t2.post_id \n" . "SET t1.dohtml = t2.dohtml,  t1.dosmiley = t2.dosmiley, t1.doxcode = t2.doxcode\n" . '  , t1.doimage = t2.doimage, t1.dobr = t2.dobr';
+        //                $this->tableHandler->addToQueue($sql);
+        //            }
+        //        }
     }
 
     /**
@@ -121,7 +121,6 @@ class Migrate extends \Xmf\Database\Migrate
         }
     }
 
-
     /**
      * rename columns if needed
      */
@@ -129,10 +128,10 @@ class Migrate extends \Xmf\Database\Migrate
     {
         foreach ($this->renameColumns as $tableName) {
             if ($this->tableHandler->useTable($tableName)) {
-                $oldName = $tableName['from'];
-                $newName = $tableName['to'];
+                $oldName    = $tableName['from'];
+                $newName    = $tableName['to'];
                 $attributes = $this->tableHandler->getColumnAttributes($tableName, $oldName);
-                if (strpos((string) $attributes, ' int(') !== false) {
+                if (strpos((string)$attributes, ' int(') !== false) {
                     $this->tableHandler->alterColumn($tableName, $oldName, $attributes, $newName);
                 }
             }
@@ -153,8 +152,8 @@ class Migrate extends \Xmf\Database\Migrate
         // columns dohtml, dosmiley, doxcode, doimage and dobr moved between tables as some point
         $this->moveDoColumns();
         // Convert IP address columns from int to readable varchar(45) for IPv6
-//        $this->convertIPAddresses('newbb_posts', 'poster_ip');
-//        $this->convertIPAddresses('newbb_report', 'reporter_ip');
+        //        $this->convertIPAddresses('newbb_posts', 'poster_ip');
+        //        $this->convertIPAddresses('newbb_report', 'reporter_ip');
 
         // rename table
         if ($this->renameTables && \is_array($this->renameTables)) {

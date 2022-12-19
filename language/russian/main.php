@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 define('_MD_GAMERS_SUBMITMATCH', 'Добавить матч');
 define('_NW_GO', 'Go!');
 define('_NW_THANKS', 'Thanks for your submission.');

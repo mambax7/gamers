@@ -16,7 +16,6 @@
  * @author       XOOPS Development Team
  */
 
-
 use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Gamers\{
@@ -40,18 +39,18 @@ $blocksadmin = new Blocksadmin($xoopsDB, $helper);
 $xoopsModule = \XoopsModule::getByDirname($moduleDirName);
 
 if (!is_object($GLOBALS['xoopsUser']) || !is_object($xoopsModule)
-//    || !$GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
+    //    || !$GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
     || !$helper->isUserAdmin()) {
     exit(constant('CO_' . $moduleDirNameUpper . '_' . 'ERROR403'));
 }
 $bcachetime = null;
-$bmodule = null;
-$bside = null;
-$btitle = null;
-$bvisible = null;
-$bweight = null;
-$groups = null;
-$options = null;
+$bmodule    = null;
+$bside      = null;
+$btitle     = null;
+$bvisible   = null;
+$bweight    = null;
+$groups     = null;
+$options    = null;
 if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
     require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
 

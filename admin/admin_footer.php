@@ -16,7 +16,6 @@
  * @author       Mithrandir, Mamba, XOOPS Development Team
  */
 
-
 $pathIcon32 = Xmf\Module\Admin::iconUrl('', '32');
 
 echo "<div class='adminfooter'>\n"

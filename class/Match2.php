@@ -33,9 +33,7 @@ if (!defined('XOOPS_ROOT_PATH')) {
 class Match2 extends \XoopsObject
 {
     public $table;
-
     public $db;
-
     //Constructor
 
     /**
@@ -77,7 +75,8 @@ class Match2 extends \XoopsObject
         if (is_array($matchid)) {
             $this->assignVars($matchid);
         } elseif (-1 != $matchid) {
-            $matchHandler = Helper::getInstance()->getHandler('Match');
+            $matchHandler = Helper::getInstance()
+                                  ->getHandler('Match');
 
             $match = $matchHandler->get($matchid);
 
@@ -195,7 +194,8 @@ class Match2 extends \XoopsObject
      */
     public function getMatchMaps()
     {
-        $matchmapHandler = Helper::getInstance()->getHandler('MatchMap');
+        $matchmapHandler = Helper::getInstance()
+                                 ->getHandler('MatchMap');
 
         return $matchmapHandler->getByMatchid($this->getVar('matchid'));
     }
@@ -249,7 +249,8 @@ class Match2 extends \XoopsObject
      */
     public function getMapCount()
     {
-        $mapHandler = Helper::getInstance()->getHandler('MatchMap');
+        $mapHandler = Helper::getInstance()
+                            ->getHandler('MatchMap');
 
         return $mapHandler->getCount(new \Criteria('matchid', $this->getVar('matchid')));
     }

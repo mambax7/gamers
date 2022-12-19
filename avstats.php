@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-
 use XoopsModules\Gamers\{
     Helper
 };
+
 /** @var Helper $helper */
 
 $GLOBALS['xoopsOption']['template_main'] = 'gamers_avstats.tpl';
 
 require_once __DIR__ . '/header.php';
 
-global $xoopsUser;
+global $xoopsUser, $xoopsDB;
 
 $teamid = isset($_GET['teamid']) ? (int)$_GET['teamid'] : null;
 if ($xoopsUser) {
@@ -20,7 +20,8 @@ if ($xoopsUser) {
 
     require_once XOOPS_ROOT_PATH . '/class/module.textsanitizer.php';
 
-    $teamHandler = Helper::getInstance()->getHandler('Team');
+    $teamHandler = Helper::getInstance()
+                         ->getHandler('Team');
 
     $team = $teamHandler->get($teamid);
 
@@ -61,18 +62,18 @@ if ($xoopsUser) {
 
         $player[$key]['uid'] = $member['uid'];
 
-        $avcolor = '';
-        $navcolor  = '';
-        $subcolor = '';
+        $avcolor      = '';
+        $navcolor     = '';
+        $subcolor     = '';
         $noreplycolor = '';
 
-        $av = 0;
-        $avperc = 0;
+        $av      = 0;
+        $avperc  = 0;
         $noreply = 0;
-        $nav = 0;
-        $sub = 0;
-        $count = 0;
-        $total = 0;
+        $nav     = 0;
+        $sub     = 0;
+        $count   = 0;
+        $total   = 0;
 
         $sql = 'SELECT a.availability FROM ' . $xoopsDB->prefix('gamers_availability') . ' a, ' . $xoopsDB->prefix('gamers_matches') . ' m WHERE m.teamid=' . $teamid . ' AND a.matchid=m.matchid AND a.userid=' . $member['uid'] . " AND m.matchresult<>'Pending' ORDER BY a.matchid DESC " . $limitstr;
 

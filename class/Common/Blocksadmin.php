@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 namespace XoopsModules\Gamers\Common;
 
 /**
@@ -107,16 +106,16 @@ class Blocksadmin
         $blockCount = is_countable($blockArray) ? \count($blockArray) : 0;
         $class      = 'even';
         $cachetimes = [
-            0       => _NOCACHE,
-            30      => \sprintf(_SECONDS, 30),
-            60      => _MINUTE,
-            300     => \sprintf(_MINUTES, 5),
-            1800    => \sprintf(_MINUTES, 30),
-            3600    => _HOUR,
-            18000   => \sprintf(_HOURS, 5),
-            86400   => _DAY,
-            259200  => \sprintf(_DAYS, 3),
-            604800  => _WEEK,
+            0         => _NOCACHE,
+            30        => \sprintf(_SECONDS, 30),
+            60        => _MINUTE,
+            300       => \sprintf(_MINUTES, 5),
+            1800      => \sprintf(_MINUTES, 30),
+            3600      => _HOUR,
+            18000     => \sprintf(_HOURS, 5),
+            86400     => _DAY,
+            259200    => \sprintf(_DAYS, 3),
+            604800    => _WEEK,
             2_592_000 => _MONTH,
         ];
         foreach ($blockArray as $i) {
@@ -127,7 +126,7 @@ class Blocksadmin
             if (!$this->db->isResultSet($result)) {
                 \trigger_error("Query Failed! SQL: $sql Error: " . $this->db->error(), \E_USER_ERROR);
             }
-            $modules           = [];
+            $modules = [];
             while (false !== ($row = $this->db->fetchArray($result))) {
                 $modules[] = (int)$row['module_id'];
             }
@@ -263,7 +262,7 @@ class Blocksadmin
         if (!$result) {
             \trigger_error("Query Failed! SQL: $sql Error: " . $this->db->error(), \E_USER_ERROR);
         }
-        $sql = \sprintf('DELETE FROM %s WHERE block_id = %u', $this->db->prefix('block_module_link'), $bid);
+        $sql    = \sprintf('DELETE FROM %s WHERE block_id = %u', $this->db->prefix('block_module_link'), $bid);
         $result = $this->db->queryF($sql);
         if (!$result) {
             \trigger_error("Query Failed! SQL: $sql Error: " . $this->db->error(), \E_USER_ERROR);
@@ -291,9 +290,9 @@ class Blocksadmin
             \trigger_error("Query Failed! SQL: $sql Error: " . $this->db->error(), \E_USER_ERROR);
         }
         $modules = [];
-            while (false !== ($row = $this->db->fetchArray($result))) {
-                $modules[] = (int)$row['module_id'];
-            }
+        while (false !== ($row = $this->db->fetchArray($result))) {
+            $modules[] = (int)$row['module_id'];
+        }
 
         $isCustom = \in_array($myblock->getVar('block_type'), ['C', 'E']);
         $block    = [
@@ -440,9 +439,9 @@ class Blocksadmin
             \trigger_error("Query Failed! SQL: $sql Error: " . $this->db->error(), \E_USER_ERROR);
         }
         $modules = [];
-            while (false !== ($row = $this->db->fetchArray($result))) {
-                $modules[] = (int)$row['module_id'];
-            }
+        while (false !== ($row = $this->db->fetchArray($result))) {
+            $modules[] = (int)$row['module_id'];
+        }
 
         $isCustom = \in_array($myblock->getVar('block_type'), ['C', 'E']);
         $block    = [
@@ -659,16 +658,16 @@ class Blocksadmin
         }
         $cache_select = new \XoopsFormSelect(\_AM_SYSTEM_BLOCKS_BCACHETIME, 'bcachetime', $block['bcachetime']);
         $cache_select->addOptionArray([
-                                          0       => _NOCACHE,
-                                          30      => \sprintf(_SECONDS, 30),
-                                          60      => _MINUTE,
-                                          300     => \sprintf(_MINUTES, 5),
-                                          1800    => \sprintf(_MINUTES, 30),
-                                          3600    => _HOUR,
-                                          18000   => \sprintf(_HOURS, 5),
-                                          86400   => _DAY,
-                                          259200  => \sprintf(_DAYS, 3),
-                                          604800  => _WEEK,
+                                          0         => _NOCACHE,
+                                          30        => \sprintf(_SECONDS, 30),
+                                          60        => _MINUTE,
+                                          300       => \sprintf(_MINUTES, 5),
+                                          1800      => \sprintf(_MINUTES, 30),
+                                          3600      => _HOUR,
+                                          18000     => \sprintf(_HOURS, 5),
+                                          86400     => _DAY,
+                                          259200    => \sprintf(_DAYS, 3),
+                                          604800    => _WEEK,
                                           2_592_000 => _MONTH,
                                       ]);
         $form->addElement($cache_select);

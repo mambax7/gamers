@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 
-
 //%%%%%%        Admin Module Name  Articles         %%%%%
 define('_AM_GAMERS_DBUPDATED', 'Database Updated Successfully!');
 define('_AM_GAMERS_MATCH_CONFIG', 'Match Configuration');

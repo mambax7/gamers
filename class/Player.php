@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 namespace XoopsModules\Gamers;
+
 // Class for Player management for Gamers Module
 if (!\defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
@@ -12,11 +13,8 @@ if (!\defined('XOOPS_ROOT_PATH')) {
 class Player extends \XoopsUser
 {
     public array $teams = [];
-
     public array $positions = [];
-
     public $db;
-
     //Constructor
 
     /**

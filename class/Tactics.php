@@ -33,15 +33,10 @@ if (!\defined('XOOPS_ROOT_PATH')) {
 class Tactics extends \XoopsObject
 {
     public string $tacticstable;
-
     public string $positionstable;
-
     public string $maptable;
-
     public \XoopsDatabase $db;
-
     public Map $map;
-
     //Constructor
 
     /**
@@ -75,7 +70,8 @@ class Tactics extends \XoopsObject
         } elseif ((0 !== $tacid) && (null !== $teamsize)) {
             //$tacid is actually a teamid
 
-            $tacticsHandler = Helper::getInstance()->getHandler('Tactics');
+            $tacticsHandler = Helper::getInstance()
+                                    ->getHandler('Tactics');
 
             $tactics = $tacticsHandler->getByParams($tacid, $mapid, $teamsize);
 
@@ -85,7 +81,8 @@ class Tactics extends \XoopsObject
 
             unset($tactics);
         } elseif (0 !== $tacid) {
-            $tacticsHandler = Helper::getInstance()->getHandler('Tactics');
+            $tacticsHandler = Helper::getInstance()
+                                    ->getHandler('Tactics');
 
             $tactics = $tacticsHandler->get($tacid);
 
@@ -103,7 +100,7 @@ class Tactics extends \XoopsObject
     public function getPositions(): array
     {
         $array = [];
-        $sql = 'SELECT tacposid FROM ' . $this->positionstable . ' WHERE tacid=' . $this->getVar('tacid') . ' ORDER BY tacid';
+        $sql   = 'SELECT tacposid FROM ' . $this->positionstable . ' WHERE tacid=' . $this->getVar('tacid') . ' ORDER BY tacid';
 
         $result = $this->db->query($sql);
 
@@ -123,9 +120,11 @@ class Tactics extends \XoopsObject
      */
     public function show(): void
     {
-        $positionHandler = Helper::getInstance()->getHandler('TacticsPosition');
+        $positionHandler = Helper::getInstance()
+                                 ->getHandler('TacticsPosition');
 
-        $teamHandler = Helper::getInstance()->getHandler('Team');
+        $teamHandler = Helper::getInstance()
+                             ->getHandler('Team');
 
         $team = $teamHandler->get($this->getVar('teamid'));
 

@@ -18,7 +18,6 @@ namespace XoopsModules\Gamers;
  * @author       Mithrandir, Mamba, XOOPS Development Team
  */
 
-
 // Class for Lineup management for Gamers Module
 
 if (!defined('XOOPS_ROOT_PATH')) {

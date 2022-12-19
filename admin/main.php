@@ -27,9 +27,9 @@ require dirname(__DIR__, 3) . '/include/cp_header.php';
 require dirname(__DIR__) . '/functions.php';
 require __DIR__ . '/functions.php';
 
-$op = $_GET['op'] ?? 'default';
+$op    = $_GET['op'] ?? 'default';
 $posid = isset($_GET['posid']) ? (int)$_GET['posid'] : 'default';
-$op = $_POST['op'] ?? $op;
+$op    = $_POST['op'] ?? $op;
 if (!isset($_POST['action'])) {
     $action = '';
 }
@@ -210,10 +210,11 @@ function mapedit($id = '')
     $mapname = '';
 
     if ('' != $id) {
-        $mapHandler = Helper::getInstance()->getHandler('Map');
+        $mapHandler = Helper::getInstance()
+                            ->getHandler('Map');
 
         $mapArray = $mapHandler->get($id);
-//        list($mapid, $mapname) = $mapArray;
+        //        list($mapid, $mapname) = $mapArray;
 
         $mapid = $mapArray->getVar('mapid');
 
@@ -391,7 +392,7 @@ function addSideForm($action = _AM_GAMERS_ADD, $sideId = '')
 
     if ($sideId) {
         $sql
-                       =
+            =
             'SELECT side, sideshort FROM ' . $xoopsDB->prefix('gamers_sides') . ' WHERE sideid=' . (int)$sideId;
 
         $result = $xoopsDB->query($sql);
@@ -454,7 +455,7 @@ function rankform($rankid = '')
 
     if ($rankid) {
         $sql
-                       =
+            =
             'SELECT rankid, rank, matches, tactics, color FROM ' . $xoopsDB->prefix('gamers_rank') . ' WHERE rankid='
             . (int)$rankid;
 
@@ -593,22 +594,23 @@ function layoutform($data)
 }
 
 xoops_cp_header();
-$teamHandler = Helper::getInstance()->getHandler('Team');
+$teamHandler = Helper::getInstance()
+                     ->getHandler('Team');
 switch ($op) {
     case 'savelayout':
         if (_AM_GAMERS_SAVE == $_POST['submit']) {
             $sql = 'UPDATE ' . $xoopsDB->prefix('gamers_layout') . ' SET color_status_active = '
-                . $xoopsDB->quoteString($_POST['color_status_active']) . ',' . ' color_status_inactive='
-                . $xoopsDB->quoteString($_POST['color_status_inactive']) . ',' . ' color_status_onleave='
-                . $xoopsDB->quoteString($_POST['color_status_onleave']) . ',' . ' color_match_win='
-                . $xoopsDB->quoteString($_POST['color_match_win']) . ',' . ' color_match_loss='
-                . $xoopsDB->quoteString($_POST['color_match_loss']) . ',' . ' color_match_draw='
-                . $xoopsDB->quoteString($_POST['color_match_draw']) . ',' . ' color_match_pending='
-                . $xoopsDB->quoteString($_POST['color_match_pending']) . ',' . ' color_perfect = '
-                . $xoopsDB->quoteString($_POST['color_perfect']) . ',' . ' color_good = '
-                . $xoopsDB->quoteString($_POST['color_good']) . ',' . ' color_warn = '
-                . $xoopsDB->quoteString($_POST['color_warn']) . ',' . ' color_bad = '
-                . $xoopsDB->quoteString($_POST['color_bad']) . ' WHERE layoutid = 1';
+                   . $xoopsDB->quoteString($_POST['color_status_active']) . ',' . ' color_status_inactive='
+                   . $xoopsDB->quoteString($_POST['color_status_inactive']) . ',' . ' color_status_onleave='
+                   . $xoopsDB->quoteString($_POST['color_status_onleave']) . ',' . ' color_match_win='
+                   . $xoopsDB->quoteString($_POST['color_match_win']) . ',' . ' color_match_loss='
+                   . $xoopsDB->quoteString($_POST['color_match_loss']) . ',' . ' color_match_draw='
+                   . $xoopsDB->quoteString($_POST['color_match_draw']) . ',' . ' color_match_pending='
+                   . $xoopsDB->quoteString($_POST['color_match_pending']) . ',' . ' color_perfect = '
+                   . $xoopsDB->quoteString($_POST['color_perfect']) . ',' . ' color_good = '
+                   . $xoopsDB->quoteString($_POST['color_good']) . ',' . ' color_warn = '
+                   . $xoopsDB->quoteString($_POST['color_warn']) . ',' . ' color_bad = '
+                   . $xoopsDB->quoteString($_POST['color_bad']) . ' WHERE layoutid = 1';
 
             if (!$xoopsDB->query($sql)) {
                 redirect_header('main.php?op=layoutmanager', 3, _AM_GAMERS_ERRORWHILESAVINGLAYOUT);
@@ -640,7 +642,7 @@ switch ($op) {
 
             break;
         }
-            $errors = 1;
+        $errors = 1;
 
         if (isset($errors)) {
             redirect_header('main.php?op=teammanager', 3, _AM_GAMERS_ERRORWHILESAVINGGAMERS_);
@@ -649,16 +651,16 @@ switch ($op) {
     case 'saverank':
         if ('Add' == $_POST['action']) {
             $sql = 'INSERT INTO ' . $xoopsDB->prefix('gamers_rank') . ' (rank, tactics, matches, color) VALUES ('
-                . $xoopsDB->quoteString($_POST['rank']) . ', ' . (int)$_POST['tactics'] . ', '
+                   . $xoopsDB->quoteString($_POST['rank']) . ', ' . (int)$_POST['tactics'] . ', '
                    . (int)$_POST['matches'] . ', ' . $xoopsDB->quoteString($_POST['color']) . ')';
 
             $comment = $_POST['rank'] . ' Added';
         } elseif ('Edit' == $_POST['action']) {
             $sql
-                     =
+                =
                 'UPDATE ' . $xoopsDB->prefix('gamers_rank') . ' SET rank = ' . $xoopsDB->quoteString($_POST['rank'])
-                    . ', matches=' . (int)$_POST['matches'] . ', tactics=' . (int)$_POST['tactics'] . ', color='
-                    . $xoopsDB->quoteString($_POST['color']) . '  WHERE rankid=' . (int)$_POST['rankid'];
+                . ', matches=' . (int)$_POST['matches'] . ', tactics=' . (int)$_POST['tactics'] . ', color='
+                . $xoopsDB->quoteString($_POST['color']) . '  WHERE rankid=' . (int)$_POST['rankid'];
 
             $comment = $_POST['rank'] . ' Edited';
         }
@@ -669,16 +671,16 @@ switch ($op) {
         break;
     case 'addpos':
         $sql = 'INSERT INTO ' . $xoopsDB->prefix('gamers_positions') . ' (postype, posname, posshort) VALUES ('
-            . $xoopsDB->quoteString($_POST['postype']) . ', ' . $xoopsDB->quoteString($_POST['posname']) . ', '
-            . $xoopsDB->quoteString($_POST['posshort']) . ')';
+               . $xoopsDB->quoteString($_POST['postype']) . ', ' . $xoopsDB->quoteString($_POST['posname']) . ', '
+               . $xoopsDB->quoteString($_POST['posshort']) . ')';
         $xoopsDB->query($sql);
         redirect_header('main.php?op=positionmanager', 3, _AM_GAMERS_POSITIONADDED);
         break;
     case 'editpos':
         if (isset($_POST['postype'])) {
             $sql = 'UPDATE ' . $xoopsDB->prefix('gamers_positions') . ' SET postype='
-                . $xoopsDB->quoteString($_POST['postype']) . ', posname=' . $xoopsDB->quoteString($_POST['posname'])
-                . ', posshort=' . $xoopsDB->quoteString($_POST['posshort']) . ' WHERE posid=' . (int)$_POST['posid'];
+                   . $xoopsDB->quoteString($_POST['postype']) . ', posname=' . $xoopsDB->quoteString($_POST['posname'])
+                   . ', posshort=' . $xoopsDB->quoteString($_POST['posshort']) . ' WHERE posid=' . (int)$_POST['posid'];
 
             $xoopsDB->query($sql);
 
@@ -703,21 +705,21 @@ switch ($op) {
 
             break;
         }
-            echo '<h4>' . _AM_GAMERS_TEAM_CONFIG . '</h4>';
-            xoops_confirm(
-                [
-                    'op' => 'deletepos',
-                    'posid' => $_GET['posid'],
-                    'ok' => 1,
-                ],
-                'main.php',
-                _AM_GAMERS_RUSUREDELPOS
-            );
+        echo '<h4>' . _AM_GAMERS_TEAM_CONFIG . '</h4>';
+        xoops_confirm(
+            [
+                'op'    => 'deletepos',
+                'posid' => $_GET['posid'],
+                'ok'    => 1,
+            ],
+            'main.php',
+            _AM_GAMERS_RUSUREDELPOS
+        );
 
         break;
     case 'addladder':
         $sql = 'INSERT INTO ' . $xoopsDB->prefix('gamers_ladders') . ' (ladder, visible, scoresvisible) VALUES ('
-            . $xoopsDB->quoteString($_POST['laddername']) . ', ' . (int)$_POST['laddervisible'] . ', '
+               . $xoopsDB->quoteString($_POST['laddername']) . ', ' . (int)$_POST['laddervisible'] . ', '
                . (int)$_POST['scoresvisible'] . ')';
         $xoopsDB->query($sql);
         redirect_header('main.php?op=laddermanager', 3, _AM_GAMERS_LADDERADDED);
@@ -726,8 +728,8 @@ switch ($op) {
         $sql
             =
             'UPDATE ' . $xoopsDB->prefix('gamers_ladders') . ' SET ladder=' . $xoopsDB->quoteString($_POST['laddername'])
-                . ', visible=' . (int)$_POST['laddervisible'] . ', scoresvisible=' . (int)$_POST['scoresvisible']
-                . ' WHERE ladderid=' . (int)$_POST['ladderid'];
+            . ', visible=' . (int)$_POST['laddervisible'] . ', scoresvisible=' . (int)$_POST['scoresvisible']
+            . ' WHERE ladderid=' . (int)$_POST['ladderid'];
         $xoopsDB->query($sql);
         redirect_header('main.php?op=laddermanager', 3, _AM_GAMERS_LADDERMODIFIED);
         break;
@@ -747,28 +749,28 @@ switch ($op) {
 
             break;
         }
-            echo '<h4>' . _AM_GAMERS_TEAM_CONFIG . '</h4>';
-            xoops_confirm(
-                [
-                    'op' => 'deleteladder',
-                    'ladderid' => (int)$_GET['ladderid'],
-                    'ok' => 1,
-                ],
-                'main.php',
-                _AM_GAMERS_RUSUREDELLADDER
-            );
+        echo '<h4>' . _AM_GAMERS_TEAM_CONFIG . '</h4>';
+        xoops_confirm(
+            [
+                'op'       => 'deleteladder',
+                'ladderid' => (int)$_GET['ladderid'],
+                'ok'       => 1,
+            ],
+            'main.php',
+            _AM_GAMERS_RUSUREDELLADDER
+        );
 
         break;
     case 'addmap':
         $sql = 'INSERT INTO ' . $xoopsDB->prefix('gamers_mappool') . ' (mapname) VALUES ('
-            . $xoopsDB->quoteString($_POST['mapname']) . ')';
+               . $xoopsDB->quoteString($_POST['mapname']) . ')';
         $xoopsDB->query($sql);
         redirect_header('main.php?op=mappoolmanager', 3, $_POST['mapname'] . ' ' . _AM_GAMERS_ADDEDTOMAPPOOL . '');
         break;
     case 'editmap':
         if (isset($_POST['mapname'])) {
             $sql = 'UPDATE ' . $xoopsDB->prefix('gamers_mappool') . ' SET mapname='
-                . $xoopsDB->quoteString($_POST['mapname']) . ' WHERE mapid=' . (int)$_POST['mapid'];
+                   . $xoopsDB->quoteString($_POST['mapname']) . ' WHERE mapid=' . (int)$_POST['mapid'];
 
             $xoopsDB->query($sql);
 
@@ -795,9 +797,9 @@ switch ($op) {
 
             xoops_confirm(
                 [
-                    'op' => 'deletemap',
+                    'op'    => 'deletemap',
                     'mapid' => (int)$_GET['mapid'],
-                    'ok' => 1,
+                    'ok'    => 1,
                 ],
                 'main.php',
                 _AM_GAMERS_RUSUREDELMAP
@@ -824,9 +826,9 @@ switch ($op) {
 
             xoops_confirm(
                 [
-                    'op' => 'deleteteam',
+                    'op'     => 'deleteteam',
                     'teamid' => (int)$_GET['teamid'],
-                    'ok' => 1,
+                    'ok'     => 1,
                 ],
                 'main.php',
                 _AM_RUSUREDELGAMERS_
@@ -861,9 +863,9 @@ switch ($op) {
 
             xoops_confirm(
                 [
-                    'op' => 'deleteserver',
+                    'op'       => 'deleteserver',
                     'serverid' => (int)$_GET['serverid'],
-                    'ok' => 1,
+                    'ok'       => 1,
                 ],
                 'main.php',
                 _AM_GAMERS_RUSUREDELSERVER
@@ -890,9 +892,9 @@ switch ($op) {
 
             xoops_confirm(
                 [
-                    'op' => 'deleterank',
+                    'op'     => 'deleterank',
                     'rankid' => (int)$_GET['rankid'],
-                    'ok' => 1,
+                    'ok'     => 1,
                 ],
                 'main.php',
                 _AM_GAMERS_RUSUREDELRANK
@@ -909,7 +911,8 @@ switch ($op) {
 
             $matchid = (int)$_POST['matchid'];
 
-            $matchHandler = Helper::getInstance()->getHandler('Match');
+            $matchHandler = Helper::getInstance()
+                                  ->getHandler('Match');
 
             $match = $matchHandler->get($matchid);
 
@@ -919,16 +922,16 @@ switch ($op) {
 
             break;
         }
-            echo '<h4>' . _AM_GAMERS_MATCH_CONFIG . '</h4>';
-            xoops_confirm(
-                [
-                    'op' => 'deletematch',
-                    'matchid' => (int)$_GET['matchid'],
-                    'ok' => 1,
-                ],
-                'main.php',
-                _AM_GAMERS_RUSUREDEL
-            );
+        echo '<h4>' . _AM_GAMERS_MATCH_CONFIG . '</h4>';
+        xoops_confirm(
+            [
+                'op'      => 'deletematch',
+                'matchid' => (int)$_GET['matchid'],
+                'ok'      => 1,
+            ],
+            'main.php',
+            _AM_GAMERS_RUSUREDEL
+        );
 
         break;
     case 'matchmanager':
@@ -936,7 +939,7 @@ switch ($op) {
             $teamid = (int)$_POST['teamid'];
 
             $sql
-                    =
+                =
                 'SELECT * FROM ' . $xoopsDB->prefix('gamers_matches') . " WHERE teamid=$teamid ORDER BY matchdate DESC";
 
             $team = getTeam($teamid);
@@ -960,7 +963,7 @@ switch ($op) {
         teamTableOpen();
 
         echo '<th><b>' . _AM_GAMERS_DATE . '</b></th><th><b>' . _AM_GAMERS_OPPONENT . '</b></th><th><b>' . _AM_GAMERS_MATCHTYPE
-            . '</b></th><th><b>' . _AM_GAMERS_RESULT . '</b></th><th><b>' . _AM_GAMERS_ACTION . '</b></th>';
+             . '</b></th><th><b>' . _AM_GAMERS_RESULT . '</b></th><th><b>' . _AM_GAMERS_ACTION . '</b></th>';
         echo "</tr>\n";
 
         while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
@@ -977,25 +980,25 @@ switch ($op) {
             $mdate = date(_SHORTDATESTRING, $mdate);
 
             echo "<tr align = 'center' class='" . $class . "'><td>" . $mdate . '</td><td>' . $myrow['opponent']
-                . '</td><td>' . $myrow['ladder'] . '</td><td>';
+                 . '</td><td>' . $myrow['ladder'] . '</td><td>';
 
             echo $myrow['matchresult'] . '</td>';
 
             echo '<td>';
-//        echo "<td><form method='post' action='../main.php' ENCTYPE=\"multipart/form-data\" NAME=\"ModifyMatch\">";
-//        echo "<input type=hidden name='op' value='matchform'>";
-//        echo "<input type=hidden name='mid' value='".$mid."'>";
-//        echo "<input type=submit value='"._AM_GAMERS_EDIT."'></form></td>";
-//
-//        echo "<td><form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"delete\">";
-//        echo "<input type=hidden name='matchid' value='".$mid."'>";
-//        echo "<input type=hidden name='op' value='deletematch'>
-//                       <input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
+            //        echo "<td><form method='post' action='../main.php' ENCTYPE=\"multipart/form-data\" NAME=\"ModifyMatch\">";
+            //        echo "<input type=hidden name='op' value='matchform'>";
+            //        echo "<input type=hidden name='mid' value='".$mid."'>";
+            //        echo "<input type=submit value='"._AM_GAMERS_EDIT."'></form></td>";
+            //
+            //        echo "<td><form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"delete\">";
+            //        echo "<input type=hidden name='matchid' value='".$mid."'>";
+            //        echo "<input type=hidden name='op' value='deletematch'>
+            //                       <input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
 
             echo "<a href='../index.php?op=matchform&mid=$mid' title=''" . _EDIT . '><img src=' . $pathIcon16
-                . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
+                 . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
 <a href='main.php?op=deletematch&matchid=$mid' title=''" . _DELETE . '><img src=' . $pathIcon16 . '/delete.png'
-                . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
+                 . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
 
             echo '</td>';
 
@@ -1018,9 +1021,9 @@ switch ($op) {
         teamTableClose();
         teamTableOpen();
         echo '<th><b>' . _AM_GAMERS_RANKID . '</b></th><th><b>' . _AM_GAMERS_RANK . '</b></th><th><b>' . _AM_GAMERS_TACTICSRANK
-            . '</b></th><th><b>' . _AM_GAMERS_MATCHRANK . '</b></th><th><b>' . _AM_GAMERS_RANKCOLOR . '</th><th>' . _AM_GAMERS_ACTION
-            . '</th>';
-        $sql = 'SELECT rankid, rank, matches, tactics, color FROM ' . $xoopsDB->prefix('gamers_rank');
+             . '</b></th><th><b>' . _AM_GAMERS_MATCHRANK . '</b></th><th><b>' . _AM_GAMERS_RANKCOLOR . '</th><th>' . _AM_GAMERS_ACTION
+             . '</th>';
+        $sql    = 'SELECT rankid, rank, matches, tactics, color FROM ' . $xoopsDB->prefix('gamers_rank');
         $result = $xoopsDB->query($sql);
 
         if (!$xoopsDB->isResultSet($result)) {
@@ -1057,27 +1060,27 @@ switch ($op) {
             $color = $myrow['color'];
 
             echo "</tr><tr align = 'center' class='" . $class . "'><td>" . $rankid . '</td><td>' . $rankname
-                . '</td><td>' . $tactics . '</td>';
+                 . '</td><td>' . $tactics . '</td>';
 
             echo '<td>' . $matches . '</td>';
-//        echo "<td>".$color."</td>";
+            //        echo "<td>".$color."</td>";
 
             echo "<td align='center'><span style=\"background-color:" . $color . '">&nbsp;&nbsp;&nbsp;</span> -> '
-                . $color . '</td>';
+                 . $color . '</td>';
 
             echo '<td>';
-//        echo "<td><form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"ModifyMatch\">";
-//        echo "<input type=hidden name='op' value='rankmanager'>";
-//        echo "<input type=hidden name='rankid' value='".$rankid."'>";
-//        echo "<input type=submit value='"._AM_GAMERS_EDIT."'></form></td>";
-//        echo "<td><form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"delete\">";
-//        echo "<input type=hidden name='rankid' value=".$rankid.">";
-//        echo "<input type=hidden name='op' value='deleterank'> <input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
+            //        echo "<td><form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"ModifyMatch\">";
+            //        echo "<input type=hidden name='op' value='rankmanager'>";
+            //        echo "<input type=hidden name='rankid' value='".$rankid."'>";
+            //        echo "<input type=submit value='"._AM_GAMERS_EDIT."'></form></td>";
+            //        echo "<td><form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"delete\">";
+            //        echo "<input type=hidden name='rankid' value=".$rankid.">";
+            //        echo "<input type=hidden name='op' value='deleterank'> <input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
 
             echo "<a href='main.php?op=rankmanager&rankid=$rankid' title=''" . _EDIT . '><img src=' . $pathIcon16
-                . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
+                 . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
 <a href='main.php?op=deleterank&rankid=$rankid' title=''" . _DELETE . '><img src=' . $pathIcon16 . '/delete.png'
-                . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
+                 . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
 
             echo '</td>';
 
@@ -1097,7 +1100,7 @@ switch ($op) {
         redirect_header('main.php?op=positionmanager', 3, _AM_GAMERS_POSITIONMODIFIED);
         break;
     case 'laddermanager':
-        $sql = 'SELECT * FROM ' . $xoopsDB->prefix('gamers_ladders');
+        $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('gamers_ladders');
         $result = $xoopsDB->query($sql);
 
         if (!$xoopsDB->isResultSet($result)) {
@@ -1117,7 +1120,7 @@ switch ($op) {
         teamTableClose();
         teamTableOpen();
         echo '<th><b>' . _AM_GAMERS_LADDERNAME . '</b></th><th><b>' . _AM_GAMERS_LADDERVISIBLE . '</b></th><th>'
-            . _AM_GAMERS_SCORESVISIBLE . '</th><th>' . _AM_GAMERS_ACTION . '</th>';
+             . _AM_GAMERS_SCORESVISIBLE . '</th><th>' . _AM_GAMERS_ACTION . '</th>';
         while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
             if (isset($class) && 'even' == $class) {
                 $class = 'odd';
@@ -1140,16 +1143,16 @@ switch ($op) {
             echo $scoresvisible . '</td>';
 
             echo '<td>';
-//        echo "<td><a href='main.php?op=laddermanager&ladderid=".$ladderid."'>";
-//        echo ""._AM_GAMERS_EDIT."</td>";
-//        echo "<td><a href='main.php?op=deleteladder&ladderid=".$ladderid."'>";
-//        echo ""._AM_GAMERS_DELETE."</td>";
-//        echo "</tr>\n";
+            //        echo "<td><a href='main.php?op=laddermanager&ladderid=".$ladderid."'>";
+            //        echo ""._AM_GAMERS_EDIT."</td>";
+            //        echo "<td><a href='main.php?op=deleteladder&ladderid=".$ladderid."'>";
+            //        echo ""._AM_GAMERS_DELETE."</td>";
+            //        echo "</tr>\n";
 
             echo "<a href='main.php?op=laddermanager&ladderid=$ladderid' title=''" . _EDIT . '><img src=' . $pathIcon16
-                . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
+                 . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
 <a href='main.php?op=deleteladder&ladderid=$ladderid' title=''" . _DELETE . '><img src=' . $pathIcon16 . '/delete.png'
-                . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
+                 . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
 
             echo '</td>';
 
@@ -1159,7 +1162,7 @@ switch ($op) {
         teamTableClose();
         break;
     case 'positionmanager':
-        $sql = 'SELECT * FROM ' . $xoopsDB->prefix('gamers_positions') . ' ORDER BY postype ASC, posorder ASC';
+        $sql    = 'SELECT * FROM ' . $xoopsDB->prefix('gamers_positions') . ' ORDER BY postype ASC, posorder ASC';
         $result = $xoopsDB->query($sql);
 
         if (!$xoopsDB->isResultSet($result)) {
@@ -1179,7 +1182,7 @@ switch ($op) {
         teamTableClose();
         teamTableOpen();
         echo '<th><b>' . _AM_GAMERS_POSITIONSHORT . '</b></th><th><b>' . _AM_GAMERS_POSITIONNAME . '</b></th><th><b>'
-            . _AM_GAMERS_TYPE2 . '</b></th><th><b>' . _AM_GAMERS_ORDER . '</b></th><th>' . _AM_GAMERS_ACTION . '</th>';
+             . _AM_GAMERS_TYPE2 . '</b></th><th><b>' . _AM_GAMERS_ORDER . '</b></th><th>' . _AM_GAMERS_ACTION . '</th>';
         echo "<form method='post' action='main.php?op=posorderedit'></tr>\n";
         while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
             if (isset($class) && 'even' == $class) {
@@ -1207,15 +1210,15 @@ switch ($op) {
             echo "<td><input type=text size='4' name='posorder[" . $posid . "]' value='" . $posorder . "'></td>";
 
             echo '<td>';
-//        echo "<td><a href='main.php?op=positionmanager&posid=".$posid."'>";
-//        echo ""._AM_GAMERS_EDIT."</td>";
-//        echo "<td><a href='main.php?op=deletepos&posid=".$posid."'>";
-//        echo ""._AM_GAMERS_DELETE."</td>";
+            //        echo "<td><a href='main.php?op=positionmanager&posid=".$posid."'>";
+            //        echo ""._AM_GAMERS_EDIT."</td>";
+            //        echo "<td><a href='main.php?op=deletepos&posid=".$posid."'>";
+            //        echo ""._AM_GAMERS_DELETE."</td>";
 
             echo "<a href='main.php?op=positionmanager&posid=$posid' title=''" . _EDIT . '><img src=' . $pathIcon16
-                . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
+                 . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
 <a href='main.php?op=deletepos&posid=$posid' title=''" . _DELETE . '><img src=' . $pathIcon16 . '/delete.png'
-                . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
+                 . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
 
             echo '</td>';
 
@@ -1235,7 +1238,7 @@ switch ($op) {
 
             break;
         }
-            redirect_header('main.php?op=teammanager', 2, _AM_GAMERS_ERRORDEFAULTTEAMNOTCHANGED);
+        redirect_header('main.php?op=teammanager', 2, _AM_GAMERS_ERRORDEFAULTTEAMNOTCHANGED);
 
         break;
     case 'mappoolmanager':
@@ -1253,7 +1256,7 @@ switch ($op) {
         teamTableClose();
         teamTableOpen();
         echo '<th><b>' . _AM_GAMERS_MAPID . '</b></th><th><b>' . _AM_GAMERS_MAPNAME . '</b></th><th><b>' . _AM_GAMERS_ACTION
-            . '</b></th>';
+             . '</b></th>';
         $sql = 'SELECT * FROM ' . $xoopsDB->prefix('gamers_mappool') . ' ORDER BY mapname ASC';
 
         $result = $xoopsDB->query($sql);
@@ -1277,19 +1280,19 @@ switch ($op) {
                 echo $mapname . '</td>';
 
                 echo '<td>';
-//            echo "<td><form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"ModifyMap\">";
-//            echo "<input type=hidden name='mapid' value='".$mapid."'>";
-//            echo "<input type=hidden name='op' value='mappoolmanager'>";
-//            echo "<input type=submit value='"._AM_GAMERS_EDIT."'></form></td>";
-//            echo "<td><form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"delete\">";
-//            echo "<input type=hidden name='op' value='deletemap'>";
-//            echo "<input type=hidden name='mapid' value='".$mapid."'>";
-//            echo "<input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
+                //            echo "<td><form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"ModifyMap\">";
+                //            echo "<input type=hidden name='mapid' value='".$mapid."'>";
+                //            echo "<input type=hidden name='op' value='mappoolmanager'>";
+                //            echo "<input type=submit value='"._AM_GAMERS_EDIT."'></form></td>";
+                //            echo "<td><form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"delete\">";
+                //            echo "<input type=hidden name='op' value='deletemap'>";
+                //            echo "<input type=hidden name='mapid' value='".$mapid."'>";
+                //            echo "<input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
 
                 echo "<a href='main.php?op=mappoolmanager&mapid=$mapid' title=''" . _EDIT . '><img src=' . $pathIcon16
-                    . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
+                     . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
     <a href='main.php?op=deletemap&mapid=$mapid' title=''" . _DELETE . '><img src=' . $pathIcon16 . '/delete.png'
-                    . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
+                     . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
 
                 echo '</td>';
 
@@ -1308,8 +1311,8 @@ switch ($op) {
         teamTableClose();
         teamTableOpen();
         echo '<th><b>' . _AM_GAMERS_TEAMID . '</b></th><th><b>' . _AM_GAMERS_NAME . '</b></th><th><b>' . _AM_GAMERS_TYPE2
-            . '</b></th><th><b>' . _AM_GAMERS_MAPSMATCH . '</b></th><th><b>' . _AM_GAMERS_DEFAULT . '</b></th><th><b>'
-            . _AM_GAMERS_ACTION . '</b></th>';
+             . '</b></th><th><b>' . _AM_GAMERS_MAPSMATCH . '</b></th><th><b>' . _AM_GAMERS_DEFAULT . '</b></th><th><b>'
+             . _AM_GAMERS_ACTION . '</b></th>';
         $teams = $teamHandler->getObjects(null, false, false);
         foreach ($teams as $myrow) {
             if (isset($class) && 'even' == $class) {
@@ -1351,15 +1354,15 @@ switch ($op) {
             echo '</td>';
 
             echo '<td>';
-//        echo "<form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"delete\">";
-//        echo "<input type=hidden name='teamid' value='".$teamid."'>";
-//        echo "<input type=hidden name='op' value='deleteteam'>";
-//        echo "<input type=submit value='"._AM_GAMERS_DELETE."'></form>
+            //        echo "<form method='post' action='main.php' ENCTYPE=\"multipart/form-data\" NAME=\"delete\">";
+            //        echo "<input type=hidden name='teamid' value='".$teamid."'>";
+            //        echo "<input type=hidden name='op' value='deleteteam'>";
+            //        echo "<input type=submit value='"._AM_GAMERS_DELETE."'></form>
 
             echo "<a href='teamadmin.php?teamid=$teamid' title=''" . _EDIT . '><img src=' . $pathIcon16 . '/edit.png'
-                . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
+                 . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
 <a href='main.php?op=deleteteam&teamid=$teamid' title=''" . _DELETE . '><img src=' . $pathIcon16 . '/delete.png'
-                . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
+                 . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
 
             echo '</td>';
 
@@ -1387,7 +1390,7 @@ switch ($op) {
         }
         echo $comment;
 
-        // no break
+    // no break
     case 'servermanager':
 
         $adminObject = Admin::getInstance();
@@ -1403,9 +1406,8 @@ switch ($op) {
         teamTableClose();
         teamTableOpen();
         echo '<th><b>' . _AM_GAMERS_SERVERNAME . '</b></th><th><b>' . _AM_GAMERS_SERVERIP . '</b></th><th><b>'
-            . _AM_GAMERS_SERVERPORT . '</b></th><th><b>' . _AM_GAMERS_ACTION . '</b></th>';
+             . _AM_GAMERS_SERVERPORT . '</b></th><th><b>' . _AM_GAMERS_ACTION . '</b></th>';
         $sql = 'SELECT * FROM ' . $xoopsDB->prefix('gamers_server') . ' ORDER BY servername ASC';
-
 
         $result = $xoopsDB->query($sql);
 
@@ -1434,19 +1436,19 @@ switch ($op) {
                 echo '<td>' . $serverport . '</td>';
 
                 echo '<td>';
-//            echo "<td><form method='post' action='main.php'>";
-//            echo "<input type=hidden name='op' value='servermanager'>";
-//            echo "<input type=hidden name='serverid' value='".$serverid."'>";
-//            echo "<input type=submit value='"._AM_GAMERS_EDIT."'></form></td>";
-//            echo "<td><form method='post' action='main.php'>";
-//            echo "<input type=hidden name='serverid' value='".$serverid."'>";
-//            echo "<input type=hidden name='op' value='deleteserver'>";
-//            echo "<input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
+                //            echo "<td><form method='post' action='main.php'>";
+                //            echo "<input type=hidden name='op' value='servermanager'>";
+                //            echo "<input type=hidden name='serverid' value='".$serverid."'>";
+                //            echo "<input type=submit value='"._AM_GAMERS_EDIT."'></form></td>";
+                //            echo "<td><form method='post' action='main.php'>";
+                //            echo "<input type=hidden name='serverid' value='".$serverid."'>";
+                //            echo "<input type=hidden name='op' value='deleteserver'>";
+                //            echo "<input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
 
                 echo "<a href='main.php?op=servermanager&serverid=$serverid' title=''" . _EDIT . '><img src='
-                    . $pathIcon16 . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
+                     . $pathIcon16 . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
     <a href='main.php?op=deleteserver&serverid=$serverid' title=''" . _DELETE . '><img src=' . $pathIcon16
-                    . '/delete.png' . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
+                     . '/delete.png' . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
 
                 echo '</td>';
 
@@ -1475,30 +1477,30 @@ switch ($op) {
 
             break;
         }
-            echo '<h4>' . _AM_GAMERS_TEAM_CONFIG . '</h4>';
-            xoops_confirm(
-                [
-                    'op' => 'deletesize',
-                    'size_id' => (int)$_GET['size_id'],
-                    'ok' => 1,
-                ],
-                'main.php?op=sizemanager',
-                _AM_GAMERS_RUSUREDELSIZE
-            );
+        echo '<h4>' . _AM_GAMERS_TEAM_CONFIG . '</h4>';
+        xoops_confirm(
+            [
+                'op'      => 'deletesize',
+                'size_id' => (int)$_GET['size_id'],
+                'ok'      => 1,
+            ],
+            'main.php?op=sizemanager',
+            _AM_GAMERS_RUSUREDELSIZE
+        );
 
         break;
     case 'savesize':
 
         if ('Add' == $_POST['action']) {
             $sql = 'INSERT INTO ' . $xoopsDB->prefix('gamers_sizes') . ' (size) VALUES ('
-                . $xoopsDB->quoteString($_POST['size']) . ')';
+                   . $xoopsDB->quoteString($_POST['size']) . ')';
 
             $comment = (int)$_POST['size'] . ' ' . _AM_GAMERS_SIZESADDED . '';
         } elseif ('Edit' == $_POST['action']) {
             $sql
-                     =
+                =
                 'UPDATE ' . $xoopsDB->prefix('gamers_sizes') . ' SET size = ' . $xoopsDB->quoteString($_POST['size'])
-                    . '  WHERE sizeid=' . (int)$_POST['sizeid'];
+                . '  WHERE sizeid=' . (int)$_POST['sizeid'];
 
             $comment = sprintf(_AM_GAMERS_SIZE_EDITED_OK, (int)$_POST['sizeid']);
         }
@@ -1522,7 +1524,7 @@ switch ($op) {
         teamTableClose();
         teamTableOpen();
         echo '<th><b>' . _AM_GAMERS_SIZEID . '</b></th><th><b>' . _AM_GAMERS_SIZES . '</b></th><th><b>' . _AM_GAMERS_ACTION
-            . '</b></th>';
+             . '</b></th>';
         $sql = 'SELECT * FROM ' . $xoopsDB->prefix('gamers_sizes') . ' ORDER BY size ASC';
 
         $result = $xoopsDB->query($sql);
@@ -1546,15 +1548,15 @@ switch ($op) {
                 echo $size . '</td>';
 
                 echo '<td>';
-//            echo "<td><form method='post' action='main.php'>";
-//            echo "<input type=hidden name='size_id' value='".$size_id."'>";
-//            echo "<input type=hidden name='op' value='deletesize'>";
-//            echo "<input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
+                //            echo "<td><form method='post' action='main.php'>";
+                //            echo "<input type=hidden name='size_id' value='".$size_id."'>";
+                //            echo "<input type=hidden name='op' value='deletesize'>";
+                //            echo "<input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
 
                 echo "<a href='main.php?op=sizemanager&size_id=$size_id' title=''" . _EDIT . '><img src=' . $pathIcon16
-                    . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
+                     . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
     <a href='main.php?op=deletesize&size_id=$size_id' title=''" . _DELETE . '><img src=' . $pathIcon16 . '/delete.png'
-                    . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
+                     . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
 
                 echo '</td>';
 
@@ -1583,9 +1585,9 @@ switch ($op) {
 
             xoops_confirm(
                 [
-                    'op' => 'deleteside',
+                    'op'      => 'deleteside',
                     'side_id' => (int)$_GET['side_id'],
-                    'ok' => 1,
+                    'ok'      => 1,
                 ],
                 'main.php?op=sidemanager',
                 _AM_GAMERS_RUSUREDELSIDE
@@ -1596,15 +1598,15 @@ switch ($op) {
 
         if ('Add' == $_POST['action']) {
             $sql = 'INSERT INTO ' . $xoopsDB->prefix('gamers_sides') . ' (side, sideshort) VALUES ('
-                . $xoopsDB->quoteString($_POST['side']) . ', ' . $xoopsDB->quoteString($_POST['sideshort']) . ')';
+                   . $xoopsDB->quoteString($_POST['side']) . ', ' . $xoopsDB->quoteString($_POST['sideshort']) . ')';
 
-            $temp = Request::getString('side', '', 'POST');
+            $temp    = Request::getString('side', '', 'POST');
             $comment = $temp . ' ' . _AM_GAMERS_SIDESADDED . '';
         } elseif ('Edit' == Request::getInt('action', '', 'POST')) {
             $sql
-                     =
+                =
                 'UPDATE ' . $xoopsDB->prefix('gamers_sides') . ' SET side = ' . $xoopsDB->quoteString($_POST['side'])
-                    . ', sideshort = ' . $xoopsDB->quoteString($_POST['sideshort']) . '  WHERE sideid='
+                . ', sideshort = ' . $xoopsDB->quoteString($_POST['sideshort']) . '  WHERE sideid='
                 . (int)$_POST['sizeid'];
 
             $comment = sprintf(_AM_GAMERS_SIDE_EDITED_OK, $_POST['side']);
@@ -1628,7 +1630,7 @@ switch ($op) {
         teamTableClose();
         teamTableOpen();
         echo '<th><b>' . _AM_GAMERS_SIDEID . '</b></th><th><b>' . _AM_GAMERS_SIDES . '</b></th><th><b>' . _AM_GAMERS_SIDESHORT
-            . '</th><th><b>' . _AM_GAMERS_ACTION . '</b></th>';
+             . '</th><th><b>' . _AM_GAMERS_ACTION . '</b></th>';
         $sql = 'SELECT * FROM ' . $xoopsDB->prefix('gamers_sides') . ' ORDER BY side ASC';
 
         $result = $xoopsDB->query($sql);
@@ -1656,15 +1658,15 @@ switch ($op) {
                 echo '<td>' . $sideshort . '</td>';
 
                 echo '<td>';
-//            echo "<td><form method='post' action='main.php'>";
-//            echo "<input type=hidden name='side_id' value='".$side_id."'>";
-//            echo "<input type=hidden name='op' value='deleteside'>";
-//            echo "<input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
+                //            echo "<td><form method='post' action='main.php'>";
+                //            echo "<input type=hidden name='side_id' value='".$side_id."'>";
+                //            echo "<input type=hidden name='op' value='deleteside'>";
+                //            echo "<input type=submit value='"._AM_GAMERS_DELETE."'></form></td>";
 
                 echo "<a href='main.php?op=sidemanager&side_id=$side_id' title=''" . _EDIT . '><img src=' . $pathIcon16
-                    . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
+                     . '/edit.png' . " alt=' " . _EDIT . " ' title=' " . _EDIT . " '></a>
     <a href='main.php?op=deleteside&side_id=$side_id' title=''" . _DELETE . '><img src=' . $pathIcon16 . '/delete.png'
-                    . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
+                     . " alt=' " . _DELETE . " ' title=' " . _DELETE . " '></a>";
 
                 echo '</td>';
 

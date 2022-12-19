@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-
 use XoopsModules\Gamers\{
     Helper,
     Player
 };
+
 /** @var Helper $helper */
 
 require_once __DIR__ . '/header.php';
@@ -12,9 +12,10 @@ require_once __DIR__ . '/header.php';
 
 //require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/functions.php';
 
-$teamid = isset($_GET['teamid']) ? (int)$_GET['teamid'] : getDefaultTeam();
-$teamHandler = Helper::getInstance()->getHandler('Team');
-$team = $teamHandler->get($teamid);
+$teamid                                  = isset($_GET['teamid']) ? (int)$_GET['teamid'] : getDefaultTeam();
+$teamHandler                             = Helper::getInstance()
+                                                 ->getHandler('Team');
+$team                                    = $teamHandler->get($teamid);
 $GLOBALS['xoopsOption']['template_main'] = 'gamers_roster.tpl';
 require XOOPS_ROOT_PATH . '/header.php';
 if ($xoopsUser) {
@@ -29,12 +30,12 @@ if ($xoopsUser) {
     }
 }
 $teamplayer = [];
-$players = $team->getAllMembers();
-$count = 0;
-$ranks = getAllRanks();
-$statuses = getAllStatus();
-$positions = getAllShort();
-$layout = getLayout();
+$players    = $team->getAllMembers();
+$count      = 0;
+$ranks      = getAllRanks();
+$statuses   = getAllStatus();
+$positions  = getAllShort();
+$layout     = getLayout();
 foreach ($players as $key => $player) {
     $teamplayer[$key]['uname'] = $player['uname'];
 
