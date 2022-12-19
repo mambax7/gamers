@@ -777,7 +777,7 @@ class Team extends \XoopsObject
     }
 
     /**
-     * @param int $side_id
+     * @param int $sideId
      * @return bool
      */
     final public function addTeamSide(int $sideId): bool
