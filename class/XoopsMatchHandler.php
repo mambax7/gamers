@@ -104,7 +104,7 @@ class XoopsMatchHandler extends \XoopsObjectHandler
             $object->setVar('customserver', '');
         }
 
-        if ('xoopsmatch' != mb_strtolower(get_class($object))) {
+        if ('xoopsmatch' != \mb_strtolower(\get_class($object))) {
             return false;
         }
 
