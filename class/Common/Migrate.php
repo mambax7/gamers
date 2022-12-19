@@ -23,9 +23,9 @@ namespace XoopsModules\Gamers\Common;
  */
 class Migrate extends \Xmf\Database\Migrate
 {
-    private $moduleDirName;
-    private $renameColumns;
-    private $renameTables;
+    private string $moduleDirName;
+    private array  $renameColumns;
+    private array  $renameTables;
 
     /**
      * Migrate constructor.

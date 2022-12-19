@@ -363,7 +363,7 @@ class Team extends \XoopsObject
     /**
      * @return array
      */
-    final public function getAllMembers()
+    final public function getAllMembers(): array
     {
         $members = [];
         $sql = 'SELECT t.uid, t.teamid, t.status, t.rank, t.primarypos, t.secondarypos, t.tertiarypos FROM ' . $this->db->prefix('gamers_teamstatus') . ' t WHERE t.teamid=' . $this->getVar('teamid') . ' AND t.status>0 ORDER BY t.status ASC';
@@ -767,14 +767,14 @@ class Team extends \XoopsObject
     }
 
     /**
-     * @param int $size_id
+     * @param int $sizeId
      * @return bool
      */
-    final public function addTeamSize(int $size_id): bool
+    final public function addTeamSize(int $sizeId): bool
     {
-        $size_id = $size_id;
+        $sizeId = $sizeId;
 
-        $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamsizes') . ' (teamid, sizeid) VALUES (' . $this->getVar('teamid') . ", $size_id)";
+        $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamsizes') . ' (teamid, sizeid) VALUES (' . $this->getVar('teamid') . ", $sizeId)";
 
         if (!$this->db->query($sql)) {
             return false;
@@ -789,8 +789,6 @@ class Team extends \XoopsObject
      */
     final public function delTeamSize(int $sizeid): bool
     {
-        $sizeid = $sizeid;
-
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamsizes') . " WHERE sizeid=$sizeid AND teamid=" . $this->getVar('teamid');
 
         if (!$this->db->query($sql)) {
@@ -804,11 +802,9 @@ class Team extends \XoopsObject
      * @param int $side_id
      * @return bool
      */
-    final public function addTeamSide(int $side_id): bool
+    final public function addTeamSide(int $sideId): bool
     {
-        $side_id = $side_id;
-
-        $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamsides') . ' (teamid, sideid) VALUES (' . $this->getVar('teamid') . ", $side_id)";
+        $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamsides') . ' (teamid, sideid) VALUES (' . $this->getVar('teamid') . ", $sideId)";
 
         if (!$this->db->query($sql)) {
             return false;
@@ -835,14 +831,13 @@ class Team extends \XoopsObject
     }
 
     /**
-     * @param int $rank_id
+     * @param int $rankId
      * @return bool
      */
-    final public function addTeamRank(int $rank_id): bool
+    final public function addTeamRank(int $rankId): bool
     {
-        $rank_id = $rank_id;
 
-        $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamrank') . ' (teamid, rankid) VALUES (' . $this->getVar('teamid') . ", $rank_id)";
+        $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamrank') . ' (teamid, rankid) VALUES (' . $this->getVar('teamid') . ", $rankId)";
 
         if (!$this->db->query($sql)) {
             return false;
@@ -869,14 +864,13 @@ class Team extends \XoopsObject
     }
 
     /**
-     * @param int $ladder_id
+     * @param int $ladderId
      * @return bool
      */
-    final public function addTeamLadder(int $ladder_id): bool
+    final public function addTeamLadder(int $ladderId): bool
     {
-        $ladder_id = $ladder_id;
 
-        $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamladders') . ' (teamid, ladderid) VALUES (' . $this->getVar('teamid') . ", $ladder_id)";
+        $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamladders') . ' (teamid, ladderid) VALUES (' . $this->getVar('teamid') . ", $ladderId)";
 
         if (!$this->db->query($sql)) {
             return false;

@@ -1368,19 +1368,19 @@ switch ($op) {
         teamTableClose();
         break;
     case 'saveserver':
-        if ('Add' == $_POST['action']) {
+        if ('Add' === Request::getString('action', '', 'POST')) {
             $sql = 'INSERT INTO ' . $xoopsDB->prefix('gamers_server') . ' (servername, serverip, serverport) VALUES ('
-                . $xoopsDB->quoteString($_POST['servername']) . ', ' . $xoopsDB->quoteString($_POST['serverip']) . ', '
+                   . $xoopsDB->quoteString(Request::getString('servername', '', 'POST')) . ', ' . $xoopsDB->quoteString(Request::getString('serverip', '', 'POST')) . ', '
                    . (int)$_POST['serverport'] . ')';
 
-            $comment = $_POST['servername'] . ' ' . _AM_GAMERS_ADDED . '';
-        } elseif ('Edit' == $_POST['action']) {
+            $comment = Request::getString('servername', '', 'POST') . ' ' . _AM_GAMERS_ADDED . '';
+        } elseif ('Edit' == Request::getString('action', '', 'POST')) {
             $sql = 'UPDATE ' . $xoopsDB->prefix('gamers_server') . ' SET serverip = '
-                . $xoopsDB->quoteString($_POST['serverip']) . ', servername='
-                . $xoopsDB->quoteString($_POST['servername']) . ', serverport=' . (int)$_POST['serverport']
-                . '  WHERE serverid=' . (int)$_POST['serverid'];
+                   . $xoopsDB->quoteString(Request::getString('serverip', '', 'POST')) . ', servername='
+                   . $xoopsDB->quoteString(Request::getString('servername', '', 'POST')) . ', serverport=' . (int)$_POST['serverport']
+                   . '  WHERE serverid=' . (int)$_POST['serverid'];
 
-            $comment = $_POST['servername'] . ' ' . _AM_GAMERS_EDITED . '';
+            $comment = Request::getString('servername', '', 'POST') . ' ' . _AM_GAMERS_EDITED . '';
         }
         if (!$xoopsDB->query($sql)) {
             $comment = _AM_GAMERS_ERRORWHILESAVINGSERVER;

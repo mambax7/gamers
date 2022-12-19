@@ -32,15 +32,15 @@ if (!\defined('XOOPS_ROOT_PATH')) {
  */
 class Tactics extends \XoopsObject
 {
-    public $tacticstable;
+    public string $tacticstable;
 
-    public $positionstable;
+    public string $positionstable;
 
-    public $maptable;
+    public string $maptable;
 
-    public $db;
+    public \XoopsDatabase $db;
 
-    public $map;
+    public string $map;
 
     //Constructor
 

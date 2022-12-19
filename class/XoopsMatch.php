@@ -26,10 +26,10 @@ namespace XoopsModules\Gamers;
  */
 class XoopsMatch extends \XoopsObject
 {
-    public $table;
-    public $db;
-    public $teamid;
-    public $matchid;
+    public string $table;
+    public \XoopsDatabase $db;
+    public int $teamid;
+    public int $matchid;
 
 
     //Constructor
@@ -215,7 +215,7 @@ class XoopsMatch extends \XoopsObject
         if ($this->db->getAffectedRows() > 0) {
             \redirect_header('index.php?teamid=' . $this->teamid, 3, _MD_GAMERS_MATCHLOCKED);
         } else {
-            \redirect_header('availability.php?mid=' . $this->matchid, 3, _MD_DBNOTUPDATED);
+            \redirect_header('availability.php?mid=' . $this->matchid, 3, _MD_GAMERS_DBNOTUPDATED);
         }
     }
 
@@ -231,7 +231,7 @@ class XoopsMatch extends \XoopsObject
         if ($this->db->getAffectedRows() > 0) {
             \redirect_header('index.php?teamid=' . $this->teamid, 3, _MD_GAMERS_MATCHUNLOCKED);
         } else {
-            \redirect_header('availability.php?mid=' . $this->matchid, 3, _MD_DBNOTUPDATED);
+            \redirect_header('availability.php?mid=' . $this->matchid, 3, _MD_GAMERS_DBNOTUPDATED);
         }
     }
 
