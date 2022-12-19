@@ -31,7 +31,7 @@ class XoopsMatchHandler extends \XoopsObjectHandler
      * @param bool $isNew flag the new objects as "new"?
      * @return object {@link XoopsMatch}
      */
-    public function &create($isNew = true)
+    public function &create(bool $isNew = true)
     {
         $match = new \XoopsMatch();
 
@@ -80,10 +80,10 @@ class XoopsMatchHandler extends \XoopsObjectHandler
 
     /**
      * @param \XoopsObject $object
-     * @param false        $force
+     * @param bool         $force
      * @return array|bool|int|mixed|void|null
      */
-    public function insert(\XoopsObject $object, $force = false)
+    public function insert(\XoopsObject $object, bool $force = false)
     {
         $uid = null;
         $matchdate = null;
@@ -160,7 +160,7 @@ class XoopsMatchHandler extends \XoopsObjectHandler
      * @param bool         $force
      * @return bool FALSE if failed.
      */
-    public function delete(\XoopsObject $object, $force = false)
+    public function delete(\XoopsObject $object, bool $force = false): bool
     {
         global $xoopsModule;
 

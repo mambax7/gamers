@@ -46,11 +46,11 @@ class Tactics extends \XoopsObject
 
     /**
      * Tactics constructor.
-     * @param int  $tacid
+     * @param int      $tacid
      * @param int|null $mapid
      * @param int|null $teamsize
      */
-    public function __construct(int $tacid = 0, $mapid = null, $teamsize = null)
+    public function __construct(int $tacid = 0, int $mapid = null, int $teamsize = null)
     {
         $this->initVar('tacid', \XOBJ_DTYPE_INT, 0, false);
 
@@ -100,7 +100,7 @@ class Tactics extends \XoopsObject
     /**
      * @return array
      */
-    public function getPositions()
+    public function getPositions(): array
     {
         $array = [];
         $sql = 'SELECT tacposid FROM ' . $this->positionstable . ' WHERE tacid=' . $this->getVar('tacid') . ' ORDER BY tacid';

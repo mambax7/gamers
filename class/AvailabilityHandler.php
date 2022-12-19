@@ -56,7 +56,7 @@ class AvailabilityHandler extends \XoopsPersistableObjectHandler
      * @param int $uid
      * @return array
      */
-    public function getPendingByUser($uid)
+    public function getPendingByUser(int $uid): array
     {
         $matchHandler = Helper::getInstance()->getHandler('Match');
 

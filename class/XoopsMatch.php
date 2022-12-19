@@ -38,7 +38,7 @@ class XoopsMatch extends \XoopsObject
      * XoopsMatch constructor.
      * @param int $matchid
      */
-    public function __construct($matchid = -1)
+    public function __construct(int $matchid = -1)
     {
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
 
@@ -88,7 +88,7 @@ class XoopsMatch extends \XoopsObject
     /**
      * @return string
      */
-    public function uname()
+    public function uname(): string
     {
         return \XoopsUser::getUnameFromId($this->getVar('uid'));
     }
@@ -96,7 +96,7 @@ class XoopsMatch extends \XoopsObject
     /**
      * @return array
      */
-    public function getMatchPlayers()
+    public function getMatchPlayers(): array
     {
         $sql = 'SELECT u.uid, u.uname FROM ' . $this->db->prefix('users') . ' u, ' . $this->db->prefix('gamers_availability') . ' a WHERE u.uid=a.userid AND a.matchid=' . $this->getVar('matchid') . " AND (a.availability='Yes' OR a.availability='LateYes') ORDER BY u.uname ASC";
 
@@ -117,7 +117,7 @@ class XoopsMatch extends \XoopsObject
     /**
      * @return array
      */
-    public function getMatchSubs()
+    public function getMatchSubs(): array
     {
         $sql = 'SELECT u.uid, u.uname FROM ' . $this->db->prefix('users') . ' u, ' . $this->db->prefix('gamers_availability') . ' a WHERE u.uid=a.userid AND a.matchid=' . $this->getVar('matchid') . " AND a.availability='Sub' ORDER BY u.uname ASC";
 
@@ -185,7 +185,7 @@ class XoopsMatch extends \XoopsObject
     /**
      * @return array
      */
-    public function getMatchMaps()
+    public function getMatchMaps(): array
     {
         $sql = 'SELECT mapno, matchmapid FROM ' . $this->db->prefix('gamers_matchmaps') . ' WHERE matchid = ' . $this->getVar('matchid') . ' ORDER BY mapno';
 
