@@ -509,8 +509,6 @@ class Team extends \XoopsObject
      */
     final public function isTeamMember(int $uid): bool
     {
-        $uid = $uid;
-
         $sql = 'SELECT rank FROM ' . $this->db->prefix('gamers_teamstatus') . ' WHERE teamid=' . $this->getVar('teamid') . " AND uid=$uid";
 
         $result = $this->db->query($sql);
@@ -564,8 +562,6 @@ class Team extends \XoopsObject
      */
     final public function addTeamMember(int $memberid): bool
     {
-        $memberid = $memberid;
-
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamstatus') . " (uid, teamid, status, rank) VALUES ($memberid, " . $this->getVar('teamid') . ", '1', '3')";
 
         if (!$this->db->query($sql)) {
@@ -600,8 +596,6 @@ class Team extends \XoopsObject
      */
     final public function delTeamMember(int $uid): bool
     {
-        $uid = $uid;
-
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamstatus') . " WHERE uid=$uid AND teamid=" . $this->getVar('teamid');
 
         if (!$this->db->query($sql)) {
@@ -636,8 +630,6 @@ class Team extends \XoopsObject
      */
     final public function addTeamPosition(int $positionid): bool
     {
-        $positionid = $positionid;
-
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teampositions') . " (posid, teamid) VALUES ($positionid, " . $this->getVar('teamid') . ')';
 
         if (!$this->db->query($sql)) {
@@ -653,8 +645,6 @@ class Team extends \XoopsObject
      */
     final public function delTeamPosition(int $positionid): bool
     {
-        $positionid = $positionid;
-
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teampositions') . " WHERE posid=$positionid AND teamid=" . $this->getVar('teamid');
 
         if (!$this->db->query($sql)) {
@@ -670,8 +660,6 @@ class Team extends \XoopsObject
      */
     final public function addTeamSkill(int $positionid): bool
     {
-        $positionid = $positionid;
-
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teampositions') . " (posid, teamid) VALUES ($positionid, " . $this->getVar('teamid') . ')';
 
         if (!$this->db->query($sql)) {
@@ -687,8 +675,6 @@ class Team extends \XoopsObject
      */
     final public function delTeamSkill(int $positionid): bool
     {
-        $positionid = $positionid;
-
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teampositions') . " WHERE posid=$positionid AND teamid=" . $this->getVar('teamid');
 
         if (!$this->db->query($sql)) {
@@ -704,8 +690,6 @@ class Team extends \XoopsObject
      */
     final public function addTeamServer(int $serverid): bool
     {
-        $serverid = $serverid;
-
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teamservers') . " (serverid, teamid) VALUES ($serverid, " . $this->getVar('teamid') . ')';
 
         if (!$this->db->query($sql)) {
@@ -721,8 +705,6 @@ class Team extends \XoopsObject
      */
     final public function delTeamServer(int $serverid): bool
     {
-        $serverid = $serverid;
-
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamservers') . " WHERE serverid=$serverid AND teamid=" . $this->getVar('teamid');
 
         if (!$this->db->query($sql)) {
@@ -738,8 +720,6 @@ class Team extends \XoopsObject
      */
     final public function addMap(int $mapid): bool
     {
-        $mapid = $mapid;
-
         $sql = 'INSERT INTO ' . $this->db->prefix('gamers_teammaps') . " (mapid, teamid) VALUES ($mapid, " . $this->getVar('teamid') . ')';
 
         if (!$this->db->query($sql)) {
@@ -755,8 +735,6 @@ class Team extends \XoopsObject
      */
     final public function delMap(int $mapid): bool
     {
-        $mapid = $mapid;
-
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teammaps') . " WHERE mapid=$mapid AND teamid=" . $this->getVar('teamid');
 
         if (!$this->db->query($sql)) {
@@ -789,8 +767,6 @@ class Team extends \XoopsObject
      */
     final public function delTeamSize(int $sizeid): bool
     {
-        $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamsizes') . " WHERE sizeid=$sizeid AND teamid=" . $this->getVar('teamid');
-
         if (!$this->db->query($sql)) {
             return false;
         }
@@ -819,8 +795,6 @@ class Team extends \XoopsObject
      */
     final public function delTeamSide(int $sideid): bool
     {
-        $sideid = $sideid;
-
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamsides') . " WHERE sideid=$sideid AND teamid=" . $this->getVar('teamid');
 
         if (!$this->db->query($sql)) {
@@ -852,8 +826,6 @@ class Team extends \XoopsObject
      */
     final public function delTeamRank(int $rankid): bool
     {
-        $rankid = $rankid;
-
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamrank') . " WHERE rankid=$rankid AND teamid=" . $this->getVar('teamid');
 
         if (!$this->db->query($sql)) {
@@ -885,8 +857,6 @@ class Team extends \XoopsObject
      */
     final public function delTeamLadder(int $ladderid): bool
     {
-        $ladderid = $ladderid;
-
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_teamladders') . " WHERE ladderid=$ladderid AND teamid=" . $this->getVar('teamid');
 
         if (!$this->db->query($sql)) {
