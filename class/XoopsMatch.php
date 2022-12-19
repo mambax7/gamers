@@ -44,36 +44,36 @@ class XoopsMatch extends \XoopsObject
 
         $this->table = $this->db->prefix('gamers_matches');
 
-        $this->initVar('matchid', XOBJ_DTYPE_INT);
+        $this->initVar('matchid', \XOBJ_DTYPE_INT);
 
-        $this->initVar('uid', XOBJ_DTYPE_INT);
+        $this->initVar('uid', \XOBJ_DTYPE_INT);
 
-        $this->initVar('matchdate', XOBJ_DTYPE_INT);
+        $this->initVar('matchdate', \XOBJ_DTYPE_INT);
 
-        $this->initVar('teamid', XOBJ_DTYPE_INT);
+        $this->initVar('teamid', \XOBJ_DTYPE_INT);
 
-        $this->initVar('created', XOBJ_DTYPE_INT);
+        $this->initVar('created', \XOBJ_DTYPE_INT);
 
-        $this->initVar('teamsize', XOBJ_DTYPE_INT, 0);
+        $this->initVar('teamsize', \XOBJ_DTYPE_INT, 0);
 
-        $this->initVar('opponent', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('opponent', \XOBJ_DTYPE_TXTBOX);
 
-        $this->initVar('ladder', XOBJ_DTYPE_TXTBOX, '');
+        $this->initVar('ladder', \XOBJ_DTYPE_TXTBOX, '');
 
-        $this->initVar('matchresult', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('matchresult', \XOBJ_DTYPE_TXTBOX);
 
-        $this->initVar('review', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('review', \XOBJ_DTYPE_TXTBOX);
 
-        $this->initVar('server', XOBJ_DTYPE_INT);
+        $this->initVar('server', \XOBJ_DTYPE_INT);
 
-        $this->initVar('customserver', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('customserver', \XOBJ_DTYPE_TXTBOX);
 
-        $this->initVar('alock', XOBJ_DTYPE_INT);
+        $this->initVar('alock', \XOBJ_DTYPE_INT);
 
-        if (is_array($matchid)) {
+        if (\is_array($matchid)) {
             $this->assignVars($matchid);
         } elseif (-1 != $matchid) {
-            $matchHandler = xoops_getHandler('match');
+            $matchHandler = \xoops_getHandler('match');
 
             $match = $matchHandler->get($matchid);
 
@@ -102,7 +102,7 @@ class XoopsMatch extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $players = [];
@@ -123,7 +123,7 @@ class XoopsMatch extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $players = [];
@@ -145,7 +145,7 @@ class XoopsMatch extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $players = [];
@@ -164,7 +164,7 @@ class XoopsMatch extends \XoopsObject
 
                 $result = $this->db->query($sql);
                 if (!$this->db->isResultSet($result)) {
-                    \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+                    \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
                 }
 
                 $skills = [];
@@ -191,7 +191,7 @@ class XoopsMatch extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $maps = [];
@@ -213,9 +213,9 @@ class XoopsMatch extends \XoopsObject
         $this->db->query($sql);
 
         if ($this->db->getAffectedRows() > 0) {
-            redirect_header('index.php?teamid=' . $this->teamid, 3, _MD_GAMERS_MATCHLOCKED);
+            \redirect_header('index.php?teamid=' . $this->teamid, 3, _MD_GAMERS_MATCHLOCKED);
         } else {
-            redirect_header('availability.php?mid=' . $this->matchid, 3, _MD_DBNOTUPDATED);
+            \redirect_header('availability.php?mid=' . $this->matchid, 3, _MD_DBNOTUPDATED);
         }
     }
 
@@ -229,9 +229,9 @@ class XoopsMatch extends \XoopsObject
         $this->db->query($sql);
 
         if ($this->db->getAffectedRows() > 0) {
-            redirect_header('index.php?teamid=' . $this->teamid, 3, _MD_GAMERS_MATCHUNLOCKED);
+            \redirect_header('index.php?teamid=' . $this->teamid, 3, _MD_GAMERS_MATCHUNLOCKED);
         } else {
-            redirect_header('availability.php?mid=' . $this->matchid, 3, _MD_DBNOTUPDATED);
+            \redirect_header('availability.php?mid=' . $this->matchid, 3, _MD_DBNOTUPDATED);
         }
     }
 
@@ -256,7 +256,7 @@ class XoopsMatch extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $row = $this->db->fetchArray($result);

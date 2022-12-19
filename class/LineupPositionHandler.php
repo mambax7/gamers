@@ -21,7 +21,7 @@ namespace XoopsModules\Gamers;
 
 // Class for Lineup management for Gamers Module
 
-if (!defined('XOOPS_ROOT_PATH')) {
+if (!\defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
 }
 //if (!class_exists('XoopsPersistableObjectHandler')) {

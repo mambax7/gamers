@@ -21,7 +21,7 @@ namespace XoopsModules\Gamers;
 
 // Class for Tactics management for Gamers Module
 
-if (!defined('XOOPS_ROOT_PATH')) {
+if (!\defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
 }
 //if (!class_exists('XoopsPersistableObjectHandler')) {
@@ -46,15 +46,15 @@ class TacticsPosition extends \XoopsObject
         $lineupid = null;
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
 
-        $this->initVar('tacposid', XOBJ_DTYPE_INT);
+        $this->initVar('tacposid', \XOBJ_DTYPE_INT);
 
-        $this->initVar('tacid', XOBJ_DTYPE_INT);
+        $this->initVar('tacid', \XOBJ_DTYPE_INT);
 
-        $this->initVar('posid', XOBJ_DTYPE_INT);
+        $this->initVar('posid', \XOBJ_DTYPE_INT);
 
-        $this->initVar('posdesc', XOBJ_DTYPE_TXTAREA);
+        $this->initVar('posdesc', \XOBJ_DTYPE_TXTAREA);
 
-        if (is_array($tacposid)) {
+        if (\is_array($tacposid)) {
             $this->assignVars($tacposid);
         } elseif (0 !== $tacposid) {
             $positionHandler = Helper::getInstance()->getHandler('TacticsPosition');

@@ -20,7 +20,7 @@ namespace XoopsModules\Gamers;
 
 // Class for Team management for Gamers Module
 
-if (!defined('XOOPS_ROOT_PATH')) {
+if (!\defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
 }
 //if (!class_exists('XoopsPersistableObjectHandler')) {
@@ -42,15 +42,15 @@ class Team extends \XoopsObject
      */
     public function __construct(int $teamid = -1)
     {
-        $this->initVar('teamid', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('teamid', \XOBJ_DTYPE_INT, null, false);
 
-        $this->initVar('teamname', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('teamname', \XOBJ_DTYPE_TXTBOX);
 
-        $this->initVar('teamtype', XOBJ_DTYPE_TXTBOX);
+        $this->initVar('teamtype', \XOBJ_DTYPE_TXTBOX);
 
-        $this->initVar('maps', XOBJ_DTYPE_INT);
+        $this->initVar('maps', \XOBJ_DTYPE_INT);
 
-        $this->initVar('defteam', XOBJ_DTYPE_INT);
+        $this->initVar('defteam', \XOBJ_DTYPE_INT);
 
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
     }
@@ -65,7 +65,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $matches = [];
@@ -94,7 +94,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $maps = [];
@@ -115,7 +115,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $members = [];
@@ -136,7 +136,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $pos = [];
@@ -157,7 +157,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $pos = [];
@@ -178,7 +178,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $players = [];
@@ -196,7 +196,7 @@ class Team extends \XoopsObject
 
             $result = $this->db->query($sql);
             if (!$this->db->isResultSet($result)) {
-                \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+                \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
             }
 
             $skills = [];
@@ -220,7 +220,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $posshort = [];
@@ -241,7 +241,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $teamsizes = [];
@@ -262,7 +262,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $teamsides = [];
@@ -283,7 +283,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $teamladders = [];
@@ -304,7 +304,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $teamranks = [];
@@ -327,7 +327,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $servers = [];
@@ -348,7 +348,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $members = [];
@@ -370,7 +370,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
         $uids = [];
 
@@ -395,12 +395,12 @@ class Team extends \XoopsObject
         }
 
         /** @var \XoopsMemberHandler $memberHandler */
-        $memberHandler = xoops_getHandler('member');
+        $memberHandler = \xoops_getHandler('member');
 
-        $users = $memberHandler->getUsers(new \Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'));
+        $users = $memberHandler->getUsers(new \Criteria('uid', '(' . \implode(',', \array_keys($uids)) . ')', 'IN'));
 
-        if ((is_countable($users) ? count($users) : 0) > 0) {
-            foreach (array_keys($users) as $i) {
+        if ((\is_countable($users) ? \count($users) : 0) > 0) {
+            foreach (\array_keys($users) as $i) {
                 $key = $uids[$users[$i]->getVar('uid')];
 
                 $members[$key]['uname'] = $users[$i]->getVar('uname');
@@ -439,7 +439,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $teamadmin = $this->db->fetchArray($result);
@@ -469,7 +469,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $teamadmin = $this->db->fetchArray($result);
@@ -491,7 +491,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $teamadmin = $this->db->fetchArray($result);
@@ -516,12 +516,12 @@ class Team extends \XoopsObject
         $result = $this->db->query($sql);
 
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         $teammember = $this->db->fetchArray($result);
 
-        if ((is_countable($teammember) ? count($teammember) : 0) >= 1) {
+        if ((\is_countable($teammember) ? \count($teammember) : 0) >= 1) {
             if (null !== $teammember['rank']) {
                 return true;
             }
@@ -541,7 +541,7 @@ class Team extends \XoopsObject
 
         $allteams = getTeams();
 
-        if ((is_countable($allteams) ? count($allteams) : 0) > 1) {
+        if ((\is_countable($allteams) ? \count($allteams) : 0) > 1) {
             $xoopsTpl->assign('lang_selecttitle', _MD_GAMERS_TEAMSELECTION);
 
             $xoopsTpl->assign('lang_selectcaption', _MD_GAMERS_TEAM);
@@ -576,7 +576,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         while (false !== ($match = $this->db->fetchArray($result))) {
@@ -612,7 +612,7 @@ class Team extends \XoopsObject
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         while (false !== ($availability = $this->db->fetchArray($result))) {
@@ -1006,11 +1006,11 @@ class Team extends \XoopsObject
 
         $xoopsTpl->assign('teamskills', ['posshort' => $skills]);
 
-        $xoopsTpl->assign('numcells', count($teampositions) + count($teamskills) + 1);
+        $xoopsTpl->assign('numcells', \count($teampositions) + \count($teamskills) + 1);
 
-        $xoopsTpl->assign('width', 100 / (count($teampositions) + count($teamskills) + 1));
+        $xoopsTpl->assign('width', 100 / (\count($teampositions) + \count($teamskills) + 1));
 
-        $xoopsTpl->assign('numskills', count($teamskills));
+        $xoopsTpl->assign('numskills', \count($teamskills));
     }
 
     /**
@@ -1024,7 +1024,7 @@ class Team extends \XoopsObject
 
         $vars = $this->getVars();
 
-        foreach (array_keys($vars) as $i) {
+        foreach (\array_keys($vars) as $i) {
             $ret[$i] = $this->getVar($i);
         }
 

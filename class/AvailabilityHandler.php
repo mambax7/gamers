@@ -20,7 +20,7 @@ namespace XoopsModules\Gamers;
 
 // Class for Match Map management for Gamers Module
                                       //
-if (!defined('XOOPS_ROOT_PATH')) {
+if (!\defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
 }
 //if (!class_exists('XoopsPersistableObjectHandler')) {
@@ -67,7 +67,7 @@ class AvailabilityHandler extends \XoopsPersistableObjectHandler
         $result = $this->db->query($sql);
 
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         while (false !== ($myrow = $this->db->fetchArray($result))) {

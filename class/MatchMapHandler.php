@@ -20,7 +20,7 @@ namespace XoopsModules\Gamers;
 
 // Class for Match Map management for Gamers Module
 
-if (!defined('XOOPS_ROOT_PATH')) {
+if (!\defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
 }
 //if (!class_exists('XoopsPersistableObjectHandler')) {
@@ -99,16 +99,16 @@ class MatchMapHandler extends \XoopsPersistableObjectHandler
 
         $ret = [];
 
-        if ((is_countable($objs) ? count($objs) : 0) > 0) {
-            foreach (array_keys($objs) as $i) {
+        if ((\is_countable($objs) ? \count($objs) : 0) > 0) {
+            foreach (\array_keys($objs) as $i) {
                 $mapids[] = $objs[$i]->getVar('mapid');
             }
 
             $mapHandler = Helper::getInstance()->getHandler('Map');
 
-            $maps = $mapHandler->getObjects(new \Criteria('mapid', '(' . implode(',', array_unique($mapids)) . ')', 'IN'), true);
+            $maps = $mapHandler->getObjects(new \Criteria('mapid', '(' . \implode(',', \array_unique($mapids)) . ')', 'IN'), true);
 
-            foreach (array_keys($objs) as $i) {
+            foreach (\array_keys($objs) as $i) {
                 $objs[$i]->map = $maps[$objs[$i]->getVar('mapid')] ?? $mapHandler->create(false);
 
                 $ret[$objs[$i]->getVar('mapno')] = $objs[$i];

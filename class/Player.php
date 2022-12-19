@@ -2,7 +2,7 @@
 
 namespace XoopsModules\Gamers;
 // Class for Player management for Gamers Module
-if (!defined('XOOPS_ROOT_PATH')) {
+if (!\defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
 }
 
@@ -41,7 +41,7 @@ class Player extends \XoopsUser
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         while (false !== ($teammember = $this->db->fetchArray($result))) {
@@ -69,7 +69,7 @@ class Player extends \XoopsUser
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         while (false !== ($availabilities = $this->db->fetchArray($result))) {
@@ -93,7 +93,7 @@ class Player extends \XoopsUser
 
         $result = $this->db->query($sql);
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         while (false !== ($rank = $this->db->fetchArray($result))) {

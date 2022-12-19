@@ -20,7 +20,7 @@ namespace XoopsModules\Gamers;
 
 // Class for Tactics management for Gamers Module
 
-if (!defined('XOOPS_ROOT_PATH')) {
+if (!\defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
 }
 //if (!class_exists('XoopsPersistableObjectHandler')) {
@@ -52,15 +52,15 @@ class Tactics extends \XoopsObject
      */
     public function __construct(int $tacid = 0, $mapid = null, $teamsize = null)
     {
-        $this->initVar('tacid', XOBJ_DTYPE_INT, 0, false);
+        $this->initVar('tacid', \XOBJ_DTYPE_INT, 0, false);
 
-        $this->initVar('teamsize', XOBJ_DTYPE_INT);
+        $this->initVar('teamsize', \XOBJ_DTYPE_INT);
 
-        $this->initVar('teamid', XOBJ_DTYPE_INT);
+        $this->initVar('teamid', \XOBJ_DTYPE_INT);
 
-        $this->initVar('general', XOBJ_DTYPE_TXTAREA);
+        $this->initVar('general', \XOBJ_DTYPE_TXTAREA);
 
-        $this->initVar('mapid', XOBJ_DTYPE_INT);
+        $this->initVar('mapid', \XOBJ_DTYPE_INT);
 
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
 
@@ -70,7 +70,7 @@ class Tactics extends \XoopsObject
 
         $this->maptable = $this->db->prefix('gamers_mappool');
 
-        if (is_array($tacid)) {
+        if (\is_array($tacid)) {
             $this->assignVars($tacid);
         } elseif ((0 !== $tacid) && (null !== $teamsize)) {
             //$tacid is actually a teamid
@@ -108,7 +108,7 @@ class Tactics extends \XoopsObject
         $result = $this->db->query($sql);
 
         if (!$this->db->isResultSet($result)) {
-            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), E_USER_ERROR);
+            \trigger_error("Query Failed! SQL: $sql- Error: " . $this->db->error(), \E_USER_ERROR);
         }
 
         while (false !== ($row = $this->db->fetchArray($result))) {
@@ -147,7 +147,7 @@ class Tactics extends \XoopsObject
 
         require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-        $mform = new \XoopsThemeForm(_MD_GAMERS_TACTICSDISPLAY, 'display', xoops_getenv('PHP_SELF'));
+        $mform = new \XoopsThemeForm(_MD_GAMERS_TACTICSDISPLAY, 'display', \xoops_getenv('PHP_SELF'));
 
         $general = new \XoopsFormLabel(_MD_GAMERS_GENERALTACS, $this->getVar('general'));
 

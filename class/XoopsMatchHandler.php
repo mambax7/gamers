@@ -189,7 +189,7 @@ class XoopsMatchHandler extends \XoopsObjectHandler
 
             $module_id = $xoopsModule->getVar('mid');
 
-            xoops_notification_deletebyitem($module_id, 'match', $matchid);
+            \xoops_notification_deletebyitem($module_id, 'match', $matchid);
 
             return true;
         }
