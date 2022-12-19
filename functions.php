@@ -15,7 +15,7 @@ use XoopsModules\Gamers\{
  * @param $jpegqual
  * @return bool
  */
-function resizeToFile($sourcefile, $dest_x, $dest_y, $targetfile, $jpegqual)
+function resizeToFile($sourcefile, $dest_x, $dest_y, $targetfile, $jpegqual): bool
 {
     /* Get the dimensions of the source picture */
 
@@ -49,7 +49,7 @@ function resizeToFile($sourcefile, $dest_x, $dest_y, $targetfile, $jpegqual)
  * @param int $serverid
  * @return array
  */
-function getServer($serverid)
+function getServer(int $serverid): array
 {
     global $xoopsDB;
 
@@ -99,7 +99,7 @@ function getTeams()
 /**
  * @return int
  */
-function getDefaultTeam()
+function getDefaultTeam(): int
 {
     global $xoopsDB;
 
@@ -176,7 +176,7 @@ function getShort($posid)
 /**
  * @return string
  */
-function getAllShort()
+function getAllShort(): string
 {
     global $xoopsDB;
 
@@ -199,7 +199,7 @@ function getAllShort()
 /**
  * @return string
  */
-function getAllPos()
+function getAllPos(): string
 {
     global $xoopsDB;
 
@@ -223,7 +223,7 @@ function getAllPos()
  * @param int $sideid
  * @return mixed|string
  */
-function getSideShort($sideid)
+function getSideShort(int $sideid)
 {
     global $xoopsDB;
 
@@ -252,7 +252,7 @@ function getSideShort($sideid)
 /**
  * @return string
  */
-function getAllSideShort()
+function getAllSideShort(): string
 {
     global $xoopsDB;
 
@@ -275,7 +275,7 @@ function getAllSideShort()
 /**
  * @return array
  */
-function getAllLadders()
+function getAllLadders(): array
 {
     global $xoopsDB;
 
@@ -299,7 +299,7 @@ function getAllLadders()
  * @param int $sideid
  * @return mixed|string
  */
-function getSide($sideid)
+function getSide(int $sideid)
 {
     global $xoopsDB;
 
@@ -328,7 +328,7 @@ function getSide($sideid)
 /**
  * @return string
  */
-function getAllSides()
+function getAllSides(): string
 {
     global $xoopsDB;
 
@@ -354,7 +354,7 @@ function getAllSides()
  * @param     $skillid
  * @return false|string
  */
-function skillcheck($teamid, $uid, $skillid)
+function skillcheck($teamid, int $uid, $skillid)
 {
     global $xoopsDB;
 
@@ -400,7 +400,7 @@ function getStatus($status)
 /**
  * @return array
  */
-function getAllStatus()
+function getAllStatus(): array
 {
     global $xoopsDB;
 
@@ -494,7 +494,7 @@ function getPlayerStatus($statusid)
  * @param int $uid
  * @return array|false
  */
-function getPlayerRank($teamid, $uid)
+function getPlayerRank($teamid, int $uid)
 {
     global $xoopsDB;
 
@@ -518,7 +518,7 @@ function getPlayerRank($teamid, $uid)
  * @param int $mapid
  * @return mixed|string
  */
-function getMap($mapid)
+function getMap(int $mapid)
 {
     global $xoopsDB;
 
@@ -540,7 +540,7 @@ function getMap($mapid)
  * @param $mapno
  * @return string
  */
-function getCaption($mapno)
+function getCaption($mapno): string
 {
     if (1 == $mapno) {
         return _MD_GAMERS_FIRSTMAP;

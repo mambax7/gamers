@@ -218,3 +218,4 @@ define('_AM_GAMERS_LAYOUTBADCOLOR', 'Bad Color');
 //3.02
 define('_AM_GAMERS_SIZE_EDITED_OK', 'TeamSize #: %d edited successfully');
 define('_AM_GAMERS_SIDE_EDITED_OK', 'Side %s edited successfully');
+

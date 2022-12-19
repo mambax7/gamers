@@ -44,7 +44,7 @@ if (isset($_POST)) {
 /**
  * @param int $matchmapid
  */
-function screenshotadd($matchmapid)
+function screenshotadd(int $matchmapid)
 {
     $op = 'savescreenshot';
 
@@ -464,7 +464,7 @@ switch ($op) {
                 $sql = 'UPDATE ' . $xoopsDB->prefix('gamers_matchmaps') . ' SET screenshot = ' . $xoopsDB->quoteString($_FILES['screenshot']['name']) . " WHERE matchmapid = $matchmapid";
 
                 if (!$xoopsDB->query($sql)) {
-                    redirect_header('index.php?op=screenshotform&mid=' . $_POST['mid'], 3, _MD_GAMERS_ERRORWHILESAVINGSCREENSHOT);
+                    redirect_header('index.php?op=screenshotform&mid=' . $_POST['mid'], 3, _AM_GAMERS_ERRORWHILESAVINGSCREENSHOT);
 
                     exit();
                 }
