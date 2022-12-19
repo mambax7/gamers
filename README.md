@@ -1,11 +1,16 @@
-# XOOPS CMS Module   ![XOOPS CMS](https://avatars2.githubusercontent.com/u/12771439?v=3&s=200)
+![alt XOOPS CMS](https://xoops.org/images/logoXoopsPhp81.png)
+## Gamers module for  [XOOPS CMS 2.5.10+](https://xoops.org)
+[![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](https://xoops.org)
+[![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 
-**Team** is a very simple module to manage sport teams.
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/XoopsModules25x/gamers.svg?style=flat)](https://scrutinizer-ci.com/g/XoopsModules25x/gamers/?branch=master)
+[![Latest Pre-Release](https://img.shields.io/github/tag/XoopsModules25x/gamers.svg?style=flat)](https://github.com/XoopsModules25x/gamers/tags/)
+[![Latest Version](https://img.shields.io/github/release/XoopsModules25x/gamers.svg?style=flat)](https://github.com/XoopsModules25x/gamers/releases/)
 
-**XOOPS Module Archive:** Module in this archive are older modules for XOOPS CMS, and therefore some of them might not work with the latest XOOPS and PHP versions. 
+**Gamers** module for [XOOPS CMS](https://xoops.org) is a very simple module to manage gaming teams.
 
-However, please fork them and if you have any improvements and fixes, please share them back with us. 
+[![Translations on Transifex](https://xoops.org/images/translations-transifex-blue.svg)](https://www.transifex.com/xoops)
 
-Visit us on http://xoops.org
+Please visit us on https://xoops.org
 
-The upcoming XOOPS CMS version is being crafted at: https://github.com/XOOPS
+Current and upcoming "next generation" versions of XOOPS CMS are crafted on GitHub at: https://github.com/XOOPS

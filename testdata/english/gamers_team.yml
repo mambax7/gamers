@@ -1,0 +1,24 @@
+-
+    teamid: '1'
+    teamname: Team1
+    teamtype: Type1
+    maps: '1'
+    defteam: '1'
+-
+    teamid: '2'
+    teamname: Team2
+    teamtype: Type2
+    maps: '1'
+    defteam: '0'
+-
+    teamid: '3'
+    teamname: Team3
+    teamtype: Type3
+    maps: '2'
+    defteam: '1'
+-
+    teamid: '4'
+    teamname: Team4
+    teamtype: Type4
+    maps: '2'
+    defteam: '0'

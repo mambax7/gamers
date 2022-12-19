@@ -1,1 +1,1 @@
-ALTER TABLE `team_lineups_positions` ADD `matchmapid` int AFTER `posid`;
+ALTER TABLE `gamers_lineups_positions` ADD `matchmapid` int AFTER `posid`;

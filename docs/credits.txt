@@ -1,6 +1,9 @@
 Credits
 ===============
 
-Originally developed by Mithrandir
+This module was originally developed by Mithrandir under the name "Team"
 
-Version 3.02 was updated to XOOPS 2.5.5 Standard GUI by Michael Beck (Mamba)
+Version 3.02 was updated to XOOPS 2.5.11 Standard GUI and PHP 8.2 by Michael Beck (Mamba), and renamed to Gamers
+
+Translations: algalochkin, jace303
+

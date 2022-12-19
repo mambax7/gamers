@@ -1,0 +1,15 @@
+-
+    ladderid: '1'
+    ladder: Ladder
+    visible: '1'
+    scoresvisible: '1'
+-
+    ladderid: '2'
+    ladder: Scrimm
+    visible: '1'
+    scoresvisible: '1'
+-
+    ladderid: '3'
+    ladder: Practice
+    visible: '0'
+    scoresvisible: '1'

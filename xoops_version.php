@@ -1,145 +1,151 @@
-<?php
-// $Id: xoops_version.php,v 1.12 2006/09/02 09:00:52 mithyt2 Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-$modversion['name'] = _MI_MATCH_NAME;
-$modversion['version'] = 3.02;
-$modversion['versionstatus'] = "Full";
-$modversion['description'] = _MI_MATCH_DESC;
-$modversion['credits'] = "The XOOPS Project";
-$modversion['help']        = 'page=help';
-$modversion['license']     = 'GNU GPL 2.0 or later';
-$modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html/";
+<?php declare(strict_types=1);
+
+
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Mithrandir, Mamba, XOOPS Development Team
+ */
+
+use XoopsModules\Gamers\{
+    Helper
+};
+
+/** @var Helper $helper */
+
+require_once __DIR__ . '/preloads/autoloader.php';
+
+$moduleDirName      = basename(__DIR__);
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+$helper             = Helper::getInstance();
+
+
+
+$modversion['version'] = '3.2.0-Alpha 1';
+$modversion['module_status'] = '';
+$modversion['release_date'] = '2022/12/16';
+$modversion['name'] = _MI_GAMERS_NAME;
+$modversion['versionstatus'] = 'Full';
+$modversion['description'] = _MI_GAMERS_DESC;
+$modversion['credits'] = 'The XOOPS Project';
+$modversion['license'] = 'GNU GPL 2.0 or later';
+$modversion['license_url'] = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official'] = 1;
-$modversion['author'] = "Mithrandir";
-$modversion['image'] = "images/team_slogo.png";
-$modversion['dirname'] = "team";
+$modversion['author'] = 'Mithrandir';
+$modversion['image'] = 'images/logo.png';
+$modversion['dirname'] = $moduleDirName;
+$modversion['module_website_url'] = 'www.xoops.org';
+$modversion['module_website_name'] = 'XOOPS';
+$modversion['min_php'] = '7.4';
+$modversion['min_xoops'] = '2.5.10';
+$modversion['min_admin'] = '1.2';
+$modversion['min_db'] = ['mysql' => '5.5'];
 
-$modversion['dirmoduleadmin'] = '/Frameworks/moduleclasses/moduleadmin';
-$modversion['icons16']        = '../../Frameworks/moduleclasses/icons/16';
-$modversion['icons32']        = '../../Frameworks/moduleclasses/icons/32';
-//about
-$modversion['release_date']        = '2013/02/02';
-$modversion["module_website_url"]  = "www.xoops.org";
-$modversion["module_website_name"] = "XOOPS";
-$modversion["module_status"]       = "Beta 1";
-$modversion['min_php']             = '5.2';
-$modversion['min_xoops']           = "2.5.5";
-$modversion['min_admin']           = '1.1';
-$modversion['min_db']              = array(
-    'mysql'  => '5.0.7',
-    'mysqli' => '5.0.7'
-);
+// ------------------- Help files ------------------- //
+$modversion['help']        = 'page=help';
+$modversion['helpsection'] = [
+    ['name' => _MI_GAMERS_OVERVIEW, 'link' => 'page=help'],
+    ['name' => _MI_GAMERS_DISCLAIMER, 'link' => 'page=disclaimer'],
+    ['name' => _MI_GAMERS_LICENSE, 'link' => 'page=license'],
+    ['name' => _MI_GAMERS_SUPPORT, 'link' => 'page=support'],
+    ['name' => _MI_GAMERS_TERMS, 'link' => 'page=terms'],
+];
 
-// Sql file (must contain sql generated by phpMyAdmin or phpPgAdmin)
-// All tables should not have any prefix!
-$modversion['sqlfile']['mysql'] = "sql/mysql.sql";
-//$modversion['sqlfile']['postgresql'] = "sql/pgsql.sql";
-
+// ------------------- Mysql ------------------- //
+$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 // Tables created by sql file (without prefix!)
-$modversion['tables'][0] = "team_availability";
-$modversion['tables'][1] = "team_layout"; //Move to module config
-$modversion['tables'][2] = "team_ladders"; //No class
-$modversion['tables'][3] = "team_lineups_positions";
-$modversion['tables'][4] = "team_mappool";
-$modversion['tables'][5] = "team_matches";
-$modversion['tables'][6] = "team_matchmaps";
-$modversion['tables'][7] = "team_positions"; //No class
-$modversion['tables'][8] = "team_rank"; //No class
-$modversion['tables'][9] = "team_server"; //No class
-$modversion['tables'][10] = "team_sides"; //No class
-$modversion['tables'][11] = "team_sizes"; //No class
-$modversion['tables'][12] = "team_skills"; //No class
-$modversion['tables'][13] = "team_status"; //No class
-$modversion['tables'][14] = "team_tactics";
-$modversion['tables'][15] = "team_tactics_positions";
-$modversion['tables'][16] = "team_team";
-$modversion['tables'][17] = "team_teamladders"; //No class
-$modversion['tables'][18] = "team_teammaps"; //No class
-$modversion['tables'][19] = "team_teampositions"; //No class
-$modversion['tables'][20] = "team_teamservers"; //No class
-$modversion['tables'][21] = "team_teamstatus"; //No class
-$modversion['tables'][22] = "team_teamsides"; //No class
-$modversion['tables'][23] = "team_teamsizes"; //No class
-$modversion['tables'][24] = "team_teamrank"; //No class
-
+$modversion['tables'] = [
+    $moduleDirName . '_' . 'availability',
+    $moduleDirName . '_' . 'layout', //Move to module config
+    $moduleDirName . '_' . 'ladders', //No class
+    $moduleDirName . '_' . 'lineups_positions',
+    $moduleDirName . '_' . 'mappool',
+    $moduleDirName . '_' . 'matches',
+    $moduleDirName . '_' . 'matchmaps',
+    $moduleDirName . '_' . 'positions', //No class
+    $moduleDirName . '_' . 'rank', //No class
+    $moduleDirName . '_' . 'server', //No class
+    $moduleDirName . '_' . 'sides', //No class
+    $moduleDirName . '_' . 'sizes', //No class
+    $moduleDirName . '_' . 'skills', //No class
+    $moduleDirName . '_' . 'status', //No class
+    $moduleDirName . '_' . 'tactics',
+    $moduleDirName . '_' . 'tactics_positions',
+    $moduleDirName . '_' . 'team',
+    $moduleDirName . '_' . 'teamladders', //No class
+    $moduleDirName . '_' . 'teammaps', //No class
+    $moduleDirName . '_' . 'teampositions', //No class
+    $moduleDirName . '_' . 'teamservers', //No class
+    $moduleDirName . '_' . 'teamstatus', //No class
+    $moduleDirName . '_' . 'teamsides', //No class
+    $moduleDirName . '_' . 'teamsizes', //No class
+    $moduleDirName . '_' . 'teamrank', //No class
+];
 
 // Admin things
 $modversion['hasAdmin'] = 1;
 $modversion['system_menu'] = 1;
-$modversion['adminindex'] = "admin/index.php";
-$modversion['adminmenu'] = "admin/menu.php";
+$modversion['adminindex'] = 'admin/index.php';
+$modversion['adminmenu'] = 'admin/menu.php';
 
-$modversion['onUpdate'] = "include/update.php";
+$modversion['onUpdate'] = 'include/update.php';
 
 // Blocks
-$modversion['blocks'][1]['file'] = "availability.php";
-$modversion['blocks'][1]['name'] = _MI_MATCH_BNAME1;
-$modversion['blocks'][1]['description'] = "Shows personal availability";
-$modversion['blocks'][1]['show_func'] = "sh_availability";
-$modversion['blocks'][2]['file'] = "navmenu.php";
-$modversion['blocks'][2]['name'] = _MI_MATCH_BNAME2;
-$modversion['blocks'][2]['description'] = "Shows Navigation Menu";
-$modversion['blocks'][2]['show_func'] = "sh_navmenu";
+$modversion['blocks'][1]['file'] = 'availability.php';
+$modversion['blocks'][1]['name'] = _MI_GAMERS_BNAME1;
+$modversion['blocks'][1]['description'] = 'Shows personal availability';
+$modversion['blocks'][1]['show_func'] = 'sh_availability';
+$modversion['blocks'][2]['file'] = 'navmenu.php';
+$modversion['blocks'][2]['name'] = _MI_GAMERS_BNAME2;
+$modversion['blocks'][2]['description'] = 'Shows Navigation Menu';
+$modversion['blocks'][2]['show_func'] = 'sh_navmenu';
 
 // Templates
-$modversion['templates'][1]['file'] = 'team_userprofile.html';
+$modversion['templates'][1]['file'] = 'gamers_userprofile.tpl';
 $modversion['templates'][1]['description'] = 'Player Profile';
-$modversion['templates'][2]['file'] = 'team_matchdetails.html';
+$modversion['templates'][2]['file'] = 'gamers_matchdetails.tpl';
 $modversion['templates'][2]['description'] = 'Match Details';
-$modversion['templates'][3]['file'] = 'team_matchlist.html';
+$modversion['templates'][3]['file'] = 'gamers_matchlist.tpl';
 $modversion['templates'][3]['description'] = 'List of Matches';
-$modversion['templates'][4]['file'] = 'team_availability.html';
+$modversion['templates'][4]['file'] = 'gamers_availability.tpl';
 $modversion['templates'][4]['description'] = 'Match Availability';
-$modversion['templates'][5]['file'] = 'team_roster.html';
+$modversion['templates'][5]['file'] = 'gamers_roster.tpl';
 $modversion['templates'][5]['description'] = 'Team Roster';
-$modversion['templates'][6]['file'] = 'team_select.html';
+$modversion['templates'][6]['file'] = 'gamers_select.tpl';
 $modversion['templates'][6]['description'] = 'Selection Template';
-$modversion['templates'][7]['file'] = 'team_teamadmin.html';
+$modversion['templates'][7]['file'] = 'gamers_teamadmin.tpl';
 $modversion['templates'][7]['description'] = 'Team Administration';
-$modversion['templates'][8]['file'] = 'team_avstats.html';
+$modversion['templates'][8]['file'] = 'gamers_avstats.tpl';
 $modversion['templates'][8]['description'] = 'Availability Statistics';
-$modversion['templates'][9]['file'] = 'team_positions.html';
+$modversion['templates'][9]['file'] = 'gamers_positions.tpl';
 $modversion['templates'][9]['description'] = 'Position Tables';
-$modversion['templates'][10]['file'] = 'team_tactics_list.html';
+$modversion['templates'][10]['file'] = 'gamers_tactics_list.tpl';
 $modversion['templates'][10]['description'] = 'Tactics list table';
 
 // Menu
 $modversion['hasMain'] = 1;
-$modversion['sub'][1]['name'] = _MI_MATCH_SMNAME2;
-$modversion['sub'][1]['url'] = "index.php";
-$modversion['sub'][2]['name'] = _MI_MATCH_SMNAME3;
-$modversion['sub'][2]['url'] = "roster.php";
-$modversion['sub'][3]['name'] = _MI_MATCH_SMNAME4;
-$modversion['sub'][3]['url'] = "tactics.php";
+$modversion['sub'][1]['name'] = _MI_GAMERS_SMNAME2;
+$modversion['sub'][1]['url'] = 'index.php';
+$modversion['sub'][2]['name'] = _MI_GAMERS_SMNAME3;
+$modversion['sub'][2]['url'] = 'roster.php';
+$modversion['sub'][3]['name'] = _MI_GAMERS_SMNAME4;
+$modversion['sub'][3]['url'] = 'tactics.php';
 
 //Preferences
 /*
 $modversion['config'][1]['name'] = 'selected_sections';
-$modversion['config'][1]['title'] = '_MI_TEAM_SECTIONS';
-$modversion['config'][1]['description'] = '_MI_TEAM_SECTIONSDESC';
+$modversion['config'][1]['title'] = '_MI_GAMERS_SECTIONS';
+$modversion['config'][1]['description'] = '_MI_GAMERS_SECTIONSDESC';
 $modversion['config'][1]['formtype'] = 'select_multi';
 $modversion['config'][1]['valuetype'] = 'array';
 $modversion['config'][1]['default'] = array('Tactics', 'Matches', 'Availability', 'Stats', 'Player Profiles');
@@ -153,33 +159,56 @@ $modversion['config'][1]['options'] = array(
 //Notification
 $modversion['hasNotification'] = 1;
 $modversion['notification']['lookup_file'] = 'include/notification.inc.php';
-$modversion['notification']['lookup_func'] = 'team_notify_iteminfo';
+$modversion['notification']['lookup_func'] = 'gamers_notify_iteminfo';
 
 $modversion['notification']['category'][1]['name'] = 'match';
-$modversion['notification']['category'][1]['title'] = _MI_TEAM_MATCH_NOTIFY;
-$modversion['notification']['category'][1]['description'] = _MI_TEAM_MATCH_NOTIFYDSC;
-$modversion['notification']['category'][1]['subscribe_from'] = array('matchdetails.php', 'availability.php' );
+$modversion['notification']['category'][1]['title'] = _MI_GAMERS_MATCH_NOTIFY;
+$modversion['notification']['category'][1]['description'] = _MI_GAMERS_MATCH_NOTIFYDSC;
+$modversion['notification']['category'][1]['subscribe_from'] = ['matchdetails.php', 'availability.php'];
 $modversion['notification']['category'][1]['item_name'] = 'mid';
 
 $modversion['notification']['category'][2]['name'] = 'team';
-$modversion['notification']['category'][2]['title'] = _MI_TEAM_MATCH_NOTIFY;
-$modversion['notification']['category'][2]['description'] = _MI_TEAM_MATCH_NOTIFYDSC;
+$modversion['notification']['category'][2]['title'] = _MI_GAMERS_MATCH_NOTIFY;
+$modversion['notification']['category'][2]['description'] = _MI_GAMERS_MATCH_NOTIFYDSC;
 $modversion['notification']['category'][2]['subscribe_from'] = 'index.php';
 $modversion['notification']['category'][2]['item_name'] = 'teamid';
 
 $modversion['notification']['event'][1]['name'] = 'new_match';
 $modversion['notification']['event'][1]['category'] = 'team';
-$modversion['notification']['event'][1]['title'] = _MI_TEAM_NEWMATCH_NOTIFY;
-$modversion['notification']['event'][1]['caption'] = _MI_TEAM_NEWMATCH_NOTIFYCAP;
-$modversion['notification']['event'][1]['description'] = _MI_TEAM_NEWMATCH_NOTIFYDSC;
-$modversion['notification']['event'][1]['mail_template'] = 'team_newmatch_notify';
-$modversion['notification']['event'][1]['mail_subject'] = _MI_TEAM_NEWMATCH_NOTIFYSBJ;
+$modversion['notification']['event'][1]['title'] = _MI_GAMERS_NEWMATCH_NOTIFY;
+$modversion['notification']['event'][1]['caption'] = _MI_GAMERS_NEWMATCH_NOTIFYCAP;
+$modversion['notification']['event'][1]['description'] = _MI_GAMERS_NEWMATCH_NOTIFYDSC;
+$modversion['notification']['event'][1]['mail_template'] = 'gamers_newmatch_notify';
+$modversion['notification']['event'][1]['mail_subject'] = _MI_GAMERS_NEWMATCH_NOTIFYSBJ;
 
 $modversion['notification']['event'][2]['name'] = 'new_lineup';
 $modversion['notification']['event'][2]['category'] = 'match';
-$modversion['notification']['event'][2]['title'] = _MI_TEAM_NEWLINEUP_NOTIFY;
-$modversion['notification']['event'][2]['caption'] = _MI_TEAM_NEWLINEUP_NOTIFYCAP;
-$modversion['notification']['event'][2]['description'] = _MI_TEAM_NEWLINEUP_NOTIFYDSC;
-$modversion['notification']['event'][2]['mail_template'] = 'team_newlineup_notify';
-$modversion['notification']['event'][2]['mail_subject'] = _MI_TEAM_NEWLINEUP_NOTIFYSBJ;
-?>
+$modversion['notification']['event'][2]['title'] = _MI_GAMERS_NEWLINEUP_NOTIFY;
+$modversion['notification']['event'][2]['caption'] = _MI_GAMERS_NEWLINEUP_NOTIFYCAP;
+$modversion['notification']['event'][2]['description'] = _MI_GAMERS_NEWLINEUP_NOTIFYDSC;
+$modversion['notification']['event'][2]['mail_template'] = 'gamers_newlineup_notify';
+$modversion['notification']['event'][2]['mail_subject'] = _MI_GAMERS_NEWLINEUP_NOTIFYSBJ;
+
+/**
+ * Make Sample button visible?
+ */
+$modversion['config'][] = [
+    'name'        => 'displaySampleButton',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+/**
+ * Show Developer Tools?
+ */
+$modversion['config'][] = [
+    'name'        => 'displayDeveloperTools',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
+];

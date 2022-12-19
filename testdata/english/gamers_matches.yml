@@ -1,0 +1,28 @@
+-
+    matchid: '1'
+    uid: '1'
+    matchdate: '1671310800'
+    teamid: '1'
+    created: '1671425968'
+    teamsize: '5'
+    opponent: BBB
+    ladder: Ladder
+    matchresult: Win
+    review: 'Awesome game, we''ve learned a lot '
+    server: '1'
+    customserver: ''
+    alock: '0'
+-
+    matchid: '2'
+    uid: '1'
+    matchdate: '1671483600'
+    teamid: '1'
+    created: '1671426018'
+    teamsize: '5'
+    opponent: BBB
+    ladder: Ladder
+    matchresult: ''
+    review: ''
+    server: '0'
+    customserver: ''
+    alock: '0'

@@ -1,0 +1,14 @@
+-
+    serverid: '1'
+    servername: Server1
+    serverip: IP
+    serverport: '3307'
+    is_bookable: '1'
+    serverzone: '2'
+-
+    serverid: '2'
+    servername: Server2
+    serverip: 123.456.789
+    serverport: '3306'
+    is_bookable: '0'
+    serverzone: '1'

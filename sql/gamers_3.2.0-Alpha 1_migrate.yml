@@ -1,0 +1,592 @@
+gamers_availability:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: avid
+            attributes: ' mediumint(11) unsigned  NOT NULL auto_increment'
+        -
+            name: userid
+            attributes: ' int(12) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: availability
+            attributes: ' varchar(12)  NOT NULL '
+        -
+            name: comment
+            attributes: ' varchar(25) '
+        -
+            name: matchid
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+    keys:
+        avid:
+            columns: avid
+            unique: true
+        PRIMARY:
+            columns: avid
+            unique: true
+gamers_layout:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: layoutid
+            attributes: ' mediumint(8) unsigned  NOT NULL auto_increment'
+        -
+            name: color_status_active
+            attributes: ' varchar(12)  NOT NULL '
+        -
+            name: color_status_inactive
+            attributes: ' varchar(12)  NOT NULL '
+        -
+            name: color_status_onleave
+            attributes: ' varchar(12)  NOT NULL '
+        -
+            name: color_match_pending
+            attributes: ' varchar(12)  NOT NULL '
+        -
+            name: color_match_win
+            attributes: ' varchar(12)  NOT NULL '
+        -
+            name: color_match_loss
+            attributes: ' varchar(12)  NOT NULL '
+        -
+            name: color_match_draw
+            attributes: ' varchar(12)  NOT NULL '
+        -
+            name: color_perfect
+            attributes: ' varchar(12)  NOT NULL '
+        -
+            name: color_good
+            attributes: ' varchar(12)  NOT NULL '
+        -
+            name: color_warn
+            attributes: ' varchar(12)  NOT NULL '
+        -
+            name: color_bad
+            attributes: ' varchar(12)  NOT NULL '
+    keys:
+        layoutid:
+            columns: layoutid
+            unique: true
+        PRIMARY:
+            columns: layoutid
+            unique: true
+gamers_ladders:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: ladderid
+            attributes: ' tinyint(4)  NOT NULL auto_increment'
+        -
+            name: ladder
+            attributes: ' varchar(32)  NOT NULL '
+        -
+            name: visible
+            attributes: ' tinyint(4)  NOT NULL  DEFAULT ''1'' '
+        -
+            name: scoresvisible
+            attributes: ' tinyint(4)  NOT NULL  DEFAULT ''1'' '
+    keys:
+        PRIMARY:
+            columns: ladderid
+            unique: true
+gamers_lineups_positions:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: lineupid
+            attributes: ' mediumint(8) unsigned  NOT NULL auto_increment'
+        -
+            name: posid
+            attributes: ' mediumint(8) '
+        -
+            name: posdesc
+            attributes: ' text '
+        -
+            name: uid
+            attributes: ' int(12) '
+        -
+            name: matchmapid
+            attributes: ' int(12) '
+    keys:
+        lineupid:
+            columns: lineupid
+            unique: true
+        lineupid_2:
+            columns: lineupid
+            unique: false
+        PRIMARY:
+            columns: lineupid
+            unique: true
+gamers_mappool:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: mapid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: mapname
+            attributes: ' varchar(25)  NOT NULL '
+    keys:
+        mapid:
+            columns: mapid
+            unique: true
+        PRIMARY:
+            columns: mapid
+            unique: true
+gamers_matches:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: matchid
+            attributes: ' mediumint(11) unsigned  NOT NULL auto_increment'
+        -
+            name: uid
+            attributes: ' int(12) '
+        -
+            name: matchdate
+            attributes: ' int(12) '
+        -
+            name: teamid
+            attributes: ' int(11)  NOT NULL '
+        -
+            name: created
+            attributes: ' int(12) '
+        -
+            name: teamsize
+            attributes: ' int(5)  NOT NULL '
+        -
+            name: opponent
+            attributes: ' varchar(25)  NOT NULL '
+        -
+            name: ladder
+            attributes: ' varchar(32)  NOT NULL '
+        -
+            name: matchresult
+            attributes: ' varchar(12)  NOT NULL  DEFAULT '''' '
+        -
+            name: review
+            attributes: ' text '
+        -
+            name: server
+            attributes: ' int(11) '
+        -
+            name: customserver
+            attributes: ' varchar(32) '
+        -
+            name: alock
+            attributes: ' tinyint(4)  DEFAULT ''0'' '
+    keys:
+        matchid:
+            columns: matchid
+            unique: true
+        PRIMARY:
+            columns: matchid
+            unique: true
+gamers_matchmaps:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: matchmapid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: mapno
+            attributes: ' tinyint(4)  NOT NULL '
+        -
+            name: matchid
+            attributes: ' mediumint(11)  NOT NULL '
+        -
+            name: mapid
+            attributes: ' int(11) '
+        -
+            name: side
+            attributes: ' int(11) '
+        -
+            name: ourscore
+            attributes: ' int(11)  DEFAULT ''0'' '
+        -
+            name: theirscore
+            attributes: ' int(11)  DEFAULT ''0'' '
+        -
+            name: general
+            attributes: ' text '
+        -
+            name: screenshot
+            attributes: ' varchar(64)  DEFAULT '''' '
+    keys:
+        matchmapid:
+            columns: matchmapid
+            unique: true
+        PRIMARY:
+            columns: matchmapid
+            unique: true
+gamers_positions:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: posid
+            attributes: ' mediumint(8) unsigned  NOT NULL auto_increment'
+        -
+            name: postype
+            attributes: ' varchar(25) '
+        -
+            name: posname
+            attributes: ' varchar(25) '
+        -
+            name: posshort
+            attributes: ' varchar(12) '
+        -
+            name: posorder
+            attributes: ' tinyint(4) '
+    keys:
+        posid:
+            columns: posid
+            unique: true
+        PRIMARY:
+            columns: posid
+            unique: true
+gamers_rank:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: rankid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: rank
+            attributes: ' varchar(25) '
+        -
+            name: tactics
+            attributes: ' tinyint(2) '
+        -
+            name: matches
+            attributes: ' tinyint(2) '
+        -
+            name: color
+            attributes: ' varchar(12) '
+    keys:
+        PRIMARY:
+            columns: rankid
+            unique: true
+gamers_server:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: serverid
+            attributes: ' mediumint(8) unsigned  NOT NULL auto_increment'
+        -
+            name: servername
+            attributes: ' varchar(32) '
+        -
+            name: serverip
+            attributes: ' varchar(20) '
+        -
+            name: serverport
+            attributes: ' mediumint(8) '
+        -
+            name: is_bookable
+            attributes: ' tinyint(4) '
+        -
+            name: serverzone
+            attributes: ' tinyint(4) '
+    keys:
+        PRIMARY:
+            columns: serverid
+            unique: true
+        serverid:
+            columns: serverid
+            unique: true
+        serverid_2:
+            columns: serverid
+            unique: false
+gamers_sides:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: sideid
+            attributes: ' mediumint(8)  NOT NULL auto_increment'
+        -
+            name: side
+            attributes: ' varchar(20)  NOT NULL '
+        -
+            name: sideshort
+            attributes: ' varchar(5) '
+    keys:
+        PRIMARY:
+            columns: sideid
+            unique: true
+gamers_sizes:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: sizeid
+            attributes: ' mediumint(8)  NOT NULL auto_increment'
+        -
+            name: size
+            attributes: ' tinyint(4)  NOT NULL '
+    keys:
+        PRIMARY:
+            columns: sizeid
+            unique: true
+gamers_skills:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: skillid
+            attributes: ' mediumint(8) unsigned  NOT NULL auto_increment'
+        -
+            name: posid
+            attributes: ' mediumint(8) '
+        -
+            name: uid
+            attributes: ' int(11) '
+        -
+            name: teamid
+            attributes: ' int(11) '
+    keys:
+        PRIMARY:
+            columns: skillid
+            unique: true
+        skillid:
+            columns: skillid
+            unique: true
+gamers_status:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: statusid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: status
+            attributes: ' varchar(12)  NOT NULL '
+    keys:
+        PRIMARY:
+            columns: statusid
+            unique: true
+gamers_tactics:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: tacid
+            attributes: ' mediumint(8) unsigned  NOT NULL auto_increment'
+        -
+            name: mapid
+            attributes: ' int(11) '
+        -
+            name: teamsize
+            attributes: ' tinyint(4)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: teamid
+            attributes: ' int(11) '
+        -
+            name: general
+            attributes: ' text '
+    keys:
+        PRIMARY:
+            columns: tacid
+            unique: true
+        tacid:
+            columns: tacid
+            unique: true
+        tacid_2:
+            columns: tacid
+            unique: false
+gamers_tactics_positions:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: tacposid
+            attributes: ' mediumint(8) unsigned  NOT NULL auto_increment'
+        -
+            name: posid
+            attributes: ' mediumint(8) '
+        -
+            name: posdesc
+            attributes: ' text '
+        -
+            name: tacid
+            attributes: ' mediumint(8) '
+    keys:
+        PRIMARY:
+            columns: tacposid
+            unique: true
+        tacposid:
+            columns: tacposid
+            unique: true
+        tacposid_2:
+            columns: tacposid
+            unique: false
+gamers_team:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: teamid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: teamname
+            attributes: ' varchar(25)  NOT NULL '
+        -
+            name: teamtype
+            attributes: ' varchar(25)  NOT NULL '
+        -
+            name: maps
+            attributes: ' tinyint(4) '
+        -
+            name: defteam
+            attributes: ' tinyint(4) '
+    keys:
+        PRIMARY:
+            columns: teamid
+            unique: true
+        teamid:
+            columns: teamid
+            unique: true
+gamers_teamladders:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: teamladderid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: ladderid
+            attributes: ' int(11)  NOT NULL '
+        -
+            name: teamid
+            attributes: ' int(11)  NOT NULL '
+    keys:
+        PRIMARY:
+            columns: teamladderid
+            unique: true
+gamers_teammaps:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: teammapid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: mapid
+            attributes: ' int(11)  NOT NULL '
+        -
+            name: teamid
+            attributes: ' int(11)  NOT NULL '
+    keys:
+        PRIMARY:
+            columns: teammapid
+            unique: true
+        teammapid:
+            columns: teammapid
+            unique: true
+gamers_teampositions:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: teamposid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: posid
+            attributes: ' mediumint(8)  NOT NULL '
+        -
+            name: teamid
+            attributes: ' int(11)  NOT NULL '
+    keys:
+        PRIMARY:
+            columns: teamposid
+            unique: true
+        teamposid:
+            columns: teamposid
+            unique: true
+gamers_teamservers:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: teamserverid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: serverid
+            attributes: ' mediumint(8)  NOT NULL '
+        -
+            name: teamid
+            attributes: ' int(11)  NOT NULL '
+    keys:
+        PRIMARY:
+            columns: teamserverid
+            unique: true
+        teamserverid:
+            columns: teamserverid
+            unique: true
+gamers_teamstatus:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: statusid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: uid
+            attributes: ' int(12)  NOT NULL '
+        -
+            name: teamid
+            attributes: ' int(11)  NOT NULL '
+        -
+            name: status
+            attributes: ' mediumint(8)  NOT NULL '
+        -
+            name: rank
+            attributes: ' int(11)  NOT NULL '
+        -
+            name: primarypos
+            attributes: ' mediumint(8) '
+        -
+            name: secondarypos
+            attributes: ' mediumint(8) '
+        -
+            name: tertiarypos
+            attributes: ' mediumint(8) '
+    keys:
+        PRIMARY:
+            columns: statusid
+            unique: true
+gamers_teamsides:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: teamsideid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: teamid
+            attributes: ' int(11)  NOT NULL '
+        -
+            name: sideid
+            attributes: ' int(11)  NOT NULL '
+    keys:
+        PRIMARY:
+            columns: teamsideid
+            unique: true
+gamers_teamsizes:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: teamsizeid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: teamid
+            attributes: ' int(11)  NOT NULL '
+        -
+            name: sizeid
+            attributes: ' int(11)  NOT NULL '
+    keys:
+        PRIMARY:
+            columns: teamsizeid
+            unique: true
+gamers_teamrank:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: teamrankid
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: rankid
+            attributes: ' int(11)  NOT NULL '
+        -
+            name: teamid
+            attributes: ' int(11)  NOT NULL '
+    keys:
+        PRIMARY:
+            columns: teamrankid
+            unique: true

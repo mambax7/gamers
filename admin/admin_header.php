@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -10,33 +11,44 @@
  */
 
 /**
- * @copyright    The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
- * @author     XOOPS Development Team
- * @version    $Id $
+ * @copyright    XOOPS Project (https://xoops.org)
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Mithrandir, Mamba, XOOPS Development Team
  */
 
-$path = dirname(dirname(dirname(dirname(__FILE__))));
-include_once $path . '/mainfile.php';
-include_once $path . '/include/cp_functions.php';
-require_once $path . '/include/cp_header.php';
+
+use Xmf\Module\Admin;
+use XoopsModules\Gamers\{
+    Helper
+};
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+
+$path = dirname(__DIR__, 3);
+require dirname(__DIR__) . '/preloads/autoloader.php';
+
+require dirname(__DIR__, 3) . '/include/cp_header.php';
+//require dirname(__DIR__, 3) . '/class/xoopsformloader.php';
+require  dirname(__DIR__) . '/include/common.php';
 
 global $xoopsModule;
 
 $thisModuleDir = $GLOBALS['xoopsModule']->getVar('dirname');
 
-//if functions.php file exist
-//require_once dirname(dirname(__FILE__)) . '/include/functions.php';
+$moduleDirName = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
+$adminObject = Admin::getInstance();
+
+$helper = Helper::getInstance();
 // Load language files
-xoops_loadLanguage('admin', $thisModuleDir);
-xoops_loadLanguage('modinfo', $thisModuleDir);
-xoops_loadLanguage('main', $thisModuleDir);
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('common');
 
-$pathIcon16 = '../'.$xoopsModule->getInfo('icons16');
-$pathIcon32 = '../'.$xoopsModule->getInfo('icons32');
-$pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
+$pathIcon16 = Admin::iconUrl('', '16');
+$pathIcon32 = Admin::iconUrl('', '32');
 
-include_once $GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php');
+//$pathIcon16 = '../' . $xoopsModule->getInfo('icons16');
+//$pathIcon32 = '../' . $xoopsModule->getInfo('icons32');
+//$pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');

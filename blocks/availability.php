@@ -1,84 +1,124 @@
-<?php
-// $Id: availability.php,v 1.5 2006/06/09 14:32:47 mithyt2 Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+<?php declare(strict_types=1);
 
-function sh_availability() {
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Mithrandir, Mamba, XOOPS Development Team
+ */
+
+
+use XoopsModules\Gamers\{
+    Helper
+};
+/** @var Helper $helper */
+
+xoops_loadLanguage('main', 'gamers');
+
+/**
+ * @return array|false
+ */
+function sh_availability()
+{
+    if (!xoops_isActiveModule('gamers')) {
+        return [];
+    }
+
+
+    if (!class_exists(Helper::class)) {
+        return [];
+    }
+
+    $helper = Helper::getInstance();
+
     global $xoopsUser;
+
     if (is_object($xoopsUser)) {
         $userid = $xoopsUser->getVar('uid');
-        $block = array();
-        $block['title'] = "Availability for ".$xoopsUser->getVar("uname");
-        $block['content']  = "<table border='0' cellspacing='1'><div align='left'>";
-        $team_handler = xoops_getmodulehandler('team', 'team');
-        $teamnames = $team_handler->getList();
-        $availability_handler = xoops_getmodulehandler('availability', 'team');
-        $availabilities = $availability_handler->getPendingByUser($userid);
+
+        $block = [];
+
+        $block['title'] = 'Availability for ' . $xoopsUser->getVar('uname');
+
+        $block['content'] = "<table border='0' cellspacing='1'><div align='left'>";
+
+        $teamHandler = $helper->getHandler('Team');
+
+        $teamnames = $teamHandler->getList();
+
+        $availabilityHandler = $helper->getHandler('Availability');
+
+        $availabilities = $availabilityHandler->getPendingByUser($userid);
+
         foreach ($availabilities as $myrow) {
-            $weekday = date( 'D', $myrow["matchdate"]);
-            $day= date(_MEDIUMDATESTRING, $myrow["matchdate"]);
-            $teamid = $myrow["teamid"];
+            $weekday = date('D', $myrow['matchdate']);
+
+            $day = date(_MEDIUMDATESTRING, $myrow['matchdate']);
+
+            $teamid = $myrow['teamid'];
+
             $teamname = $teamnames[$teamid];
-            if ($myrow["availability"]=="Not Set") {
-                $notset=1;
-                $match=1;
-                $fontcl="Orange";
-                $avail="No Reply";
+
+            if ('Not Set' == $myrow['availability']) {
+                $notset = 1;
+
+                $match = 1;
+
+                $fontcl = 'Orange';
+
+                $avail = 'No Reply';
+            } elseif (('No' == $myrow['availability']) or ('LateNo' == $myrow['availability'])) {
+                $match = 1;
+
+                $fontcl = 'Red';
+
+                $avail = 'No';
+            } elseif (('Yes' == $myrow['availability']) or ('LateYes' == $myrow['availability'])) {
+                $match = 1;
+
+                $fontcl = 'green';
+
+                $avail = 'Yes';
+            } elseif ('Sub' == $myrow['availability']) {
+                $match = 1;
+
+                $fontcl = 'blue';
+
+                $avail = 'Sub';
             }
-            elseif (($myrow["availability"]=="No") OR ($myrow["availability"]=="LateNo")) {
-                $match=1;
-                $fontcl="Red";
-                $avail="No";
+
+            if (isset($class) && ('odd' == $class)) {
+                $class = 'even';
+            } else {
+                $class = 'odd';
             }
-            elseif (($myrow["availability"]=="Yes") OR ($myrow["availability"]=="LateYes")) {
-                $match=1;
-                $fontcl="green";
-                $avail="Yes";
-            }
-            elseif ($myrow["availability"]=="Sub") {
-                $match=1;
-                $fontcl="blue";
-                $avail="Sub";
-            }
-            if ((isset($class))&&($class=="odd")) {
-                $class = "even";
-            }
-            else {
-                $class = "odd";
-            }
-            $block['content'] .= "<tr class=".$class."><td><font color='".$fontcl."'>".$weekday." ".$day." ".$teamname." vs ". $myrow["opponent"]."</font> - <a href='".XOOPS_URL."/modules/team/availability.php?mid=".$myrow["matchid"]."' target='_self'>".$avail."</a> - <a href='".XOOPS_URL."/modules/team/matchdetails.php?mid=".$myrow["matchid"]."' target='_self'>"._BL_TEAMMATCHDETAILS."</td></tr>";
+
+            $block['content'] .= '<tr class=' . $class . "><td><span color='"
+                                 . $fontcl . "'>" . $weekday . ' ' . $day . ' ' . $teamname . ' vs ' . $myrow['opponent'] . "</span> - <a href='"
+                                 . XOOPS_URL . '/modules/gamers/availability.php?mid=' . $myrow['matchid'] . "' target='_self'>" . $avail . "</a> - <a href='" . XOOPS_URL . '/modules/gamers/matchdetails.php?mid=' . $myrow['matchid'] . "' target='_self'>" . _BL_GAMERS_MATCHDETAILS . '</td></tr>';
         }
+
         if (!isset($notset)) {
-            $block['content'] .= "<tr><th><font color='green'>"._BL_TEAMNOUNSETAVAIL."</font></th></tr>";
+            $block['content'] .= "<tr><th><span style=\"color: green; \">" . _BL_GAMERS_NOUNSETAVAIL . '</span></th></tr>';
         }
+
         if (!isset($match)) {
-            $block['content'] .= "<tr><th><font color='green'></br>"._BL_TEAMNOUPCOMEMATCHES."</font></th></tr>";
+            $block['content'] .= "<tr><th><span style=\"color: green; \"></br>" . _BL_GAMERS_NOUPCOMEMATCHES . '</span></th></tr>';
         }
-        $block['content'] .= "</div></table>";
+
+        $block['content'] .= '</div></table>';
+
         return $block;
     }
+
     return false;
 }
-?>

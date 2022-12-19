@@ -1,0 +1,16 @@
+-
+    sideid: '1'
+    side: Left
+    sideshort: L
+-
+    sideid: '2'
+    side: Right
+    sideshort: R
+-
+    sideid: '3'
+    side: Center
+    sideshort: C
+-
+    sideid: '4'
+    side: Front
+    sideshort: F

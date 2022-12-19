@@ -1,0 +1,13 @@
+-
+    layoutid: '1'
+    color_status_active: '#21fb04'
+    color_status_inactive: '#000000'
+    color_status_onleave: '#0d82e7'
+    color_match_pending: '#8905f5'
+    color_match_win: '#3cf609'
+    color_match_loss: '#f50505'
+    color_match_draw: '#f0e805'
+    color_perfect: '#000000'
+    color_good: '#13f702'
+    color_warn: '#fcec03'
+    color_bad: '#fc0303'

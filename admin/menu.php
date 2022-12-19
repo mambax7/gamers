@@ -1,99 +1,154 @@
-<?php
-// $Id: menu.php,v 1.4 2006/06/09 14:32:47 mithyt2 Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+<?php declare(strict_types=1);
 
-$path = dirname(dirname(dirname(dirname(__FILE__))));
-include_once $path . '/mainfile.php';
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
 
-$dirname         = basename(dirname(dirname(__FILE__)));
-$module_handler  = xoops_gethandler('module');
-$module          = $module_handler->getByDirname($dirname);
-$pathIcon32      = $module->getInfo('icons32');
-$pathModuleAdmin = $module->getInfo('dirmoduleadmin');
-$pathLanguage    = $path . $pathModuleAdmin;
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Mithrandir, Mamba, XOOPS Development Team
+ */
 
+use Xmf\Module\Admin;
+use XoopsModules\Gamers\{
+    Helper
+};
 
-if (!file_exists($fileinc = $pathLanguage . '/language/' . $GLOBALS['xoopsConfig']['language'] . '/' . 'main.php')) {
-    $fileinc = $pathLanguage . '/language/english/main.php';
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+
+include dirname(__DIR__) . '/preloads/autoloader.php';
+
+$moduleDirName      = \basename(\dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+$helper = Helper::getInstance();
+$helper->loadLanguage('common');
+
+$pathIcon32    = Admin::menuIconPath('');
+$pathModIcon32 = XOOPS_URL . '/modules/' . $moduleDirName . '/assets/images/icons/32/';
+if (is_object($helper->getModule())
+    && false !== $helper->getModule()
+                        ->getInfo('modicons32')) {
+    $pathModIcon32 = $helper->url(
+        $helper->getModule()
+               ->getInfo('modicons32')
+    );
 }
 
-include_once $fileinc;
+//$dirname = basename(dirname(__DIR__));
+//$moduleHandler = xoops_getHandler('module');
+//$module = $moduleHandler->getByDirname($dirname);
+//
+//$pathIcon32 = Admin::menuIconPath('');
+//
+//xoops_loadLanguage('main', $dirname);
 
-$adminmenu = array();
-$i=0;
-$adminmenu[$i]["title"] = _AM_MODULEADMIN_HOME;
-$adminmenu[$i]['link'] = "admin/index.php";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/home.png';
-//$i++;
-//$adminmenu[$i]['title'] = _MI_OLEDRION_ADMENU10;
-//$adminmenu[$i]['link'] = "admin/main.php";
+$adminmenu = [];
+
+$adminmenu[] = [
+    'title' => _MI_GAMERS_ADMENU0,
+    'link'  => 'admin/index.php',
+    'icon'  => $pathIcon32 . '/home.png',
+];
+
+//$adminmenu[] = [
+//'title' => _MI_OLEDRION_ADMENU10,
+//'link' => "admin/main.php",
 //$adminmenu[$i]["icon"]  = $pathIcon32 . '/manage.png';
+//];
 
-$i++;
-$adminmenu[$i]['title'] = _MI_MATCH_ADMENU6;
-$adminmenu[$i]['link'] = "admin/main.php?op=teammanager";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/cash_stack.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MATCH_ADMENU2;
-$adminmenu[$i]['link'] = "admin/main.php?op=matchmanager";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/button_ok.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MATCH_ADMENU11;
-$adminmenu[$i]['link'] = "admin/main.php?op=layoutmanager";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/type.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MATCH_ADMENU10;
-$adminmenu[$i]['link'] = "admin/main.php?op=rankmanager";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/extention.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MATCH_ADMENU4;
-$adminmenu[$i]['link'] = "admin/main.php?op=mappoolmanager";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/globe.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MATCH_ADMENU3;
-$adminmenu[$i]['link'] = "admin/main.php?op=positionmanager";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/insert_table_row.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MATCH_ADMENU8;
-$adminmenu[$i]['link'] = "admin/main.php?op=sizemanager";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/discount.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MATCH_ADMENU9;
-$adminmenu[$i]['link'] = "admin/main.php?op=sidemanager";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/groupmod.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MATCH_ADMENU7;
-$adminmenu[$i]['link'] = "admin/main.php?op=servermanager";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/exec.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MATCH_ADMENU12;
-$adminmenu[$i]['link'] = "admin/main.php?op=laddermanager";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/stats.png';
-$i++;
-$adminmenu[$i]['title'] = _AM_MODULEADMIN_ABOUT;
-$adminmenu[$i]["link"]  = "admin/about.php";
-$adminmenu[$i]["icon"]  = $pathIcon32 . '/about.png';
+$adminmenu[] = [
+    'title' => _MI_GAMERS_ADMENU6,
+    'link'  => 'admin/main.php?op=teammanager',
+    'icon'  => $pathIcon32 . '/cash_stack.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_GAMERS_ADMENU2,
+    'link'  => 'admin/main.php?op=matchmanager',
+    'icon'  => $pathIcon32 . '/button_ok.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_GAMERS_ADMENU11,
+    'link'  => 'admin/main.php?op=layoutmanager',
+    'icon'  => $pathIcon32 . '/type.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_GAMERS_ADMENU10,
+    'link'  => 'admin/main.php?op=rankmanager',
+    'icon'  => $pathIcon32 . '/extention.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_GAMERS_ADMENU4,
+    'link'  => 'admin/main.php?op=mappoolmanager',
+    'icon'  => $pathIcon32 . '/globe.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_GAMERS_ADMENU3,
+    'link'  => 'admin/main.php?op=positionmanager',
+    'icon'  => $pathIcon32 . '/insert_table_row.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_GAMERS_ADMENU8,
+    'link'  => 'admin/main.php?op=sizemanager',
+    'icon'  => $pathIcon32 . '/discount.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_GAMERS_ADMENU9,
+    'link'  => 'admin/main.php?op=sidemanager',
+    'icon'  => $pathIcon32 . '/groupmod.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_GAMERS_ADMENU7,
+    'link'  => 'admin/main.php?op=servermanager',
+    'icon'  => $pathIcon32 . '/exec.png',
+];
+
+$adminmenu[] = [
+    'title' => _MI_GAMERS_ADMENU12,
+    'link'  => 'admin/main.php?op=laddermanager',
+    'icon'  => $pathIcon32 . '/stats.png',
+];
+
+// Blocks Admin
+$adminmenu[] = [
+    'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS'),
+    'link' => 'admin/blocksadmin.php',
+    'icon' => $pathIcon32 . '/block.png',
+];
+
+if (is_object($helper->getModule()) && $helper->getConfig('displayDeveloperTools')) {
+    $adminmenu[] = [
+        'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE'),
+        'link' => 'admin/migrate.php',
+        'icon' => $pathIcon32 . '/database_go.png',
+    ];
+}
+
+//Clone
+$adminmenu[] = [
+    'title' => _CLONE,
+    'link'  => 'admin/clone.php',
+    'icon'  => $pathIcon32 . '/page_copy.png',
+];
+
+$adminmenu[] = [
+    'title' => _AM_GAMERS_ABOUT,
+    'link'  => 'admin/about.php',
+    'icon'  => $pathIcon32 . '/about.png',
+];

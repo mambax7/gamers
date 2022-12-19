@@ -1,0 +1,24 @@
+-
+  posid: '1'
+  postype: Pos
+  posname: Position1
+  posshort: ' Pos1'
+  posorder: '0'
+-
+  posid: '2'
+  postype: Pos
+  posname: Position2
+  posshort: ' Pos2'
+  posorder: '0'
+-
+  posid: '3'
+  postype: Skill
+  posname: Skill1
+  posshort: ' Skill1'
+  posorder: '0'
+-
+  posid: '4'
+  postype: Skill
+  posname: Skill2
+  posshort: ' Skill2'
+  posorder: '0'

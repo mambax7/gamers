@@ -1,35 +1,39 @@
-<?php
-// $Id: index.php,v 1.16 2006/06/09 14:32:47 mithyt2 Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-include '../../mainfile.php';
-include XOOPS_ROOT_PATH.'/header.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/functions.php';
+<?php declare(strict_types=1);
 
-$op = isset($_GET['op']) ? $_GET['op'] : 'default';
-$mid = isset($_GET['mid']) ? intval($_GET['mid']) : null;
+
+
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Mithrandir, Mamba, XOOPS Development Team
+ */
+
+use XoopsModules\Gamers\{
+    Helper
+};
+/** @var Helper $helper */
+
+$GLOBALS['xoopsOption']['template_main'] = 'gamers_matchlist.tpl';
+
+require_once __DIR__ . '/header.php';
+
+//require dirname(__DIR__, 2) . '/mainfile.php';
+//require XOOPS_ROOT_PATH . '/header.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/functions.php';
+//require_once __DIR__ . '/functions.php';
+
+$op = $_GET['op'] ?? 'default';
+$mid = isset($_GET['mid']) ? (int)$_GET['mid'] : null;
 
 if (isset($_POST)) {
     foreach ($_POST as $k => $v) {
@@ -38,482 +42,651 @@ if (isset($_POST)) {
 }
 
 // show form to upload a screenshot
-function screenshotadd($matchmapid) {
-    $op = "savescreenshot";
-    $action = "Upload";
-    $laddername = "";
-    $ladderid = "";
+/**
+ * @param int $matchmapid
+ */
+function screenshotadd($matchmapid)
+{
+    $op = 'savescreenshot';
+
+    $action = 'Upload';
+
+    $laddername = '';
+
+    $ladderid = '';
+
     $laddervisible = 1;
-    $matchmap_handler = xoops_getmodulehandler('matchmap','team');
-    $thismap = $matchmap_handler->get($matchmapid);
-    include XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-    $pform = new XoopsThemeForm(_MD_ADD." "._MD_SCREENSHOTNAME, "screenshotform", xoops_getenv('PHP_SELF'));
-    $button_tray = new XoopsFormElementTray('' ,'');
-    $submit = new XoopsFormButton('', 'submit', _MD_UPLOAD, 'submit');
+
+    $matchmapHandler = Helper::getInstance()->getHandler('MatchMap');
+
+    $thismap = $matchmapHandler->get($matchmapid);
+
+    require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+
+    $pform = new XoopsThemeForm(_MD_GAMERS_ADD . ' ' . _MD_GAMERS_SCREENSHOTNAME, 'screenshotform', xoops_getenv('PHP_SELF'));
+
+    $button_tray = new XoopsFormElementTray('', '');
+
+    $submit = new XoopsFormButton('', 'submit', _MD_GAMERS_UPLOAD, 'submit');
+
     $matchmapid_hidden = new XoopsFormHidden('matchmapid', $matchmapid);
+
     $op_hidden = new XoopsFormHidden('op', $op);
+
     $mid_hidden = new XoopsFormHidden('mid', $thismap->getVar('matchid'));
-    $mapname_label = new XoopsFormLabel(_MD_TEAMMAPNAME, (is_object($thismap->map) ? $thismap->map->getVar('mapname') : ""));
-    $mapside_label = new XoopsFormLabel(_MD_TEAMSIDENAME, getSide($thismap->getVar('side')));
-    $file = new XoopsFormFile(_MD_SCREENSHOTNAME,"screenshot",200000);
+
+    $mapname_label = new XoopsFormLabel(_MD_GAMERS_MAPNAME, (is_object($thismap->map) ? $thismap->map->getVar('mapname') : ''));
+
+    $mapside_label = new XoopsFormLabel(_MD_GAMERS_SIDENAME, getSide($thismap->getVar('side')));
+
+    $file = new XoopsFormFile(_MD_GAMERS_SCREENSHOTNAME, 'screenshot', 200000);
+
     $button_tray->addElement($submit);
+
     $pform->addElement($mapname_label);
+
     $pform->addElement($mapside_label);
+
     $pform->addElement($matchmapid_hidden);
+
     $pform->addElement($op_hidden);
+
     $pform->addElement($mid_hidden);
+
     $pform->addElement($file);
+
     $pform->addElement($button_tray);
-    $pform->setExtra("enctype=\"multipart/form-data\"");
+
+    $pform->setExtra('enctype="multipart/form-data"');
+
     $pform->display();
 }
-$team_handler =& xoops_getmodulehandler('team','team');
-$match_handler =& xoops_getmodulehandler('match','team');
+$teamHandler = Helper::getInstance()->getHandler('Team');
+$matchHandler = Helper::getInstance()->getHandler('Match');
 switch ($op) {
-    case "matchform":
+    case 'matchform':
     if ($xoopsUser) {
-        echo "<h4>"._MD_CONFIG."</h4>";
+        echo '<h4>' . _MD_GAMERS_CONFIG . '</h4>';
+
         echo "<table width='100%' border='0' cellspacing='1' class='outer'><tr><td class=\"odd\">";
+
         if (isset($mid)) {
-            $mymatch =& $match_handler->get($mid);
+            $mymatch = $matchHandler->get($mid);
+
             $matchdate = $mymatch->getVar('matchdate');
+
             $teamid = $mymatch->getVar('teamid');
+
             $teamsize = $mymatch->getVar('teamsize');
+
             $opponent = $mymatch->getVar('opponent');
+
             $ladder = $mymatch->getVar('ladder');
+
             $matchresult = $mymatch->getVar('matchresult');
+
             $review = $mymatch->getVar('review');
+
             $server = $mymatch->getVar('server');
+
             $customserver = $mymatch->getVar('customserver');
-            $showScreenshotLink = ($matchresult == "Pending") ? false : true;
+
+            $showScreenshotLink = 'Pending' == $matchresult ? false : true;
         }
+
         if (!isset($teamid)) {
-            include XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-            $mform = new XoopsThemeForm(_MD_TEAMSELECT, "matchform", xoops_getenv('PHP_SELF'));
+            require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+
+            $mform = new XoopsThemeForm(_MD_GAMERS_SELECT, 'matchform', xoops_getenv('PHP_SELF'));
+
             $team_select = new XoopsFormSelect('Team', 'teamid', '1');
-            $teams = $team_handler->getObjects();
+
+            $teams = $teamHandler->getObjects();
+
             foreach (array_keys($teams) as $i) {
-                $thisteam =& $teams[$i];
-                if ($thisteam->isTeamAdmin($xoopsUser->getVar("uid"))) {
-                    $team_select->addOption($thisteam->getVar("teamid"), $thisteam->getVar("teamname"));
+                $thisteam = &$teams[$i];
+
+                if ($thisteam->isTeamAdmin($xoopsUser->getVar('uid'))) {
+                    $team_select->addOption($thisteam->getVar('teamid'), $thisteam->getVar('teamname'));
                 }
             }
-            $button_tray = new XoopsFormElementTray('' ,'');
+
+            $button_tray = new XoopsFormElementTray('', '');
+
             $button_tray->addElement(new XoopsFormButton('', 'select', 'select', 'submit'));
+
             $op_hidden = new XoopsFormHidden('op', 'matchform');
+
             $mform->addElement($team_select);
+
             $mform->addElement($button_tray);
+
             $mform->addElement($op_hidden);
+
             $mform->display();
-        }
-        else {
-            $team =& $team_handler->get($teamid);
-            if ($team->isMatchAdmin($xoopsUser->getVar("uid"))) {
+        } else {
+            $team = $teamHandler->get($teamid);
+
+            if ($team->isMatchAdmin($xoopsUser->getVar('uid'))) {
                 $teamsizes = $team->getTeamSizes();
+
                 $teamladders = $team->getLadders();
-                include "include/matchform.inc.php";
-            }
-            else {
-                redirect_header("index.php",3,_MD_TEAMACCESSDENIED);
+
+                require __DIR__ . '/include/matchform.inc.php';
+            } else {
+                redirect_header('index.php', 3, _MD_GAMERS_ACCESSDENIED);
             }
         }
-        echo"</td></tr></table>";
-    }
-    else {
-        redirect_header("index.php",3,_MD_TEAMACCESSDENIED);
+
+        echo '</td></tr></table>';
+    } else {
+        redirect_header('index.php', 3, _MD_GAMERS_ACCESSDENIED);
     }
     break;
-
-    case "screenshotform":
+    case 'screenshotform':
     if ($xoopsUser) {
         // display add screenshotform
-        if (isset($_GET['action']) && $_GET['action'] == "add") {
+
+        if (isset($_GET['action']) && 'add' == $_GET['action']) {
             screenshotadd($_GET['matchmapid']);
         }
-        echo "<h4>"._MD_CONFIG."</h4>";
+
+        echo '<h4>' . _MD_GAMERS_CONFIG . '</h4>';
+
         if (isset($mid)) {
-            $mymatch =& $match_handler->get($mid);
+            $mymatch = $matchHandler->get($mid);
+
             $nummaps = $mymatch->getMapCount();
+
             $opponent = $mymatch->getVar('opponent');
-            include "include/screenshotform.inc.php";
+
+            require __DIR__ . '/include/screenshotform.inc.php';
         }
-    }
-    else {
-        redirect_header("index.php",3,_MD_TEAMACCESSDENIED);
+    } else {
+        redirect_header('index.php', 3, _MD_GAMERS_ACCESSDENIED);
     }
     break;
-
-    case "savematch":
+    case 'savematch':
     if ($xoopsUser) {
-        $team =& $team_handler->get($teamid);
-        if (($day)&&($month)) {
-            $clock = explode(":", $time);
-            $hour = $clock[0];
-            $minute = $clock[1];
-            $matchdate = mktime($hour,$minute,0,$month,$day,$year);
+        $team = $teamHandler->get($teamid);
+
+        if ($day && ($month)) {
+            $clock = explode(':', $time);
+
+            $hour = (int)$clock[0];
+
+            $minute = (int)$clock[1];
+
+            $matchdate = mktime($hour, $minute, 0, (int)$month, (int)$day, (int)$year);
         }
-        $match =& $match_handler->create();
+
+        $match = $matchHandler->create();
+
         $match->setVar('uid', $uid);
+
         $match->setVar('matchdate', $matchdate);
+
         $match->setVar('teamid', $teamid);
+
         $match->setVar('created', time());
+
         $match->setVar('teamsize', $teamsize);
+
         $match->setVar('opponent', $opponent);
+
         $match->setVar('ladder', $ladder);
+
         $match->setVar('review', $review);
+
         $match->setVar('alock', 0);
+
         $match->setVar('server', $server);
+
         $match->setVar('customserver', $customserver);
-        if ($match_handler->insert($match)) {
+
+        if ($matchHandler->insert($match)) {
             $matchid = $match->getVar('matchid');
-            $error=0;
-            $matchmap_handler = xoops_getmodulehandler('matchmap','team');
-            for ($h=0; $h<$team->getVar('maps'); $h++) {
-                $thismap = $matchmap_handler->create();
+
+            $error = 0;
+
+            $matchmapHandler = Helper::getInstance()->getHandler('MatchMap');
+
+            for ($h = 0; $h < $team->getVar('maps'); $h++) {
+                $thismap = $matchmapHandler->create();
+
                 $thismap->setVar('matchid', $matchid);
+
                 $thismap->setVar('mapid', $map[$h]);
+
                 $thismap->setVar('side', $side[$h]);
-                $thismap->setVar('mapno', $h+1);
-                if (!$matchmap_handler->insert($thismap)) {
+
+                $thismap->setVar('mapno', $h + 1);
+
+                if (!$matchmapHandler->insert($thismap)) {
                     $error++;
                 }
             }
+
             $teammembers = $team->getActiveMembers();
-            $availability_handler = xoops_getmodulehandler('availability','team');
+
+            $availabilityHandler = Helper::getInstance()->getHandler('Availability');
+
             foreach ($teammembers as $member_id => $member_name) {
-                $obj = $availability_handler->create();
+                $obj = $availabilityHandler->create();
+
                 $obj->setVar('userid', $member_id);
+
                 $obj->setVar('availability', 'Not Set');
+
                 $obj->setVar('matchid', $matchid);
-                if (!$availability_handler->insert($obj)) {
+
+                if (!$availabilityHandler->insert($obj)) {
                     $error++;
                 }
             }
-            if ($error>0) {
-                redirect_header('index.php?teamid='.$teamid,3,$error." Insert(s) Failed");
+
+            if ($error > 0) {
+                redirect_header('index.php?teamid=' . $teamid, 3, $error . ' Insert(s) Failed');
+
                 break;
             }
-            else {
-                //Notification
-                $matchcreator = new XoopsUser($uid);
-                $creatorname = $matchcreator->getVar("uname");
-                $teamname = $team->getVar('teamname');
-                $tags = array();
-                $tags['SIZE'] = $teamsize;
-                $tags['TEAM_NAME'] = $teamname;
-                $tags['OPPONENT'] = $opponent;
-                $tags['CREATOR'] = $creatorname;
-                $tags['MATCHDATE'] = date(_SHORTDATESTRING, $matchdate);
-                $tags['MATCHTIME'] = date('H:i', $matchdate);
-                $tags['DETAILS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/matchdetails.php?mid='.$matchid;
-                $notification_handler =& xoops_gethandler('notification');
-                $notification_handler->triggerEvent('team', $teamid, 'new_match', $tags);
-                redirect_header('index.php?teamid='.$teamid,3,_MD_DBUPDATED);
-                break;
-            }
-        }
-        else {
-            redirect_header('index.php?teamid='. $teamid, 3, "Error - Match not created");
+
+            //Notification
+
+            $matchcreator = new XoopsUser($uid);
+
+            $creatorname = $matchcreator->getVar('uname');
+
+            $teamname = $team->getVar('teamname');
+
+            $tags = [];
+
+            $tags['SIZE'] = $teamsize;
+
+            $tags['GAMERS_NAME'] = $teamname;
+
+            $tags['OPPONENT'] = $opponent;
+
+            $tags['CREATOR'] = $creatorname;
+
+            $tags['MATCHDATE'] = date(_SHORTDATESTRING, $matchdate);
+
+            $tags['MATCHTIME'] = date('H:i', $matchdate);
+
+            $tags['DETAILS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->dirname() . '/matchdetails.php?mid=' . $matchid;
+
+            $notificationHandler = xoops_getHandler('notification');
+
+            $notificationHandler->triggerEvent('gamers', $teamid, 'new_match', $tags);
+
+            redirect_header('index.php?teamid=' . $teamid, 3, _MD_GAMERS_DBUPDATED);
+
             break;
         }
-        if (count($error)>0) {
-            echo "Error - Maps not created";
+
+        redirect_header('index.php?teamid=' . $teamid, 3, 'Error - Match not created');
+
+        break;
+        if ((is_countable($error) ? count($error) : 0) > 0) {
+            echo 'Error - Maps not created';
         }
+
         break;
     }
-    else {
-        redirect_header("index.php",3,_MD_TEAMACCESSDENIED);
-    }
+        redirect_header('index.php', 3, _MD_GAMERS_ACCESSDENIED);
+
     break;
-    case "editmatch":
+    case 'editmatch':
     if ($xoopsUser) {
-        $team =& $team_handler->get($teamid);
-        if (($day)&&($month)) {
-            $clock = explode(":", $time);
-            $hour = $clock[0];
-            $minute = $clock[1];
-            $matchdate = mktime($hour,$minute,0,$month,$day,$year);
+        $team = $teamHandler->get($teamid);
+
+        if ($day && ($month)) {
+            $clock = explode(':', $time);
+
+            $hour = (int)$clock[0];
+
+            $minute = (int)$clock[1];
+
+            $matchdate = mktime($hour, $minute, 0, (int)$month, (int)$day, (int)$year);
         }
-        $match =& $match_handler->get($mid);
+
+        $match = $matchHandler->get($mid);
+
         $match->setVar('matchdate', $matchdate);
+
         $match->setVar('teamid', $teamid);
+
         $match->setVar('teamsize', $teamsize);
+
         $match->setVar('opponent', $opponent);
+
         $match->setVar('ladder', $ladder);
+
         $match->setVar('review', $review);
+
         $match->setVar('matchresult', $matchresult);
+
         $match->setVar('server', $server);
+
         $match->setVar('customserver', $customserver);
-        $error = array();
-        if (!$match_handler->insert($match)) {
-            redirect_header('index.php?teamid='.$teamid, 2,_MD_DBNOTUPDATED);
-        }
-        else {
+
+        $error = [];
+
+        if (!$matchHandler->insert($match)) {
+            redirect_header('index.php?teamid=' . $teamid, 2, _MD_GAMERS_DBNOTUPDATED);
+        } else {
             $maps = $match->getMatchMaps();
-            $matchmap_handler = xoops_getmodulehandler('matchmap','team');
-            for ($count=0; $count < $team->getVar('maps'); $count++) {
-                if (isset($maps[$count+1])) {
-                    $thismap = $maps[$count+1];
-                }
-                else {
-                    $thismap = $matchmap_handler->create();
-                }
-                $thismap->setVar("mapno", $count+1);
-                $thismap->setVar("matchid",$match->getVar('matchid'));
-                $thismap->setVar("ourscore",$ourscore[$count]);
-                $thismap->setVar("theirscore",$theirscore[$count]);
-                $thismap->setVar("mapid",$map[$count]);
-                $thismap->setVar("side",$side[$count]);
-                if (!$matchmap_handler->insert($thismap)) {
-                    $error[]=$thismap->map->getVar('mapname')." Not Updated";
+
+            $matchmapHandler = Helper::getInstance()->getHandler('MatchMap');
+
+            for ($count = 0; $count < $team->getVar('maps'); $count++) {
+                $thismap = $maps[$count + 1] ?? $matchmapHandler->create();
+
+                $thismap->setVar('mapno', $count + 1);
+
+                $thismap->setVar('matchid', $match->getVar('matchid'));
+
+                $thismap->setVar('ourscore', $ourscore[$count]);
+
+                $thismap->setVar('theirscore', $theirscore[$count]);
+
+                $thismap->setVar('mapid', $map[$count]);
+
+                $thismap->setVar('side', $side[$count]);
+
+                if (!$matchmapHandler->insert($thismap)) {
+                    $error[] = $thismap->map->getVar('mapname') . ' Not Updated';
                 }
             }
         }
-        if (count($error)>0) {
-            $errormess = "";
+
+        if (count($error) > 0) {
+            $errormess = '';
+
             foreach ($error as $message) {
                 $errormess .= $message;
             }
-            redirect_header('index.php?teamid='.$teamid,2,_MD_DBNOTUPDATED."<br>".$errormess);
+
+            redirect_header('index.php?teamid=' . $teamid, 2, _MD_GAMERS_DBNOTUPDATED . '<br>' . $errormess);
+        } else {
+            redirect_header('index.php?teamid=' . $teamid, 2, _MD_GAMERS_DBUPDATED);
         }
-        else {
-            redirect_header('index.php?teamid='.$teamid,2,_MD_DBUPDATED);
-        }
+
         break;
     }
-    else {
-        redirect_header("index.php",3,_MD_TEAMACCESSDENIED);
-    }
-    break;
+        redirect_header('index.php', 3, _MD_GAMERS_ACCESSDENIED);
 
+    break;
     // user has uploaded screenshot
-    case "savescreenshot":
-    if ($submit == _MD_UPLOAD) {
+    case 'savescreenshot':
+    if (_MD_GAMERS_UPLOAD == $submit) {
         // do some error checking:
-        if (!eregi( "jpeg", $_FILES['screenshot']['type'])) $message = _MD_TEAMERRORNOTJPG;
-        if ($_FILES['screenshot']['error'] == UPLOAD_ERR_INI_SIZE) $message = _MD_TEAMERRORMAXFILESIZEINI;
-        if ($_FILES['screenshot']['error'] == UPLOAD_ERR_FORM_SIZE) $message = _MD_TEAMERRORMAXFILESIZEFORM;
+
+        if (!preg_match('/jpeg/', $_FILES['screenshot']['type'])) {
+            $message = _MD_GAMERS_ERRORNOTJPG;
+        }
+
+        if (UPLOAD_ERR_INI_SIZE == $_FILES['screenshot']['error']) {
+            $message = _MD_GAMERS_ERRORMAXFILESIZEINI;
+        }
+
+        if (UPLOAD_ERR_FORM_SIZE == $_FILES['screenshot']['error']) {
+            $message = _MD_GAMERS_ERRORMAXFILESIZEFORM;
+        }
 
         // on error redirect to error page
+
         if (isset($message)) {
-            redirect_header("index.php?op=screenshotform&mid=".$_POST['mid'],5, $message);
+            redirect_header('index.php?op=screenshotform&mid=' . $_POST['mid'], 5, $message);
+
             exit();
         }
+
         // copy file to destination
-        if (!move_uploaded_file($_FILES['screenshot']['tmp_name'],"screenshots/".$_FILES['screenshot']['name'])) {
-            redirect_header("index.php?op=screenshotform&mid=".$_POST['mid'],5, _MD_TEAMERRORCOULDNOTCOPY);
+
+        if (!move_uploaded_file($_FILES['screenshot']['tmp_name'], XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/screenshots/' . $_FILES['screenshot']['name'])) {
+            redirect_header('index.php?op=screenshotform&mid=' . $_POST['mid'], 5, _MD_GAMERS_ERRORCOULDNOTCOPY);
+
             exit();
-        } else {
-            $matchmapid = intval($matchmapid);
-            // create thumbnail
-            if (resizeToFile("screenshots/".$_FILES['screenshot']['name'],150,113,"screenshots/thumbs/".$_FILES['screenshot']['name'], 90)) {
-                $sql = "UPDATE ".$xoopsDB->prefix("team_matchmaps")." SET screenshot = ".$xoopsDB->quoteString($_FILES['screenshot']['name'])." WHERE matchmapid = $matchmapid";
-                if (!$xoopsDB->query($sql)) {
-                    redirect_header("index.php?op=screenshotform&mid=".$_POST['mid'],3, _MD_TEAMERRORWHILESAVINGSCREENSHOT);
-                    exit();
-                }
-                redirect_header("index.php?op=screenshotform&mid=".$_POST['mid'],3, _MD_SCREENSHOTUPLOADED);
-                exit();
-            }
-            else {
-                redirect_header("index.php?op=screenshotform&mid=".$_POST['mid'],5, _MD_TEAMERRORGDLIB);
-                exit();
-            }
         }
+
+        $matchmapid = (int)$matchmapid;
+
+        // create thumbnail
+
+        if (resizeToFile('screenshots/' . $_FILES['screenshot']['name'], 150, 113, XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/screenshots/thumbs/' . $_FILES['screenshot']['name'], 90)) {
+            $sql = 'UPDATE ' . $xoopsDB->prefix('gamers_matchmaps') . ' SET screenshot = ' . $xoopsDB->quoteString($_FILES['screenshot']['name']) . " WHERE matchmapid = $matchmapid";
+
+            if (!$xoopsDB->query($sql)) {
+                redirect_header('index.php?op=screenshotform&mid=' . $_POST['mid'], 3, _MD_GAMERS_ERRORWHILESAVINGSCREENSHOT);
+
+                exit();
+            }
+
+            redirect_header('index.php?op=screenshotform&mid=' . $_POST['mid'], 3, _MD_GAMERS_SCREENSHOTUPLOADED);
+
+            exit();
+        }
+
+        redirect_header('index.php?op=screenshotform&mid=' . $_POST['mid'], 5, _MD_GAMERS_ERRORGDLIB);
+
+        exit();
     }
     break;
-
-    case "deletescreenshot":
-    $matchmapid = intval($matchmapid);
-    $matchmap_handler = xoops_getmodulehandler('matchmap','team');
-    $thismap = $matchmap_handler->get($matchmapid);
+    case 'deletescreenshot':
+    $matchmapid = $matchmapid;
+    $matchmapHandler = Helper::getInstance()->getHandler('MatchMap');
+    $thismap = $matchmapHandler->get($matchmapid);
     $mid = $thismap->getVar('matchid');
     $filename = $thismap->getVar('screenshot');
-    $result = $matchmap_handler->updateAll("screenshot", "", new Criteria("matchmapid", $matchmapid), true);
+    $result = $matchmapHandler->updateAll('screenshot', '', new \Criteria('matchmapid', $matchmapid), true);
     if (!$result) {
-        redirect_header("index.php?op=screenshotform&mid=".$mid,5, _MD_TEAMERRORDELETESCREENSHOT);
+        redirect_header('index.php?op=screenshotform&mid=' . $mid, 5, _MD_GAMERS_ERRORDELETESCREENSHOT);
     }
-    if (!unlink("screenshots/".$filename)) {
-        redirect_header("index.php?op=screenshotform&mid=".$mid,5, _MD_TEAMERRORDELETESCREENSHOTSERVER);
+    if (!unlink(XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/screenshots/' . $filename)) {
+        redirect_header('index.php?op=screenshotform&mid=' . $mid, 5, _MD_GAMERS_ERRORDELETESCREENSHOTSERVER);
     }
-    if (!unlink("screenshots/thumbs/".$filename)) {
-        redirect_header("index.php?op=screenshotform&mid=".$mid,5, _MD_TEAMERRORDELETETHUMBNAIL);
+    if (!unlink(XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/screenshots/thumbs/' . $filename)) {
+        redirect_header('index.php?op=screenshotform&mid=' . $mid, 5, _MD_GAMERS_ERRORDELETETHUMBNAIL);
     }
-    redirect_header("index.php?op=screenshotform&mid=".$mid,3,_MD_TEAMSCREENSHOTDELETED);
+    redirect_header('index.php?op=screenshotform&mid=' . $mid, 3, _MD_GAMERS_SCREENSHOTDELETED);
     break;
-
     // display matchlist
-    case "default":
+    case 'default':
     default:
     $teamid = isset($_GET['teamid']) && $_GET['teamid'] > 0 ? $_GET['teamid'] : getDefaultTeam();
-    $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
-    include_once XOOPS_ROOT_PATH.'/class/module.textsanitizer.php';
-    $xoopsOption['template_main'] = 'team_matchlist.html';
+    $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+    require_once XOOPS_ROOT_PATH . '/class/module.textsanitizer.php';
+
     $layout = getLayout();
-    $curteam =& $team_handler->get($teamid);
+    $curteam = $teamHandler->get($teamid);
     $curteam->select();
-    $clause = "LIMIT ".$start." , 10";
-    if ($start == 0) {
+    $clause = 'LIMIT ' . $start . ' , 10';
+    if (0 == $start) {
         $xoopsTpl->assign('prevstart', 0);
+
         $xoopsTpl->assign('nextstart', 10);
-    }
-    else {
+    } else {
         $prev = $start - 10;
+
         $next = $start + 10;
+
         $xoopsTpl->assign('prevstart', $prev);
+
         $xoopsTpl->assign('nextstart', $next);
     }
-    $wins=0;
-    $losses=0;
-    $draws=0;
+    $wins = 0;
+    $losses = 0;
+    $draws = 0;
     $teammember = 0;
     if ($xoopsUser) {
-        if ($curteam->isMatchAdmin($xoopsUser->getVar("uid"))) {
-            $xoopsTpl->assign('admin', "yes");
-            $xoopsTpl->assign('isTeamMember', "yes");
+        if ($curteam->isMatchAdmin($xoopsUser->getVar('uid'))) {
+            $xoopsTpl->assign('admin', 'yes');
+
+            $xoopsTpl->assign('isTeamMember', 'yes');
+
             $teammember = 1;
         }
-        if ($curteam->isTeamMember($xoopsUser->getVar("uid"))) {
-            $xoopsTpl->assign('isTeamMember', "yes");
+
+        if ($curteam->isTeamMember($xoopsUser->getVar('uid'))) {
+            $xoopsTpl->assign('isTeamMember', 'yes');
+
             $teammember = 1;
         }
     }
     $mapno = $curteam->getVar('maps');
-    for ($i = 1; $i <= $mapno; $i++) {
-        $xoopsTpl->append('captions', array('caption' => getCaption($i)));
+    for ($i = 1; $i <= $mapno; ++$i) {
+        $xoopsTpl->append('captions', ['caption' => getCaption($i)]);
     }
-    $count=0;
+    $count = 0;
     // get all ladders
     $ladders = getAllLadders();
-    $hidden_ladders=array();
-    foreach ( $ladders as $ladderid => $thisladder) {
-        if ($thisladder["visible"] == 0) {
-            $hidden_ladders[] = strtolower($thisladder["ladder"]);
-        }
-        elseif ($thisladder["scoresvisible"] == 0) {
-            $hidden_scores[] = strtolower($thisladder["ladder"]);
+    $hidden_ladders = [];
+    foreach ($ladders as $ladderid => $thisladder) {
+        if (0 == $thisladder['visible']) {
+            $hidden_ladders[] = mb_strtolower($thisladder['ladder']);
+        } elseif (0 == $thisladder['scoresvisible']) {
+            $hidden_scores[] = mb_strtolower($thisladder['ladder']);
         }
     }
     // fetch matches from database
     $matches = $curteam->getMatches($clause);
     $allshorts = getAllSideShort();
-    $matchmap_handler = xoops_getmodulehandler('matchmap','team');
-    foreach ( $matches as $mid => $match ) {
+    $matchmapHandler = Helper::getInstance()->getHandler('MatchMap');
+    foreach ($matches as $mid => $match) {
         // only draw match if its ladder is not in $hidden_ladders and match result is not pending
 
-        if (!($match->getVar('matchresult') <> "Pending" && in_array(strtolower($match->getVar('ladder')), $hidden_ladders))) {
+        if (!('Pending' != $match->getVar('matchresult') && in_array(mb_strtolower($match->getVar('ladder')), $hidden_ladders, true))) {
             $yes = $no = $wins = $losses = $noreply = 0;
-            $pic = "";
-            if (isset($all) OR ($count<10)) {
-                if ($match->getVar('matchresult')!='Pending') {
+
+            $pic = '';
+
+            if (isset($all) or ($count < 10)) {
+                if ('Pending' != $match->getVar('matchresult')) {
                     $count++;
                 }
-                $mdate = date (_MEDIUMDATESTRING, $match->getVar('matchdate'));
-                $weekday = date( 'D', $match->getVar('matchdate'));
-                $type = $match->getVar('ladder')." <nobr>".$match->getVar('teamsize')." "._MD_TEAMVERSUS." ".$match->getVar('teamsize')."</nobr>";
-                if ((isset($class))&&($class=="even")) {
-                    $class = "odd";
+
+                $mdate = date(_MEDIUMDATESTRING, $match->getVar('matchdate'));
+
+                $weekday = date('D', $match->getVar('matchdate'));
+
+                $type = $match->getVar('ladder') . ' <nobr>' . $match->getVar('teamsize') . ' ' . _MD_GAMERS_VERSUS . ' ' . $match->getVar('teamsize') . '</nobr>';
+
+                if (isset($class) && ('even' == $class)) {
+                    $class = 'odd';
+                } else {
+                    $class = 'even';
                 }
-                else {
-                    $class = "even";
-                }
-                $map = array();
+
+                $map = [];
+
                 $nomaps = $curteam->getVar('maps');
+
                 for ($count = 1; $count <= $nomaps; $count++) {
                     $mapno = $count;
-                    $thismap = $matchmap_handler->getByMatchid($mid, $mapno);
+
+                    $thismap = $matchmapHandler->getByMatchid($mid, $mapno);
+
                     if (is_object($thismap) && isset($allshorts[$thismap->getVar('side')])) {
                         $side = $allshorts[$thismap->getVar('side')];
+                    } else {
+                        $side = '';
                     }
-                    else {
-                        $side = "";
-                    }
-                    $mapname = is_object($thismap->map) ? $thismap->map->getVar('mapname') : "--";
+
+                    $mapname = is_object($thismap->map) ? $thismap->map->getVar('mapname') : '--';
+
                     //Only show scores for matches for non-members if its ladder allows it
-                    if (!isset($mapname) || (!$teammember && in_array(strtolower($match->getVar('ladder')), $hidden_scores))) {
-                        $map[$mapno]["ourscore"] = 0;
-                        $map[$mapno]["theirscore"] = 0;
-                        $map[$mapno]["name"] = "";
+
+                    if (!isset($mapname) || (!$teammember && in_array(mb_strtolower($match->getVar('ladder')), $hidden_scores, true))) {
+                        $map[$mapno]['ourscore'] = 0;
+
+                        $map[$mapno]['theirscore'] = 0;
+
+                        $map[$mapno]['name'] = '';
+                    } else {
+                        $map[$mapno]['ourscore'] = $thismap->getVar('ourscore');
+
+                        $map[$mapno]['theirscore'] = $thismap->getVar('theirscore');
+
+                        $map[$mapno]['name'] = $mapname . ' (' . $side . ')';
                     }
-                    else {
-                        $map[$mapno]["ourscore"] = $thismap->getVar('ourscore');
-                        $map[$mapno]["theirscore"] = $thismap->getVar('theirscore');
-                        $map[$mapno]["name"] = $mapname." (".$side.")";
-                    }
-                    if (($match->getVar('matchresult')=='Pending') OR (!$xoopsUser) ) {
-                        $map[$mapno]["color"] = $layout["color_match_pending"];
-                    }
-                    else {
-                        $map[$mapno]["color"] = $thismap->winner($layout);
+
+                    if (('Pending' == $match->getVar('matchresult')) or (!$xoopsUser)) {
+                        $map[$mapno]['color'] = $layout['color_match_pending'];
+                    } else {
+                        $map[$mapno]['color'] = $thismap->winner($layout);
                     }
                 }
-                if ($match->getVar('matchresult')=='Win') {
-                    $matchcolor = $layout["color_match_win"];
+
+                if ('Win' == $match->getVar('matchresult')) {
+                    $matchcolor = $layout['color_match_win'];
+
                     $wins++;
-                }
-                elseif ($match->getVar('matchresult')=='Loss') {
-                    $matchcolor = $layout["color_match_loss"];
+                } elseif ('Loss' == $match->getVar('matchresult')) {
+                    $matchcolor = $layout['color_match_loss'];
+
                     $losses++;
-                }
-                elseif ($match->getVar('matchresult')=='Draw') {
-                    $matchcolor = $layout["color_match_draw"];
+                } elseif ('Draw' == $match->getVar('matchresult')) {
+                    $matchcolor = $layout['color_match_draw'];
+
                     $draws++;
+                } else {
+                    $matchcolor = $layout['color_match_pending'];
                 }
-                else {
-                    $matchcolor = $layout["color_match_pending"];
-                }
+
                 if ($xoopsUser) {
-                    if ($teammember == 1) {
-                        $yes=0;
-                        $no=0;
-                        $noreply=0;
+                    if (1 == $teammember) {
+                        $yes = 0;
+
+                        $no = 0;
+
+                        $noreply = 0;
+
                         $availabilities = $match->getAvailabilities();
-                        while ( $myav = $xoopsDB->fetchArray($availabilities) ) {
-                            if (($myav["availability"]=="Yes") OR ($myav["availability"]=="LateYes")) {
+
+                        while (false !== ($myav = $xoopsDB->fetchArray($availabilities))) {
+                            if (('Yes' == $myav['availability']) or ('LateYes' == $myav['availability'])) {
                                 $yes++;
-                            }
-                            elseif (($myav["availability"]=="No") OR ($myav["availability"]=="LateNo")){
+                            } elseif (('No' == $myav['availability']) or ('LateNo' == $myav['availability'])) {
                                 $no++;
-                            }
-                            elseif (($myav["availability"]=="Not Set") OR ($myav["availability"]=="Sub")) {
+                            } elseif (('Not Set' == $myav['availability']) or ('Sub' == $myav['availability'])) {
                                 $noreply++;
                             }
                         }
-                        if ($match->getVar('matchresult')!='Pending') {
-                            $pic = "check";
-                        }
-                        elseif ($match->getVar('alock')==1) {
-                            $pic = "padlock";
-                        }
-                        else {
-                            $pic = "notepad";
+
+                        if ('Pending' != $match->getVar('matchresult')) {
+                            $pic = 'check';
+                        } elseif (1 == $match->getVar('alock')) {
+                            $pic = 'padlock';
+                        } else {
+                            $pic = 'notepad';
                         }
                     }
                 }
             }
-            $xoopsTpl->append('match', array('mid' => $mid, 'opponent' => $match->getVar('opponent'), 'matchresult' => $match->getVar('matchresult'), 'matchcolor' => $matchcolor, 'weekday' => $weekday, 'mdate' => $mdate, 'class' => $class, 'type' => $type, 'map' => $map, 'yes' => $yes, 'no' => $no, 'noreply' => $noreply, 'pic' => $pic));
+
+            $xoopsTpl->append('match', ['mid' => $mid, 'opponent' => $match->getVar('opponent'), 'matchresult' => $match->getVar('matchresult'), 'matchcolor' => $matchcolor, 'weekday' => $weekday, 'mdate' => $mdate, 'class' => $class, 'type' => $type, 'map' => $map, 'yes' => $yes, 'no' => $no, 'noreply' => $noreply, 'pic' => $pic]);
         } // if visible
     }
     $xoopsTpl->assign('wins', $wins);
     $xoopsTpl->assign('losses', $losses);
     $xoopsTpl->assign('draws', $draws);
-    $xoopsTpl->assign('matchlistfor', _MD_TEAMMATCHLISTFOR);
+    $xoopsTpl->assign('matchlistfor', _MD_GAMERS_MATCHLISTFOR);
     $xoopsTpl->assign('teamname', $curteam->getVar('teamname'));
-    $xoopsTpl->assign('addmatch', _MD_SUBMITMATCH);
-    $xoopsTpl->assign('teamdate', _MD_TEAMDATE);
+    $xoopsTpl->assign('addmatch', _MD_GAMERS_SUBMITMATCH);
+    $xoopsTpl->assign('teamdate', _MD_GAMERS_DATE);
     $xoopsTpl->assign('teamid', $teamid);
-    $xoopsTpl->assign('teamopponent', _MD_TEAMOPPONENT);
-    $xoopsTpl->assign('teammatchtype', _MD_TEAMMATCHTYPE);
-    $xoopsTpl->assign('teamresult', _MD_TEAMRESULT);
-    $xoopsTpl->assign('teamy', _MD_TEAMY);
-    $xoopsTpl->assign('teamn',_MD_TEAMN);
-    $xoopsTpl->assign('teamwins',_MD_TEAMWINS);
-    $xoopsTpl->assign('teamlosses', _MD_TEAMLOSSES);
-    $xoopsTpl->assign('teamdraws', _MD_TEAMDRAWS);
-    $xoopsTpl->assign('teamallmatches', _MD_TEAMALLMATCHES);
-    $xoopsTpl->assign('lang_prevmatches', _MD_TEAMPREVMATCHES);
-    $xoopsTpl->assign('lang_nextmatches', _MD_TEAMNEXTMATCHES);
+    $xoopsTpl->assign('teamopponent', _MD_GAMERS_OPPONENT);
+    $xoopsTpl->assign('teammatchtype', _MD_GAMERS_MATCHTYPE);
+    $xoopsTpl->assign('teamresult', _MD_GAMERS_RESULT);
+    $xoopsTpl->assign('teamy', _MD_GAMERS_Y);
+    $xoopsTpl->assign('teamn', _MD_GAMERS_N);
+    $xoopsTpl->assign('teamwins', _MD_GAMERS_WINS);
+    $xoopsTpl->assign('teamlosses', _MD_GAMERS_LOSSES);
+    $xoopsTpl->assign('teamdraws', _MD_GAMERS_DRAWS);
+    $xoopsTpl->assign('teamallmatches', _MD_GAMERS_ALLMATCHES);
+    $xoopsTpl->assign('lang_prevmatches', _MD_GAMERS_PREVMATCHES);
+    $xoopsTpl->assign('lang_nextmatches', _MD_GAMERS_NEXTMATCHES);
     break;
 }
-include_once XOOPS_ROOT_PATH.'/footer.php';
-?>
+require_once XOOPS_ROOT_PATH . '/footer.php';

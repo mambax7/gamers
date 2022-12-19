@@ -1,0 +1,18 @@
+-
+    rankid: '1'
+    rank: Player
+    tactics: '0'
+    matches: '0'
+    color: green
+-
+    rankid: '2'
+    rank: Leader
+    tactics: '1'
+    matches: '1'
+    color: red
+-
+    rankid: '3'
+    rank: Trial
+    tactics: '0'
+    matches: '0'
+    color: blue

@@ -1,138 +1,162 @@
-<?php
-// $Id: tactics.php,v 1.11 2006/06/09 14:32:47 mithyt2 Exp $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-include '../../mainfile.php';
+<?php declare(strict_types=1);
+
+
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Mithrandir, Mamba, XOOPS Development Team
+ */
+
+use XoopsModules\Gamers\{
+    Helper,
+    Player
+};
+
+/** @var Helper $helper */
+
+$GLOBALS['xoopsOption']['template_main'] = 'gamers_tactics_list.tpl';
+
+require_once __DIR__ . '/header.php';
+//require_once __DIR__ . '/functions.php';
 
 define('dirname', $xoopsModule->dirname());
-include_once XOOPS_ROOT_PATH . '/modules/' . dirname . '/class/player.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . dirname . '/functions.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . dirname . '/class/player.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . dirname . '/functions.php';
 
-$op = isset($_GET['op']) ? $_GET['op'] : 'default';
-$tacid = isset($_GET['tacid']) ? intval($_GET['tacid']) : null;
-$mapid = isset($_GET['mapid']) ? intval($_GET['mapid']) : null;
-$teamsize = isset($_GET['teamsize']) ? intval($_GET['teamsize']) : null;
-$teamid = isset($_GET['teamid']) ? intval($_GET['teamid']) : null;
+$op       = $_GET['op'] ?? 'default';
+$tacid    = isset($_GET['tacid']) ? (int)$_GET['tacid'] : null;
+$mapid    = isset($_GET['mapid']) ? (int)$_GET['mapid'] : null;
+$teamsize = isset($_GET['teamsize']) ? (int)$_GET['teamsize'] : null;
+$teamid   = isset($_GET['teamid']) ? (int)$_GET['teamid'] : null;
 if (isset($_POST)) {
     foreach ($_POST as $k => $v) {
         ${$k} = $v;
     }
 }
-$tactics_handler =& xoops_getmodulehandler('tactics','team');
+$tacticsHandler = Helper::getInstance()
+                        ->getHandler('Tactics');
 if ($xoopsUser) {
-    $uid = $xoopsUser->getVar("uid");
+    $uid = $xoopsUser->getVar('uid');
+
     if (!isset($teamid)) {
         if (!isset($tacid)) {
             $thisplayer = new Player($uid);
+
             $team = $thisplayer->getTeams();
+
             foreach ($team as $statusid => $teamid) {
                 $teamid = $teamid;
             }
+
             if (!isset($teamid)) {
-                redirect_header("index.php", 3, _MD_TEAMACCESSDENY);
+                redirect_header('index.php', 3, _MD_GAMERS_ACCESSDENY);
             }
-        }
-        else {
-            $tactic =& $tactics_handler->get($tacid);
+        } else {
+            $tactic = $tacticsHandler->get($tacid);
+
             $teamid = $tactic->getVar('teamid');
         }
     }
-    $team_handler =& xoops_getmodulehandler('team','team');
-    $team =& $team_handler->get($teamid);
+
+    $teamHandler = Helper::getInstance()
+                         ->getHandler('Team');
+
+    $team = $teamHandler->get($teamid);
+
     if ($team->isTacticsAdmin($uid)) {
         $admin = 'Yes';
-    }
-    else {
+    } else {
         $admin = 'No';
     }
+
     if ($team->isTeamMember($uid)) {
-        switch($op) {
-            case "display":
+        switch ($op) {
+            case 'display':
                 if (isset($tacid)) {
-                    include(XOOPS_ROOT_PATH.'/header.php');
-                    $tactic =& $tactics_handler->get($tacid);
+                    require XOOPS_ROOT_PATH . '/header.php';
+
+                    $tactic = $tacticsHandler->get($tacid);
+
                     $tactic->show();
-                }
-                else {
-                    redirect_header("tactics.php",2,_MD_TEAMNOTACTICSSEL);
+                } else {
+                    redirect_header('tactics.php', 2, _MD_GAMERS_NOTACTICSSEL);
+
                     break;
                 }
                 break;
+            case 'mantactics':
+                require XOOPS_ROOT_PATH . '/header.php';
+                if (isset($mapid) && isset($teamid) && isset($teamsize)) {
+                    $tactic = $tacticsHandler->getByParams($teamid, $mapid, $teamsize);
 
-            case "mantactics":
-                include(XOOPS_ROOT_PATH.'/header.php');
-                if (isset($mapid)&& isset($teamid) && isset($teamsize)) {
-                    $tactic =& $tactics_handler->getByParams($teamid, $mapid, $teamsize);
-                    $action = "Add";
-                }
-                elseif (isset($tacid)) {
-                    $tactic =& $tactics_handler->get($tacid);
-                    $action = "Edit";
+                    $action = 'Add';
+                } elseif (isset($tacid)) {
+                    $tactic = $tacticsHandler->get($tacid);
+
+                    $action = 'Edit';
                 }
                 $teamsize = $tactic->getVar('teamsize');
-                include XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-                $mform = new XoopsThemeForm($teamsize." "._MD_TEAMVERSUS." ".$teamsize." "._MD_TEAMTACTICSFOR." ".$team->getVar('teamname')." "._MD_TEAMON." ".(is_object($tactic->map) ? $tactic->map->getVar('mapname') : "??"), "savetactics", xoops_getenv('PHP_SELF'));
-                $general = new XoopsFormTextArea(_MD_TEAMGENERALTACS, "general", $tactic->getVar('general'));
+                require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+                $mform         = new XoopsThemeForm($teamsize . ' ' . _MD_GAMERS_VERSUS . ' ' . $teamsize . ' ' . _MD_GAMERS_TACTICSFOR . ' ' . $team->getVar('teamname') . ' ' . _MD_GAMERS_ON . ' ' . (is_object($tactic->map) ? $tactic->map->getVar('mapname') : '??'), 'savetactics', xoops_getenv('PHP_SELF'));
+                $general       = new XoopsFormTextArea(_MD_GAMERS_GENERALTACS, 'general', $tactic->getVar('general'));
                 $teampositions = $team->getPositions();
                 if ($tactic->getVar('tacid')) {
                     $tacticspositions = $tactic->getPositions();
                 }
                 $mform->addElement($general);
-                $tacpos = "";
-                $position_handler =& xoops_getmodulehandler('tacticsposition','team');
-                for ($i=0;$i<$teamsize;$i++) {
+                $tacpos          = '';
+                $positionHandler = Helper::getInstance()
+                                         ->getHandler('TacticsPosition');
+                for ($i = 0; $i < $teamsize; ++$i) {
                     if (isset($tacticspositions[$i])) {
-                        $thispos =& $position_handler->get($tacticspositions[$i]);
+                        $thispos = $positionHandler->get($tacticspositions[$i]);
+
                         $thisposid = $thispos->getVar('posid');
+
                         $thisposdesc = $thispos->getVar('posdesc');
-                        $tacpos .= $thispos->getVar('tacposid').":";
-                    }
-                    else {
+
+                        $tacpos .= $thispos->getVar('tacposid') . ':';
+                    } else {
                         $thisposid = 0;
-                        $thisposdesc = "";
+
+                        $thisposdesc = '';
                     }
-                    $position_select[$i] = new XoopsFormSelect(_MD_TEAMPOSITION .($i+1), "posid[".$i."]", $thisposid);
+
+                    $position_select[$i] = new XoopsFormSelect(_MD_GAMERS_POSITION . ($i + 1), 'posid[' . $i . ']', $thisposid);
+
                     foreach ($teampositions as $positionid => $positionname) {
                         $position_select[$i]->addOption($positionid, $positionname);
                     }
-                    $description[$i] = new XoopsFormTextArea(_MD_TEAMDESCRIPTION, "posdesc[".$i."]", $thisposdesc);
+
+                    $description[$i] = new XoopsFormTextArea(_MD_GAMERS_DESCRIPTION, 'posdesc[' . $i . ']', $thisposdesc);
+
                     $mform->addElement($position_select[$i]);
+
                     $mform->addElement($description[$i]);
                 }
-                $button_tray = new XoopsFormElementTray('' ,'');
-                $submit = new XoopsFormButton('', 'action', $action, 'Submit');
+                $button_tray = new XoopsFormElementTray('', '');
+                $submit      = new XoopsFormButton('', 'action', $action, 'Submit');
                 $button_tray->addElement($submit);
                 if (isset($tacpos)) {
-                    $tacpos_hidden = new XoopsFormHidden("tacpos",$tacpos);
+                    $tacpos_hidden = new XoopsFormHidden('tacpos', $tacpos);
+
                     $mform->addElement($tacpos_hidden);
                 }
-                $teamsize_hidden = new XoopsFormHidden("teamsize",$tactic->getVar('teamsize'));
-                $tacid_hidden = new XoopsFormHidden("tacid", $tactic->getVar('tacid'));
-                $mapid_hidden = new XoopsFormHidden("mapid", $tactic->getVar('mapid'));
-                $teamid_hidden = new XoopsFormHidden("teamid", $tactic->getVar('teamid'));
-                $op_hidden = new XoopsFormHidden("op","savetactics");
+                $teamsize_hidden = new XoopsFormHidden('teamsize', $tactic->getVar('teamsize'));
+                $tacid_hidden    = new XoopsFormHidden('tacid', $tactic->getVar('tacid'));
+                $mapid_hidden    = new XoopsFormHidden('mapid', $tactic->getVar('mapid'));
+                $teamid_hidden   = new XoopsFormHidden('teamid', $tactic->getVar('teamid'));
+                $op_hidden       = new XoopsFormHidden('op', 'savetactics');
                 $mform->addElement($teamsize_hidden);
                 $mform->addElement($tacid_hidden);
                 $mform->addElement($teamid_hidden);
@@ -141,65 +165,76 @@ if ($xoopsUser) {
                 $mform->addElement($button_tray);
                 $mform->display();
                 break;
+            case 'savetactics':
+                if ('Edit' == $action) {
+                    $tactic = $tacticsHandler->get($tacid);
+                } else {
+                    $tactic = $tacticsHandler->create();
 
-            case "savetactics":
-                if ($action=='Edit') {
-                    $tactic =& $tactics_handler->get($tacid);
-                }
-                else {
-                    $tactic =& $tactics_handler->create();
                     $tactic->setVar('mapid', $mapid);
+
                     $tactic->setVar('teamid', $teamid);
+
                     $tactic->setVar('teamsize', $teamsize);
                 }
                 $tactic->setVar('general', $general);
-                if ($tactics_handler->insert($tactic)) {
+                if ($tacticsHandler->insert($tactic)) {
                     $tacid = $tactic->getVar('tacid');
-                    $tacpos=explode(":",$tacpos);
+
+                    $tacpos = explode(':', $tacpos);
+
                     $tacserrors = 0;
-                    $position_handler =& xoops_getmodulehandler('tacticsposition','team');
-                    for ($i=0;$i<$teamsize;$i++) {
-                        $thispos =& $position_handler->create();
+
+                    $positionHandler = Helper::getInstance()
+                                             ->getHandler('TacticsPosition');
+
+                    for ($i = 0; $i < $teamsize; ++$i) {
+                        $thispos = $positionHandler->create();
+
                         if (isset($tacpos[$i]) && $tacpos[$i]) {
                             $thispos->setVar('tacposid', $tacpos[$i]);
+
                             $thispos->unsetNew();
                         }
+
                         $thispos->setVar('posid', $posid[$i]);
+
                         $thispos->setVar('posdesc', $posdesc[$i]);
+
                         $thispos->setVar('tacid', $tacid);
-                        if (!$position_handler->insert($thispos)) {
+
+                        if (!$positionHandler->insert($thispos)) {
                             $tacserros++;
                         }
                     }
+
                     if ($tacserrors > 0) {
-                        redirect_header("tactics.php?teamid=".$teamid, 3, $tacserrors._MD_TEAMTACTICSERRORS);
-                    }
-                    else {
-                        if ($action == 'Add') {
-                            redirect_header("tactics.php?teamid=".$teamid,3,_MD_TEAMTACTICSADDED);
-                        }
-                        else {
-                            redirect_header("tactics.php?teamid=".$teamid,3,_MD_TEAMTACTICSEDITED);
+                        redirect_header('tactics.php?teamid=' . $teamid, 3, $tacserrors . _MD_GAMERS_TACTICSERRORS);
+                    } else {
+                        if ('Add' == $action) {
+                            redirect_header('tactics.php?teamid=' . $teamid, 3, _MD_GAMERS_TACTICSADDED);
+                        } else {
+                            redirect_header('tactics.php?teamid=' . $teamid, 3, _MD_GAMERS_TACTICSEDITED);
                         }
                     }
-                }
-                else {
-                    redirect_header("tactics.php?teamid=".$teamid,3, _MD_TEAMGENERALTACSERROR);
+                } else {
+                    redirect_header('tactics.php?teamid=' . $teamid, 3, _MD_GAMERS_GENERALTACSERROR);
                 }
                 break;
-
-            case "default":
+            case 'default':
             default:
-                $xoopsOption['template_main'] = "team_tactics_list.html";
-                include(XOOPS_ROOT_PATH.'/header.php');
+                require XOOPS_ROOT_PATH . '/header.php';
+                $sizes     = [];
+                $tactics   = [];
                 $teamsizes = $team->getTeamSizes();
-                $count = count($teamsizes);
+                $count     = is_countable($teamsizes) ? count($teamsizes) : 0;
                 if ($team->isTeamAdmin($uid)) {
                     $colspan = $count * 2;
+
                     $firstspan = 2;
-                }
-                else {
+                } else {
                     $colspan = $count;
+
                     $firstspan = 1;
                 }
                 $headspan = $colspan - 1;
@@ -208,10 +243,10 @@ if ($xoopsUser) {
                     $sizes[] = $teamsize;
                 }
 
-                $maps = $team->getTeamMaps();
+                $maps = $team->getMaps();
                 foreach (array_keys($maps) as $mapid) {
-                    for ($i=0;$i<$count;$i++) {
-                        $tactics[$mapid][$sizes[$i]] =& $tactics_handler->getByParams($teamid, $mapid, $sizes[$i]);
+                    for ($i = 0; $i < $count; ++$i) {
+                        $tactics[$mapid][$sizes[$i]] = $tacticsHandler->getByParams($teamid, $mapid, $sizes[$i]);
                     }
                 }
                 $team->select();
@@ -222,15 +257,13 @@ if ($xoopsUser) {
                 $xoopsTpl->assign('maps', $maps);
                 $xoopsTpl->assign('tactics', $tactics);
                 $xoopsTpl->assign('admin', $admin);
+                $xoopsTpl->assign('url', XOOPS_URL . '/modules/' . $moduleDirName);
                 break;
         }
+    } else {
+        redirect_header('index.php?teamid=' . $teamid, 3, _MD_GAMERS_ACCESSDENY);
     }
-    else {
-        redirect_header("index.php?teamid=".$teamid,3,_MD_TEAMACCESSDENY);
-    }
+} else {
+    redirect_header('index.php?teamid=' . $teamid, 3, _MD_GAMERS_MEMBAREA);
 }
-else {
-    redirect_header("index.php?teamid=".$teamid,3,_MD_TEAMMEMBAREA);
-}
-include_once XOOPS_ROOT_PATH.'/footer.php';
-?>
+require_once XOOPS_ROOT_PATH . '/footer.php';

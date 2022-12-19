@@ -1,144 +1,304 @@
-<?php
-function teamTableLink($img="", $url=array(), $rightlink=array()) {
+<?php declare(strict_types=1);
+
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project (https://xoops.org)
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
+ * @author       Mithrandir, Mamba, XOOPS Development Team
+ */
+
+
+use XoopsModules\Gamers\{
+    Helper
+};
+
+/**
+ * @param string $img
+ * @param array  $url
+ * @param array  $rightlink
+ */
+function teamTableLink($img = '', $url = [], $rightlink = [])
+{
     teamTableOpen();
-    echo "<td><img src='".$img."'></td>";
+
+    echo "<td><img src='" . $img . "'></td>";
+
     if ($rightlink) {
         foreach ($rightlink as $key => $link) {
-            echo "<td align=right><a href='".$link["url"]."'>".$link["text"]."</td>";
+            echo "<td align=right><a href='" . $link['url'] . "'>" . $link['text'] . '</td>';
         }
     }
-    echo "</tr><tr>";
-    echo "<td align=left>";
+
+    echo '</tr><tr>';
+
+    echo '<td align=left>';
+
     foreach ($url as $key => $link) {
         if (isset($first)) {
-            echo " >> >> ";
+            echo ' >> >> ';
         }
-        if ($link["url"]) {
-            echo "<a href='".$link["url"]."'>";
+
+        if ($link['url']) {
+            echo "<a href='" . $link['url'] . "'>";
         }
-        echo $link["text"];
-        if ($link["url"]) {
-            echo "</a>";
+
+        echo $link['text'];
+
+        if ($link['url']) {
+            echo '</a>';
         }
+
         $first = 1;
     }
-    echo "</td>";
+
+    echo '</td>';
+
     teamTableClose();
+
     teamTableOpen();
 }
 
-function teamTableOpen() {
+function teamTableOpen()
+{
     echo "<table border='0' cellpadding='0' cellspacing='0' valign='top' width='100%'><tr><td>";
+
     echo "<tr><td><table width='100%' border='0' cellpadding='4' cellspacing='1'>";
-    echo "<tr>";
+
+    echo '<tr>';
 }
 
-function teamTableClose() {
-    echo "</tr></table></td></tr></table>";
+function teamTableClose()
+{
+    echo '</tr></table></td></tr></table>';
 }
 
-function teamItemManage ($nomembers, $members, $teamid, $op, $select, $lang) {
-    echo "<tr><th><b>".$lang[0]."</b></th><th align=center><b>".$lang[1]."</b></th><th><b>".$lang[2]."</b></th>";
+/**
+ * @param $nomembers
+ * @param $members
+ * @param $teamid
+ * @param $op
+ * @param $select
+ * @param $lang
+ */
+function teamItemManage($nomembers, $members, $teamid, $op, $select, $lang)
+{
+    echo '<tr><th><b>' . $lang[0] . '</b></th><th align=center><b>' . $lang[1] . '</b></th><th><b>' . $lang[2] . '</b></th>';
+
     echo "</tr>\n";
+
     echo '<tr><td class="even"><form action="teamadmin.php" method="post">';
-    echo '<select name="'.$select[0].'[]" size="10" multiple="multiple">'."\n";
+
+    echo '<select name="' . $select[0] . '[]" size="10" multiple="multiple">' . "\n";
+
     foreach ($nomembers as $member_id => $member_name) {
-        echo '<option value="'.$member_id.'">'.$member_name.'</option>'."\n";
+        echo '<option value="' . $member_id . '">' . $member_name . '</option>' . "\n";
     }
+
     echo '</select>';
+
     echo "</td><td align='center' class='odd'>
-         <input type='hidden' name='op' value='".$op[0]."' />
-		<input type='hidden' name='teamid' value='".$teamid."' />
-		<input type='submit' name='submit' value='"._AM_ADDBUTTON."' />
-		</form><br />
-		<form action='teamadmin.php' method='post' />
-		<input type='hidden' name='op' value='".$op[1]."' />
-		<input type='hidden' name='teamid' value='".$teamid."' />
-		<input type='submit' name='submit' value='"._AM_DELBUTTON."' />
+         <input type='hidden' name='op' value='" . $op[0] . "'>
+		<input type='hidden' name='teamid' value='" . $teamid . "'>
+		<input type='submit' name='submit' value='" . _AM_GAMERS_ADDBUTTON . "'>
+		</form><br>
+		<form action='teamadmin.php' method='post'>
+		<input type='hidden' name='op' value='" . $op[1] . "'>
+		<input type='hidden' name='teamid' value='" . $teamid . "'>
+		<input type='submit' name='submit' value='" . _AM_GAMERS_DELBUTTON . "'>
 		</td>
 		<td class='even'>";
-    echo "<select name='".$select[1]."[]' size='10' multiple='multiple'>";
+
+    echo "<select name='" . $select[1] . "[]' size='10' multiple='multiple'>";
+
     foreach ($members as $member_id => $member_name) {
-        echo '<option value="'.$member_id.'">'.$member_name.'</option>'."\n";
+        echo '<option value="' . $member_id . '">' . $member_name . '</option>' . "\n";
     }
-    echo "</select>";
+
+    echo '</select>';
+
     echo '</form></td></tr>';
 }
 
-function getAllMembers() {
-    $member_handler = xoops_gethandler('member');
-    $allmembers = $member_handler->getUserList();
-    return $allmembers;
+/**
+ * @return mixed
+ */
+function getAllMembers()
+{
+    $memberHandler = xoops_getHandler('member');
+
+    return $memberHandler->getUserList();
 }
-function getAllMaps() {
-    $map_handler = xoops_getmodulehandler('map','team');
-    return $map_handler->getList();
+
+/**
+ * @return mixed
+ */
+function getAllMaps()
+{
+    $mapHandler = Helper::getInstance()->getHandler('Map');
+
+    return $mapHandler->getList();
 }
-function getAllPositions() {
+
+/**
+ * @return array
+ */
+function getAllPositions()
+{
     global $xoopsDB;
-    $sql = "SELECT posid, posname FROM ".$xoopsDB->prefix("team_positions")." WHERE postype='Pos' ORDER BY posorder, posname ASC";
+
+    $sql = 'SELECT posid, posname FROM ' . $xoopsDB->prefix('gamers_positions') . " WHERE postype='Pos' ORDER BY posorder, posname ASC";
+
     $result = $xoopsDB->query($sql);
+
+    if (!$xoopsDB->isResultSet($result)) {
+        \trigger_error("Query Failed! SQL: $sql- Error: " . $xoopsDB->error(), E_USER_ERROR);
+    }
+
     $count = 0;
-    $allpos = array();
-    while ($row=$xoopsDB->fetchArray($result)) {
-        $allpos[$row["posid"]]=$row["posname"];
+
+    $allpos = [];
+
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        $allpos[$row['posid']] = $row['posname'];
+
         $count++;
     }
+
     return $allpos;
 }
-function getAllSkills() {
+
+/**
+ * @return array
+ */
+function getAllSkills()
+{
     global $xoopsDB;
-    $sql = "SELECT posid, posname FROM ".$xoopsDB->prefix("team_positions")." WHERE postype='Skill' ORDER BY posorder, posname ASC";
+
+    $sql = 'SELECT posid, posname FROM ' . $xoopsDB->prefix('gamers_positions') . " WHERE postype='Skill' ORDER BY posorder, posname ASC";
+
     $result = $xoopsDB->query($sql);
+
+    if (!$xoopsDB->isResultSet($result)) {
+        \trigger_error("Query Failed! SQL: $sql- Error: " . $xoopsDB->error(), E_USER_ERROR);
+    }
+
     $count = 0;
-    $allskills = array();
-    while ($row=$xoopsDB->fetchArray($result)) {
-        $allskills[$row["posid"]]=$row["posname"];
+
+    $allskills = [];
+
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        $allskills[$row['posid']] = $row['posname'];
+
         $count++;
     }
+
     return $allskills;
 }
-function getAllServers() {
+
+/**
+ * @return mixed
+ */
+function getAllServers()
+{
+    $allservers = [];
     global $xoopsDB;
-    $sql = "SELECT serverid, servername FROM ".$xoopsDB->prefix("team_server")." ORDER BY servername ASC";
+
+    $sql = 'SELECT serverid, servername FROM ' . $xoopsDB->prefix('gamers_server') . ' ORDER BY servername ASC';
+
     $result = $xoopsDB->query($sql);
+
+    if (!$xoopsDB->isResultSet($result)) {
+        \trigger_error("Query Failed! SQL: $sql- Error: " . $xoopsDB->error(), E_USER_ERROR);
+    }
+
     $count = 0;
-    while ($row=$xoopsDB->fetchArray($result)) {
-        $allservers[$row["serverid"]]=$row["servername"];
+
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        $allservers[$row['serverid']] = $row['servername'];
+
         $count++;
     }
+
     return $allservers;
 }
-function getAllTeamsizes() {
+
+/**
+ * @return array
+ */
+function getAllTeamsizes()
+{
     global $xoopsDB;
-    $sql = "SELECT sizeid, size FROM ".$xoopsDB->prefix("team_sizes")." ORDER BY size";
+
+    $sql = 'SELECT sizeid, size FROM ' . $xoopsDB->prefix('gamers_sizes') . ' ORDER BY size';
+
     $result = $xoopsDB->query($sql);
-    $teamsizes=array();
-    while ($row=$xoopsDB->fetchArray($result)) {
-        $teamsizes[$row["sizeid"]]=$row["size"];
+
+    if (!$xoopsDB->isResultSet($result)) {
+        \trigger_error("Query Failed! SQL: $sql- Error: " . $xoopsDB->error(), E_USER_ERROR);
     }
+
+    $teamsizes = [];
+
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        $teamsizes[$row['sizeid']] = $row['size'];
+    }
+
     return $teamsizes;
 }
 
-function getAllTeamsides() {
+/**
+ * @return array
+ */
+function getAllTeamsides()
+{
     global $xoopsDB;
-    $sql = "SELECT sideid, side FROM ".$xoopsDB->prefix("team_sides")." ORDER BY side";
+
+    $sql = 'SELECT sideid, side FROM ' . $xoopsDB->prefix('gamers_sides') . ' ORDER BY side';
+
     $result = $xoopsDB->query($sql);
-    $teamsides=array();
-    while ($row=$xoopsDB->fetchArray($result)) {
-        $teamsides[$row["sideid"]]=$row["side"];
+
+    if (!$xoopsDB->isResultSet($result)) {
+        \trigger_error("Query Failed! SQL: $sql- Error: " . $xoopsDB->error(), E_USER_ERROR);
     }
+
+    $teamsides = [];
+
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        $teamsides[$row['sideid']] = $row['side'];
+    }
+
     return $teamsides;
 }
 
-function getAllTeamranks() {
+/**
+ * @return array
+ */
+function getAllTeamranks()
+{
     global $xoopsDB;
-    $sql = "SELECT rankid, rank FROM ".$xoopsDB->prefix("team_rank")." ORDER BY rank";
+
+    $sql = 'SELECT rankid, rank FROM ' . $xoopsDB->prefix('gamers_rank') . ' ORDER BY rank';
+
     $result = $xoopsDB->query($sql);
-    $teamranks=array();
-    while ($row=$xoopsDB->fetchArray($result)) {
-        $teamranks[$row["rankid"]]=$row["rank"];
+
+    if (!$xoopsDB->isResultSet($result)) {
+        \trigger_error("Query Failed! SQL: $sql- Error: " . $xoopsDB->error(), E_USER_ERROR);
     }
+
+    $teamranks = [];
+
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
+        $teamranks[$row['rankid']] = $row['rank'];
+    }
+
     return $teamranks;
 }
-?>
