@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
 define('_MD_GAMERS_SUBMITMATCH', 'Match hinzufügen');
 define('_NW_GO', 'LOS!');
 define('_NW_THANKS', 'Vielen Dank für Ihren Eintrag.');
