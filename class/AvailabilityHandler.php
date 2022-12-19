@@ -60,7 +60,7 @@ class AvailabilityHandler extends \XoopsPersistableObjectHandler
     {
         $matchHandler = Helper::getInstance()->getHandler('Match');
 
-        $sql = 'SELECT * FROM ' . $this->table . ' a, ' . $matchHandler->table . ' m WHERE a.userid=' . (int)$uid . " AND a.matchid=m.matchid AND m.matchresult='Pending' ORDER BY m.matchdate DESC";
+        $sql = 'SELECT * FROM ' . $this->table . ' a, ' . $matchHandler->table . ' m WHERE a.userid=' . $uid . " AND a.matchid=m.matchid AND m.matchresult='Pending' ORDER BY m.matchdate DESC";
 
         $ret = [];
 
