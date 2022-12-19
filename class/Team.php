@@ -767,6 +767,8 @@ class Team extends \XoopsObject
      */
     final public function delTeamSize(int $sizeid): bool
     {
+        $sql = 'DELETE FROM ' . $this->db->prefix('team_teamsizes') . " WHERE sizeid=$sizeid AND teamid=" . $this->getVar('teamid');
+
         if (!$this->db->query($sql)) {
             return false;
         }
