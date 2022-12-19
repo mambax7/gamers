@@ -234,7 +234,7 @@ define('_MD_GAMERS_LASTLOGIN', 'Last Login');
 define('_MD_GAMERS_SIGNATURE', 'Signature');
 
 define('_MD_GAMERS_EMPTY_NO_RESET', 'Match empty, cannot delete');
-define('_AM_GAMERS_NOGAMERS_SELECTED', 'Nothing Selected');
+define('_MD_GAMERS_NOGAMERS_SELECTED', 'Nothing Selected');
 define('_MD_GAMERS_STATUSERRORS', 'Status Errors');
 define('_MD_GAMERS_RANKERRORS', 'Rank Errors');
 

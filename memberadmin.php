@@ -26,7 +26,7 @@ if ($xoopsUser) {
     $uid = $xoopsUser->getVar('uid');
 
     if (!isset($teamid)) {
-        redirect_header('roster.php', 3, _MD_NOGAMERS_SELECTED);
+        redirect_header('roster.php', 3, _MD_GAMERS_NOGAMERS_SELECTED);
     } else {
         $team = $teamHandler->get($teamid);
     }
