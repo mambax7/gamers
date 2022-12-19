@@ -361,7 +361,7 @@ class Team extends \XoopsObject
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     final public function getAllMembers()
     {

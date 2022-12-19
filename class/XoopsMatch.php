@@ -203,6 +203,9 @@ class XoopsMatch extends \XoopsObject
         return $maps;
     }
 
+    /**
+     * @return void
+     */
     public function lock()
     {
         $sql = 'UPDATE ' . $this->db->prefix('gamers_matches') . ' SET alock=1 WHERE matchid=' . $this->getVar('matchid');
@@ -216,6 +219,9 @@ class XoopsMatch extends \XoopsObject
         }
     }
 
+    /**
+     * @return void
+     */
     public function unlock()
     {
         $sql = 'UPDATE ' . $this->db->prefix('gamers_matches') . ' SET alock=0 WHERE matchid=' . $this->getVar('matchid');
