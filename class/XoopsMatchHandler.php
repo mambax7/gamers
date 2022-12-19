@@ -45,15 +45,15 @@ class XoopsMatchHandler extends \XoopsObjectHandler
     /**
      * retrieve a match
      *
-     * @param mixed $matchid
+     * @param mixed $id
      * @return mixed reference to the {@link XoopsMatch} object, FALSE if failed
      */
-    public function get($matchid)
+    public function get($id)
     {
-        $matchid = (int)$matchid;
+        $id = (int)$id;
 
-        if ($matchid > 0) {
-            $sql = 'SELECT * FROM ' . $this->db->prefix('gamers_matches') . " WHERE matchid=$matchid";
+        if ($id > 0) {
+            $sql = 'SELECT * FROM ' . $this->db->prefix('gamers_matches') . " WHERE matchid=$id";
 
             $result = $this->db->query($sql);
             if (!$this->db->isResultSet($result)) {
@@ -73,17 +73,17 @@ class XoopsMatchHandler extends \XoopsObjectHandler
 
     /*
     * Save match in database
-    * @param object $match reference to the {@link XoopsMatch} object
+    * @param object $object reference to the {@link XoopsMatch} object
     * @param bool $force
     * @return bool FALSE if failed, TRUE if already present and unchanged or successful
     */
 
     /**
-     * @param \XoopsObject $match
+     * @param \XoopsObject $object
      * @param false        $force
      * @return array|bool|int|mixed|void|null
      */
-    public function insert(\XoopsObject $match, $force = false)
+    public function insert(\XoopsObject $object, $force = false)
     {
         $uid = null;
         $matchdate = null;
@@ -100,27 +100,27 @@ class XoopsMatchHandler extends \XoopsObjectHandler
         $matchid = null;
         // If server from list specified do not save customserver
 
-        if (0 != $match->getVar('server')) {
-            $match->setVar('customserver', '');
+        if (0 != $object->getVar('server')) {
+            $object->setVar('customserver', '');
         }
 
-        if ('xoopsmatch' != mb_strtolower(get_class($match))) {
+        if ('xoopsmatch' != mb_strtolower(get_class($object))) {
             return false;
         }
 
-        if (!$match->isDirty()) {
+        if (!$object->isDirty()) {
             return true;
         }
 
-        if (!$match->cleanVars()) {
+        if (!$object->cleanVars()) {
             return false;
         }
 
-        foreach ($match->cleanVars as $k => $v) {
+        foreach ($object->cleanVars as $k => $v) {
             ${$k} = $v;
         }
 
-        if ($match->isNew()) {
+        if ($object->isNew()) {
             $sql = 'INSERT INTO ' . $this->db->prefix('gamers_matches') . "
             (uid, matchdate, teamid, created, teamsize, opponent, ladder, matchresult, review, server, customserver, alock)
             VALUES ($uid, $matchdate, $teamid, $created, $teamsize, " . $this->db->quoteString($opponent) . ', ' . $this->db->quoteString($ladder) . ", 'Pending', " . $this->db->quoteString($review) . ", $server, " . $this->db->quoteString($customserver) . ',0)';
@@ -137,7 +137,7 @@ class XoopsMatchHandler extends \XoopsObjectHandler
             customserver=" . $this->db->quoteString($customserver) . ",
             alock=$alock WHERE matchid = $matchid";
 
-            $newmatchid = $match->getVar('matchid');
+            $newmatchid = $object->getVar('matchid');
         }
 
         if (!$result = $this->db->query($sql)) {
@@ -147,7 +147,7 @@ class XoopsMatchHandler extends \XoopsObjectHandler
         if (empty($newmatchid)) {
             $newmatchid = $this->db->getInsertId();
 
-            $match->setVar('matchid', $newmatchid);
+            $object->setVar('matchid', $newmatchid);
         }
 
         return $newmatchid;
@@ -156,15 +156,15 @@ class XoopsMatchHandler extends \XoopsObjectHandler
     /**
      * delete a match from the database
      *
-     * @param \XoopsObject $match reference to the {@link XoopsMatch} to delete
+     * @param \XoopsObject $object reference to the {@link XoopsMatch} to delete
      * @param bool         $force
      * @return bool FALSE if failed.
      */
-    public function delete(\XoopsObject $match, $force = false)
+    public function delete(\XoopsObject $object, $force = false)
     {
         global $xoopsModule;
 
-        $matchid = (int)$match->getVar('matchid');
+        $matchid = (int)$object->getVar('matchid');
 
         $sql = 'DELETE FROM ' . $this->db->prefix('gamers_matches') . " WHERE matchid = $matchid";
 
