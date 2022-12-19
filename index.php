@@ -63,23 +63,23 @@ function screenshotadd($matchmapid)
 
     require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-    $pform = new XoopsThemeForm(_MD_GAMERS_ADD . ' ' . _MD_GAMERS_SCREENSHOTNAME, 'screenshotform', xoops_getenv('PHP_SELF'));
+    $pform = new \XoopsThemeForm(_MD_GAMERS_ADD . ' ' . _MD_GAMERS_SCREENSHOTNAME, 'screenshotform', xoops_getenv('PHP_SELF'));
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $submit = new XoopsFormButton('', 'submit', _MD_GAMERS_UPLOAD, 'submit');
+    $submit = new \XoopsFormButton('', 'submit', _MD_GAMERS_UPLOAD, 'submit');
 
-    $matchmapid_hidden = new XoopsFormHidden('matchmapid', $matchmapid);
+    $matchmapid_hidden = new \XoopsFormHidden('matchmapid', $matchmapid);
 
-    $op_hidden = new XoopsFormHidden('op', $op);
+    $op_hidden = new \XoopsFormHidden('op', $op);
 
-    $mid_hidden = new XoopsFormHidden('mid', $thismap->getVar('matchid'));
+    $mid_hidden = new \XoopsFormHidden('mid', $thismap->getVar('matchid'));
 
-    $mapname_label = new XoopsFormLabel(_MD_GAMERS_MAPNAME, (is_object($thismap->map) ? $thismap->map->getVar('mapname') : ''));
+    $mapname_label = new \XoopsFormLabel(_MD_GAMERS_MAPNAME, (is_object($thismap->map) ? $thismap->map->getVar('mapname') : ''));
 
-    $mapside_label = new XoopsFormLabel(_MD_GAMERS_SIDENAME, getSide($thismap->getVar('side')));
+    $mapside_label = new \XoopsFormLabel(_MD_GAMERS_SIDENAME, getSide($thismap->getVar('side')));
 
-    $file = new XoopsFormFile(_MD_GAMERS_SCREENSHOTNAME, 'screenshot', 200000);
+    $file = new \XoopsFormFile(_MD_GAMERS_SCREENSHOTNAME, 'screenshot', 200000);
 
     $button_tray->addElement($submit);
 
@@ -137,9 +137,9 @@ switch ($op) {
         if (!isset($teamid)) {
             require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-            $mform = new XoopsThemeForm(_MD_GAMERS_SELECT, 'matchform', xoops_getenv('PHP_SELF'));
+            $mform = new \XoopsThemeForm(_MD_GAMERS_SELECT, 'matchform', xoops_getenv('PHP_SELF'));
 
-            $team_select = new XoopsFormSelect('Team', 'teamid', '1');
+            $team_select = new \XoopsFormSelect('Team', 'teamid', '1');
 
             $teams = $teamHandler->getObjects();
 
@@ -151,11 +151,11 @@ switch ($op) {
                 }
             }
 
-            $button_tray = new XoopsFormElementTray('', '');
+            $button_tray = new \XoopsFormElementTray('', '');
 
-            $button_tray->addElement(new XoopsFormButton('', 'select', 'select', 'submit'));
+            $button_tray->addElement(new \XoopsFormButton('', 'select', 'select', 'submit'));
 
-            $op_hidden = new XoopsFormHidden('op', 'matchform');
+            $op_hidden = new \XoopsFormHidden('op', 'matchform');
 
             $mform->addElement($team_select);
 
@@ -293,7 +293,7 @@ switch ($op) {
 
             //Notification
 
-            $matchcreator = new XoopsUser($uid);
+            $matchcreator = new \XoopsUser($uid);
 
             $creatorname = $matchcreator->getVar('uname');
 

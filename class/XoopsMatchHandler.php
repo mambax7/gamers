@@ -33,7 +33,7 @@ class XoopsMatchHandler extends \XoopsObjectHandler
      */
     public function &create($isNew = true)
     {
-        $match = new XoopsMatch();
+        $match = new \XoopsMatch();
 
         if ($isNew) {
             $match->setNew();

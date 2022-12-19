@@ -44,7 +44,7 @@ if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
     $GLOBALS['xoTheme'] = new \xos_opal_Theme();
 }
 
-if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)) {
     require $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
+    $xoopsTpl = new \XoopsTpl();
 }

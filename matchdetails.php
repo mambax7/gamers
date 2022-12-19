@@ -176,13 +176,13 @@ switch ($op) {
 
         require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-        $mform = new XoopsThemeForm(_MD_GAMERS_LINEUPADDITION, 'savelineup', xoops_getenv('PHP_SELF'));
+        $mform = new \XoopsThemeForm(_MD_GAMERS_LINEUPADDITION, 'savelineup', xoops_getenv('PHP_SELF'));
 
         $players = $mymatch->getMatchPlayers();
 
         $subs = $mymatch->getMatchSubs();
 
-        $generaltacs = new XoopsFormTextArea(_MD_GAMERS_GENERALTACS, 'general', $general);
+        $generaltacs = new \XoopsFormTextArea(_MD_GAMERS_GENERALTACS, 'general', $general);
 
         $mform->addElement($generaltacs);
 
@@ -207,13 +207,13 @@ switch ($op) {
                 $thisdesc = $desc[$i];
             }
 
-            $position_select[$i] = new XoopsFormSelect(_MD_GAMERS_POSITION . ' ' . ($i + 1), 'posid[' . $i . ']', $thispos);
+            $position_select[$i] = new \XoopsFormSelect(_MD_GAMERS_POSITION . ' ' . ($i + 1), 'posid[' . $i . ']', $thispos);
 
             foreach ($teampositions as $positionid => $positionname) {
                 $position_select[$i]->addOption($positionid, $positionname);
             }
 
-            $player_select[$i] = new XoopsFormSelect(_MD_GAMERS_PLAYER, 'playerid[' . $i . ']', $player);
+            $player_select[$i] = new \XoopsFormSelect(_MD_GAMERS_PLAYER, 'playerid[' . $i . ']', $player);
 
             $player_select[$i]->addOption(0, _MD_GAMERS_UNDECIDED);
 
@@ -227,7 +227,7 @@ switch ($op) {
                 $player_select[$i]->addOption($pid, '(Sub)' . $pname);
             }
 
-            $description[$i] = new XoopsFormTextArea(_MD_GAMERS_DESCRIPTION, 'posdesc[' . $i . ']', $thisdesc);
+            $description[$i] = new \XoopsFormTextArea(_MD_GAMERS_DESCRIPTION, 'posdesc[' . $i . ']', $thisdesc);
 
             $mform->addElement($position_select[$i]);
 
@@ -236,24 +236,24 @@ switch ($op) {
             $mform->addElement($description[$i]);
         }
 
-        $button_tray = new XoopsFormElementTray('', '');
+        $button_tray = new \XoopsFormElementTray('', '');
 
-        $submit = new XoopsFormButton('', 'action', $action, 'Submit');
+        $submit = new \XoopsFormButton('', 'action', $action, 'Submit');
 
         $button_tray->addElement($submit);
 
-        $teamsize_hidden = new XoopsFormHidden('teamsize', $teamsize);
+        $teamsize_hidden = new \XoopsFormHidden('teamsize', $teamsize);
 
-        $matchmapid_hidden = new XoopsFormHidden('matchmapid', $lineup->getVar('matchmapid'));
+        $matchmapid_hidden = new \XoopsFormHidden('matchmapid', $lineup->getVar('matchmapid'));
 
-        $mapid_hidden = new XoopsFormHidden('mapid', $lineup->getVar('mapid'));
+        $mapid_hidden = new \XoopsFormHidden('mapid', $lineup->getVar('mapid'));
 
-        $matchid_hidden = new XoopsFormHidden('mid', $lineup->getVar('matchid'));
+        $matchid_hidden = new \XoopsFormHidden('mid', $lineup->getVar('matchid'));
 
-        $op_hidden = new XoopsFormHidden('op', 'savelineup');
+        $op_hidden = new \XoopsFormHidden('op', 'savelineup');
 
         if (isset($lineupid)) {
-            $lineupid_hidden = new XoopsFormHidden('lineupid', $lineupid);
+            $lineupid_hidden = new \XoopsFormHidden('lineupid', $lineupid);
 
             $mform->addElement($lineupid_hidden);
         }
@@ -445,7 +445,7 @@ switch ($op) {
                 }
 
                 if ($thislineup['uid']) {
-                    $thisuser = XoopsUser::getUnameFromId($thislineup['uid']);
+                    $thisuser = \XoopsUser::getUnameFromId($thislineup['uid']);
 
                     $thisuser = $i . ' ' . $thisuser;
                 } else {

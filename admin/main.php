@@ -79,21 +79,21 @@ function ladderedit($id = '')
 
     require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-    $pform = new XoopsThemeForm($action . ' Ladder', 'ladderform', xoops_getenv('PHP_SELF'));
+    $pform = new \XoopsThemeForm($action . ' Ladder', 'ladderform', xoops_getenv('PHP_SELF'));
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $submit = new XoopsFormButton('', 'select', $action, 'submit');
+    $submit = new \XoopsFormButton('', 'select', $action, 'submit');
 
-    $op_hidden = new XoopsFormHidden('op', $op);
+    $op_hidden = new \XoopsFormHidden('op', $op);
 
-    $name = new XoopsFormText(_AM_GAMERS_LADDERNAME, 'laddername', 32, 32, $laddername, 'E');
+    $name = new \XoopsFormText(_AM_GAMERS_LADDERNAME, 'laddername', 32, 32, $laddername, 'E');
 
-    $visible = new XoopsFormRadioYN(_AM_GAMERS_LADDERVISIBLE, 'laddervisible', $laddervisible, _AM_GAMERS_YES, _AM_GAMERS_NO);
+    $visible = new \XoopsFormRadioYN(_AM_GAMERS_LADDERVISIBLE, 'laddervisible', $laddervisible, _AM_GAMERS_YES, _AM_GAMERS_NO);
 
-    $scores = new XoopsFormRadioYN(_AM_GAMERS_SCORESVISIBLE, 'scoresvisible', $scoresvisible, _AM_GAMERS_YES, _AM_GAMERS_NO);
+    $scores = new \XoopsFormRadioYN(_AM_GAMERS_SCORESVISIBLE, 'scoresvisible', $scoresvisible, _AM_GAMERS_YES, _AM_GAMERS_NO);
 
-    $id = new XoopsFormHidden('ladderid', $ladderid);
+    $id = new \XoopsFormHidden('ladderid', $ladderid);
 
     $button_tray->addElement($submit);
 
@@ -157,21 +157,21 @@ function posedit($id = '')
 
     require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-    $pform = new XoopsThemeForm($action . ' Position', 'posform', xoops_getenv('PHP_SELF'));
+    $pform = new \XoopsThemeForm($action . ' Position', 'posform', xoops_getenv('PHP_SELF'));
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $submit = new XoopsFormButton('', 'select', $action, 'submit');
+    $submit = new \XoopsFormButton('', 'select', $action, 'submit');
 
-    $op_hidden = new XoopsFormHidden('op', $op);
+    $op_hidden = new \XoopsFormHidden('op', $op);
 
-    $name = new XoopsFormText(_AM_GAMERS_POSITIONNAME, 'posname', 35, 35, $posname, 'E');
+    $name = new \XoopsFormText(_AM_GAMERS_POSITIONNAME, 'posname', 35, 35, $posname, 'E');
 
-    $short = new XoopsFormText(_AM_GAMERS_POSITIONSHORT, 'posshort', 20, 20, $posshort, 'E');
+    $short = new \XoopsFormText(_AM_GAMERS_POSITIONSHORT, 'posshort', 20, 20, $posshort, 'E');
 
-    $type = new XoopsFormRadio(_AM_GAMERS_POSITIONTYPE, 'postype', $postype);
+    $type = new \XoopsFormRadio(_AM_GAMERS_POSITIONTYPE, 'postype', $postype);
 
-    $id = new XoopsFormHidden('posid', $posid);
+    $id = new \XoopsFormHidden('posid', $posid);
 
     $button_tray->addElement($submit);
 
@@ -226,17 +226,17 @@ function mapedit($id = '')
 
     require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-    $mform = new XoopsThemeForm(_AM_GAMERS_MAPMNGR, 'mapedit', xoops_getenv('PHP_SELF'));
+    $mform = new \XoopsThemeForm(_AM_GAMERS_MAPMNGR, 'mapedit', xoops_getenv('PHP_SELF'));
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $submit = new XoopsFormButton('', 'select', $action, 'submit');
+    $submit = new \XoopsFormButton('', 'select', $action, 'submit');
 
-    $op_hidden = new XoopsFormHidden('op', $op);
+    $op_hidden = new \XoopsFormHidden('op', $op);
 
-    $mapid_hidden = new XoopsFormHidden('mapid', $mapid);
+    $mapid_hidden = new \XoopsFormHidden('mapid', $mapid);
 
-    $name = new XoopsFormText(_AM_GAMERS_NEWMAPNAME, 'mapname', 25, 25, $mapname, 'E');
+    $name = new \XoopsFormText(_AM_GAMERS_NEWMAPNAME, 'mapname', 25, 25, $mapname, 'E');
 
     $button_tray->addElement($submit);
 
@@ -265,15 +265,15 @@ function serverForm($action, $serverid = '')
 
     require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-    $mform = new XoopsThemeForm(_AM_GAMERS_ADDSERVER, 'serverform', xoops_getenv('PHP_SELF'));
+    $mform = new \XoopsThemeForm(_AM_GAMERS_ADDSERVER, 'serverform', xoops_getenv('PHP_SELF'));
 
-    $op_hidden = new XoopsFormHidden('op', 'saveserver');
+    $op_hidden = new \XoopsFormHidden('op', 'saveserver');
 
-    $submit = new XoopsFormButton('', 'submit', $submittext, 'submit');
+    $submit = new \XoopsFormButton('', 'submit', $submittext, 'submit');
 
-    $action_hidden = new XoopsFormHidden('action', $action);
+    $action_hidden = new \XoopsFormHidden('action', $action);
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
     if ('' != $serverid) {
         $server = getServer($serverid);
@@ -284,7 +284,7 @@ function serverForm($action, $serverid = '')
 
         $port = $server['port'];
 
-        $serverid_hidden = new XoopsFormHidden('serverid', $serverid);
+        $serverid_hidden = new \XoopsFormHidden('serverid', $serverid);
 
         $mform->addElement($serverid_hidden);
     } else {
@@ -295,11 +295,11 @@ function serverForm($action, $serverid = '')
         $port = 'Port';
     }
 
-    $name = new XoopsFormText(_AM_GAMERS_SERVERNAME, 'servername', 30, 30, $name, 'E');
+    $name = new \XoopsFormText(_AM_GAMERS_SERVERNAME, 'servername', 30, 30, $name, 'E');
 
-    $ip = new XoopsFormText(_AM_GAMERS_SERVERIP, 'serverip', 20, 20, $ip, 'E');
+    $ip = new \XoopsFormText(_AM_GAMERS_SERVERIP, 'serverip', 20, 20, $ip, 'E');
 
-    $port = new XoopsFormText(_AM_GAMERS_SERVERPORT, 'serverport', 10, 10, $port, 'E');
+    $port = new \XoopsFormText(_AM_GAMERS_SERVERPORT, 'serverport', 10, 10, $port, 'E');
 
     $button_tray->addElement($submit);
 
@@ -330,7 +330,7 @@ function addSizeForm($action = _AM_GAMERS_ADD, $sizeId = '')
 
     $size = 0;
 
-    $mform = new XoopsThemeForm(_AM_GAMERS_ADDSIZE, 'sizeform', xoops_getenv('PHP_SELF'));
+    $mform = new \XoopsThemeForm(_AM_GAMERS_ADDSIZE, 'sizeform', xoops_getenv('PHP_SELF'));
 
     if ('' != $sizeId) {
         $sql = 'SELECT size FROM ' . $xoopsDB->prefix('gamers_sizes') . ' WHERE sizeid=' . (int)$sizeId;
@@ -343,22 +343,22 @@ function addSizeForm($action = _AM_GAMERS_ADD, $sizeId = '')
 
         $size = $xoopsDB->fetchArray($result)['size'];
 
-        $sizeid_hidden = new XoopsFormHidden('sizeid', $sizeId);
+        $sizeid_hidden = new \XoopsFormHidden('sizeid', $sizeId);
 
         $mform->addElement($sizeid_hidden);
 
         $action = _AM_GAMERS_EDIT;
     }
 
-    $action_hidden = new XoopsFormHidden('action', $action);
+    $action_hidden = new \XoopsFormHidden('action', $action);
 
-    $op_hidden = new XoopsFormHidden('op', 'savesize');
+    $op_hidden = new \XoopsFormHidden('op', 'savesize');
 
-    $submit = new XoopsFormButton('', 'submit', $action, 'submit');
+    $submit = new \XoopsFormButton('', 'submit', $action, 'submit');
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $teamsize = new XoopsFormText(_AM_GAMERS_SIZENAME, 'size', 20, 20, $size, 'E');
+    $teamsize = new \XoopsFormText(_AM_GAMERS_SIZENAME, 'size', 20, 20, $size, 'E');
 
     $button_tray->addElement($submit);
 
@@ -387,7 +387,7 @@ function addSideForm($action = _AM_GAMERS_ADD, $sideId = '')
 
     $sideShortText = _AM_GAMERS_SIDESHORT;
 
-    $mform = new XoopsThemeForm(_AM_GAMERS_ADDSIDE, 'sideform', xoops_getenv('PHP_SELF'));
+    $mform = new \XoopsThemeForm(_AM_GAMERS_ADDSIDE, 'sideform', xoops_getenv('PHP_SELF'));
 
     if ($sideId) {
         $sql
@@ -406,24 +406,24 @@ function addSideForm($action = _AM_GAMERS_ADD, $sideId = '')
 
         $sideShortText = $currentSide['sideshort'];
 
-        $sideid_hidden = new XoopsFormHidden('sizeid', $sideId);
+        $sideid_hidden = new \XoopsFormHidden('sizeid', $sideId);
 
         $mform->addElement($sideid_hidden);
 
         $action = _AM_GAMERS_EDIT;
     }
 
-    $action_hidden = new XoopsFormHidden('action', $action);
+    $action_hidden = new \XoopsFormHidden('action', $action);
 
-    $op_hidden = new XoopsFormHidden('op', 'saveside');
+    $op_hidden = new \XoopsFormHidden('op', 'saveside');
 
-    $submit = new XoopsFormButton('', 'submit', $action, 'submit');
+    $submit = new \XoopsFormButton('', 'submit', $action, 'submit');
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $teamside = new XoopsFormText(_AM_GAMERS_SIDENAME, 'side', 12, 20, $sideText, 'E');
+    $teamside = new \XoopsFormText(_AM_GAMERS_SIDENAME, 'side', 12, 20, $sideText, 'E');
 
-    $sideshort = new XoopsFormText(_AM_GAMERS_SIDESHORT, 'sideshort', 5, 20, $sideShortText, 'E');
+    $sideshort = new \XoopsFormText(_AM_GAMERS_SIDESHORT, 'sideshort', 5, 20, $sideShortText, 'E');
 
     $button_tray->addElement($submit);
 
@@ -450,7 +450,7 @@ function rankform($rankid = '')
 
     require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-    $rform = new XoopsThemeForm(_AM_GAMERS_ADDRANK, 'rankform', xoops_getenv('PHP_SELF'));
+    $rform = new \XoopsThemeForm(_AM_GAMERS_ADDRANK, 'rankform', xoops_getenv('PHP_SELF'));
 
     if ($rankid) {
         $sql
@@ -470,7 +470,7 @@ function rankform($rankid = '')
 
         $submittext = _AM_GAMERS_EDITRANK;
 
-        $rankid_hidden = new XoopsFormHidden('rankid', $rankid);
+        $rankid_hidden = new \XoopsFormHidden('rankid', $rankid);
 
         $rform->addElement($rankid_hidden);
     } else {
@@ -487,21 +487,21 @@ function rankform($rankid = '')
         $thisrank['color'] = '#007700';
     }
 
-    $op_hidden = new XoopsFormHidden('op', 'saverank');
+    $op_hidden = new \XoopsFormHidden('op', 'saverank');
 
-    $action_hidden = new XoopsFormHidden('action', $action);
+    $action_hidden = new \XoopsFormHidden('action', $action);
 
-    $submit = new XoopsFormButton('', 'submit', $submittext, 'submit');
+    $submit = new \XoopsFormButton('', 'submit', $submittext, 'submit');
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $rank = new XoopsFormText(_AM_GAMERS_RANK, 'rank', 20, 20, $thisrank['rank'], 'E');
+    $rank = new \XoopsFormText(_AM_GAMERS_RANK, 'rank', 20, 20, $thisrank['rank'], 'E');
 
-    $tactics = new XoopsFormRadioYN(_AM_GAMERS_TACTICSRANK, 'tactics', $thisrank['tactics'], _YES, _NO);
+    $tactics = new \XoopsFormRadioYN(_AM_GAMERS_TACTICSRANK, 'tactics', $thisrank['tactics'], _YES, _NO);
 
-    $matches = new XoopsFormRadioYN(_AM_GAMERS_MATCHRANK, 'matches', $thisrank['matches'], _YES, _NO);
+    $matches = new \XoopsFormRadioYN(_AM_GAMERS_MATCHRANK, 'matches', $thisrank['matches'], _YES, _NO);
 
-    $color = new XoopsFormColorPicker(_AM_GAMERS_RANKCOLOR, 'color', $thisrank['color']);
+    $color = new \XoopsFormColorPicker(_AM_GAMERS_RANKCOLOR, 'color', $thisrank['color']);
 
     $button_tray->addElement($submit);
 
@@ -529,35 +529,35 @@ function layoutform($data)
 {
     require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-    $lform = new XoopsThemeForm('Edit Layout', 'layform', xoops_getenv('PHP_SELF'));
+    $lform = new \XoopsThemeForm('Edit Layout', 'layform', xoops_getenv('PHP_SELF'));
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
 
-    $submit = new XoopsFormButton('', 'submit', _AM_GAMERS_SAVE, 'submit');
+    $submit = new \XoopsFormButton('', 'submit', _AM_GAMERS_SAVE, 'submit');
 
-    $op_hidden = new XoopsFormHidden('op', 'savelayout');
+    $op_hidden = new \XoopsFormHidden('op', 'savelayout');
 
-    $color_status_active = new XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSACTIVE, 'color_status_active', $data['color_status_active']);
+    $color_status_active = new \XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSACTIVE, 'color_status_active', $data['color_status_active']);
 
-    $color_status_inactive = new XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSINACTIVE, 'color_status_inactive', $data['color_status_inactive'], 'E');
+    $color_status_inactive = new \XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSINACTIVE, 'color_status_inactive', $data['color_status_inactive'], 'E');
 
-    $color_status_onleave = new XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSONLEAVE, 'color_status_onleave', $data['color_status_onleave']);
+    $color_status_onleave = new \XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSONLEAVE, 'color_status_onleave', $data['color_status_onleave']);
 
-    $color_match_win = new XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSWIN, 'color_match_win', $data['color_match_win']);
+    $color_match_win = new \XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSWIN, 'color_match_win', $data['color_match_win']);
 
-    $color_match_loss = new XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSLOSS, 'color_match_loss', $data['color_match_loss']);
+    $color_match_loss = new \XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSLOSS, 'color_match_loss', $data['color_match_loss']);
 
-    $color_match_draw = new XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSDRAW, 'color_match_draw', $data['color_match_draw']);
+    $color_match_draw = new \XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSDRAW, 'color_match_draw', $data['color_match_draw']);
 
-    $color_match_pending = new XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSPENDING, 'color_match_pending', $data['color_match_pending']);
+    $color_match_pending = new \XoopsFormColorPicker(_AM_GAMERS_LAYOUTCOLORSTATUSPENDING, 'color_match_pending', $data['color_match_pending']);
 
-    $color_perfect = new XoopsFormColorPicker(_AM_GAMERS_LAYOUTPERFECTCOLOR, 'color_perfect', $data['color_perfect']);
+    $color_perfect = new \XoopsFormColorPicker(_AM_GAMERS_LAYOUTPERFECTCOLOR, 'color_perfect', $data['color_perfect']);
 
-    $color_good = new XoopsFormColorPicker(_AM_GAMERS_LAYOUTGOODCOLOR, 'color_good', $data['color_good']);
+    $color_good = new \XoopsFormColorPicker(_AM_GAMERS_LAYOUTGOODCOLOR, 'color_good', $data['color_good']);
 
-    $color_warn = new XoopsFormColorPicker(_AM_GAMERS_LAYOUTWARNCOLOR, 'color_warn', $data['color_warn']);
+    $color_warn = new \XoopsFormColorPicker(_AM_GAMERS_LAYOUTWARNCOLOR, 'color_warn', $data['color_warn']);
 
-    $color_bad = new XoopsFormColorPicker(_AM_GAMERS_LAYOUTBADCOLOR, 'color_bad', $data['color_bad']);
+    $color_bad = new \XoopsFormColorPicker(_AM_GAMERS_LAYOUTBADCOLOR, 'color_bad', $data['color_bad']);
 
     $button_tray->addElement($submit);
 

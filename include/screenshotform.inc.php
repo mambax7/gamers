@@ -26,9 +26,9 @@ if (!defined('XOOPS_ROOT_PATH')) {
     die('Xoops root path not defined');
 }
 require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$mform = new XoopsThemeForm(_MD_GAMERS_SCREENSHOTS, 'screenshotform', xoops_getenv('PHP_SELF'));
-$uid_hidden = new XoopsFormHidden('uid', $xoopsUser->getVar('uid'));
-$mid_hidden = new XoopsFormHidden('mid', $mid);
+$mform = new \XoopsThemeForm(_MD_GAMERS_SCREENSHOTS, 'screenshotform', xoops_getenv('PHP_SELF'));
+$uid_hidden = new \XoopsFormHidden('uid', $xoopsUser->getVar('uid'));
+$mid_hidden = new \XoopsFormHidden('mid', $mid);
 
 $matchmapHandler = Helper::getInstance()->getHandler('MatchMap');
 

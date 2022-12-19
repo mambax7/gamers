@@ -339,15 +339,15 @@ switch ($op) {
          teamTableOpen();
          echo '<td colspan=2>';
          require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-         $tform = new XoopsThemeForm('' . _AM_GAMERS_OPTIONSFOR . ' ' . $team->getVar('teamname'), 'editteam', 'index.php');
-         $op_hidden = new XoopsFormHidden('op', 'saveteam');
-         $submit = new XoopsFormButton('', 'submit', 'Edit', 'submit');
-         $action_hidden = new XoopsFormHidden('submit', 'Edit');
-         $teamid_hidden = new XoopsFormHidden('teamid', $teamid);
-         $button_tray = new XoopsFormElementTray('', '');
-         $name = new XoopsFormText(_AM_GAMERS_NAME, 'name', 20, 20, $team->getVar('teamname'), 'E');
-         $type = new XoopsFormText(_AM_GAMERS_TYPE, 'type', 20, 20, $team->getVar('teamtype'), 'E');
-         $maps_select = new XoopsFormSelect(_AM_GAMERS_MAPSPERMATCH, 'maps', $team->getVar('maps'));
+         $tform = new \XoopsThemeForm('' . _AM_GAMERS_OPTIONSFOR . ' ' . $team->getVar('teamname'), 'editteam', 'index.php');
+         $op_hidden = new \XoopsFormHidden('op', 'saveteam');
+         $submit = new \XoopsFormButton('', 'submit', 'Edit', 'submit');
+         $action_hidden = new \XoopsFormHidden('submit', 'Edit');
+         $teamid_hidden = new \XoopsFormHidden('teamid', $teamid);
+         $button_tray = new \XoopsFormElementTray('', '');
+         $name = new \XoopsFormText(_AM_GAMERS_NAME, 'name', 20, 20, $team->getVar('teamname'), 'E');
+         $type = new \XoopsFormText(_AM_GAMERS_TYPE, 'type', 20, 20, $team->getVar('teamtype'), 'E');
+         $maps_select = new \XoopsFormSelect(_AM_GAMERS_MAPSPERMATCH, 'maps', $team->getVar('maps'));
          for ($i = 1; $i <= 5; ++$i) {
              $maps_select->addOption($i);
          }

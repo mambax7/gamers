@@ -107,8 +107,8 @@ if ($xoopsUser) {
                 }
                 $teamsize = $tactic->getVar('teamsize');
                 require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-                $mform         = new XoopsThemeForm($teamsize . ' ' . _MD_GAMERS_VERSUS . ' ' . $teamsize . ' ' . _MD_GAMERS_TACTICSFOR . ' ' . $team->getVar('teamname') . ' ' . _MD_GAMERS_ON . ' ' . (is_object($tactic->map) ? $tactic->map->getVar('mapname') : '??'), 'savetactics', xoops_getenv('PHP_SELF'));
-                $general       = new XoopsFormTextArea(_MD_GAMERS_GENERALTACS, 'general', $tactic->getVar('general'));
+                $mform         = new \XoopsThemeForm($teamsize . ' ' . _MD_GAMERS_VERSUS . ' ' . $teamsize . ' ' . _MD_GAMERS_TACTICSFOR . ' ' . $team->getVar('teamname') . ' ' . _MD_GAMERS_ON . ' ' . (is_object($tactic->map) ? $tactic->map->getVar('mapname') : '??'), 'savetactics', xoops_getenv('PHP_SELF'));
+                $general       = new \XoopsFormTextArea(_MD_GAMERS_GENERALTACS, 'general', $tactic->getVar('general'));
                 $teampositions = $team->getPositions();
                 if ($tactic->getVar('tacid')) {
                     $tacticspositions = $tactic->getPositions();
@@ -132,31 +132,31 @@ if ($xoopsUser) {
                         $thisposdesc = '';
                     }
 
-                    $position_select[$i] = new XoopsFormSelect(_MD_GAMERS_POSITION . ($i + 1), 'posid[' . $i . ']', $thisposid);
+                    $position_select[$i] = new \XoopsFormSelect(_MD_GAMERS_POSITION . ($i + 1), 'posid[' . $i . ']', $thisposid);
 
                     foreach ($teampositions as $positionid => $positionname) {
                         $position_select[$i]->addOption($positionid, $positionname);
                     }
 
-                    $description[$i] = new XoopsFormTextArea(_MD_GAMERS_DESCRIPTION, 'posdesc[' . $i . ']', $thisposdesc);
+                    $description[$i] = new \XoopsFormTextArea(_MD_GAMERS_DESCRIPTION, 'posdesc[' . $i . ']', $thisposdesc);
 
                     $mform->addElement($position_select[$i]);
 
                     $mform->addElement($description[$i]);
                 }
-                $button_tray = new XoopsFormElementTray('', '');
-                $submit      = new XoopsFormButton('', 'action', $action, 'Submit');
+                $button_tray = new \XoopsFormElementTray('', '');
+                $submit      = new \XoopsFormButton('', 'action', $action, 'Submit');
                 $button_tray->addElement($submit);
                 if (isset($tacpos)) {
-                    $tacpos_hidden = new XoopsFormHidden('tacpos', $tacpos);
+                    $tacpos_hidden = new \XoopsFormHidden('tacpos', $tacpos);
 
                     $mform->addElement($tacpos_hidden);
                 }
-                $teamsize_hidden = new XoopsFormHidden('teamsize', $tactic->getVar('teamsize'));
-                $tacid_hidden    = new XoopsFormHidden('tacid', $tactic->getVar('tacid'));
-                $mapid_hidden    = new XoopsFormHidden('mapid', $tactic->getVar('mapid'));
-                $teamid_hidden   = new XoopsFormHidden('teamid', $tactic->getVar('teamid'));
-                $op_hidden       = new XoopsFormHidden('op', 'savetactics');
+                $teamsize_hidden = new \XoopsFormHidden('teamsize', $tactic->getVar('teamsize'));
+                $tacid_hidden    = new \XoopsFormHidden('tacid', $tactic->getVar('tacid'));
+                $mapid_hidden    = new \XoopsFormHidden('mapid', $tactic->getVar('mapid'));
+                $teamid_hidden   = new \XoopsFormHidden('teamid', $tactic->getVar('teamid'));
+                $op_hidden       = new \XoopsFormHidden('op', 'savetactics');
                 $mform->addElement($teamsize_hidden);
                 $mform->addElement($tacid_hidden);
                 $mform->addElement($teamid_hidden);

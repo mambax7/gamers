@@ -94,7 +94,7 @@ class Match2 extends \XoopsObject
      */
     public function uname()
     {
-        return XoopsUser::getUnameFromId($this->getVar('uid'));
+        return \XoopsUser::getUnameFromId($this->getVar('uid'));
     }
 
     /**
@@ -207,9 +207,9 @@ class Match2 extends \XoopsObject
         $this->db->query($sql);
 
         if ($this->db->getAffectedRows() > 0) {
-            redirect_header('index.php?teamid=' . $this->getVar('teamid'), 3, _AM_GAMERS_MATCHLOCKED);
+            redirect_header('index.php?teamid=' . $this->getVar('teamid'), 3, _MD_GAMERS_MATCHLOCKED);
         } else {
-            redirect_header('availability.php?mid=' . $this->getVar('matchid'), 3, _AM_DBNOTUPDATED);
+            redirect_header('availability.php?mid=' . $this->getVar('matchid'), 3, _MD_DBNOTUPDATED);
         }
     }
 
@@ -220,9 +220,9 @@ class Match2 extends \XoopsObject
         $this->db->query($sql);
 
         if ($this->db->getAffectedRows() > 0) {
-            redirect_header('index.php?teamid=' . $this->getVar('teamid'), 3, _AM_GAMERS_MATCHUNLOCKED);
+            redirect_header('index.php?teamid=' . $this->getVar('teamid'), 3, _MD_GAMERS_MATCHUNLOCKED);
         } else {
-            redirect_header('availability.php?mid=' . $this->getVar('matchid'), 3, _AM_DBNOTUPDATED);
+            redirect_header('availability.php?mid=' . $this->getVar('matchid'), 3, _MD_DBNOTUPDATED);
         }
     }
 

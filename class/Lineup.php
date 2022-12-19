@@ -138,9 +138,9 @@ class Lineup extends \XoopsObject
 
         require XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-        $mform = new XoopsThemeForm(_AM_GAMERS_TACTICSDISPLAY, 'display', xoops_getenv('PHP_SELF'));
+        $mform = new \XoopsThemeForm(_AM_GAMERS_TACTICSDISPLAY, 'display', xoops_getenv('PHP_SELF'));
 
-        $general = new XoopsFormLabel(_AM_GAMERS_GENERALTACS, $this->getVar('general'));
+        $general = new \XoopsFormLabel(_AM_GAMERS_GENERALTACS, $this->getVar('general'));
 
         $mform->addElement($general);
 
@@ -151,7 +151,7 @@ class Lineup extends \XoopsObject
         foreach ($positions as $key => $tacpos) {
             $posshort = $posshortlist[$tacpos['posid']];
 
-            $position[$key] = new XoopsFormLabel($posshort, $tacpos['posdesc']);
+            $position[$key] = new \XoopsFormLabel($posshort, $tacpos['posdesc']);
 
             $mform->addElement($position[$key]);
         }

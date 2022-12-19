@@ -37,7 +37,7 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 $xoopsDB     = \XoopsDatabaseFactory::getDatabaseConnection();
 $blocksadmin = new Blocksadmin($xoopsDB, $helper);
 
-$xoopsModule = XoopsModule::getByDirname($moduleDirName);
+$xoopsModule = \XoopsModule::getByDirname($moduleDirName);
 
 if (!is_object($GLOBALS['xoopsUser']) || !is_object($xoopsModule)
 //    || !$GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {

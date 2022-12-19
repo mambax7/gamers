@@ -81,7 +81,7 @@ if ($xoopsUser) {
             $uid = $xoopsUser->getVar('uid');
         }
 
-        $thisUser = new XoopsUser($uid);
+        $thisUser = new \XoopsUser($uid);
 
         $user = $thisUser->getVar('uname');
 

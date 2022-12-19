@@ -12,7 +12,6 @@ namespace XoopsModules\Gamers\Common;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use XoopsModule;
 
 /**
  * @copyright   XOOPS Project (https://xoops.org)
@@ -33,7 +32,7 @@ trait VersionChecks
         $moduleDirName      = \basename(\dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         if (null === $module) {
-            $module = XoopsModule::getByDirname($moduleDirName);
+            $module = \XoopsModule::getByDirname($moduleDirName);
         }
         \xoops_loadLanguage('admin', $moduleDirName);
         \xoops_loadLanguage('common', $moduleDirName);
@@ -65,7 +64,7 @@ trait VersionChecks
         $moduleDirName      = \basename(\dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         if (null === $module) {
-            $module = XoopsModule::getByDirname($moduleDirName);
+            $module = \XoopsModule::getByDirname($moduleDirName);
         }
         \xoops_loadLanguage('admin', $moduleDirName);
         \xoops_loadLanguage('common', $moduleDirName);
