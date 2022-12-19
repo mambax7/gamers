@@ -29,7 +29,7 @@ switch ($op) {
     $lineupposHandler = Helper::getInstance()->getHandler('LineupPosition');
     $lineupHandler = Helper::getInstance()->getHandler('Lineup');
     if ('Edit' == $action) {
-        $lineups = explode(':', $lineupid);
+        $lineups = explode(':', (string) $lineupid);
 
         $count = count($lineups);
 
@@ -286,11 +286,19 @@ switch ($op) {
     $teamname = $team->getVar('teamname');
     $mdate = $mymatch->getVar('matchdate');
     $matchresult = $mymatch->getVar('matchresult');
-    switch (mb_strtolower($matchresult)) {
-        case 'win': $matchresultcolor = $layout['color_match_win']; break;
-        case 'loss': $matchresultcolor = $layout['color_match_loss']; break;
-        case 'draw': $matchresultcolor = $layout['color_match_draw']; break;
-        default: $matchresultcolor = $layout['color_match_pending']; break;
+    switch (mb_strtolower((string) $matchresult)) {
+        case 'win':
+            $matchresultcolor = $layout['color_match_win'];
+            break;
+        case 'loss':
+            $matchresultcolor = $layout['color_match_loss'];
+            break;
+        case 'draw':
+            $matchresultcolor = $layout['color_match_draw'];
+            break;
+        default:
+            $matchresultcolor = $layout['color_match_pending'];
+            break;
     }
     $time = date('H:i', $mdate);
     $maps = $team->getVar('maps');
@@ -373,7 +381,7 @@ switch ($op) {
     $xoopsTpl->assign('screenshotnumber', $screenshotnumber);
     $xoopsTpl->assign('matchresult', $matchresult);
     $review = $mymatch->getVar('review');
-    if (mb_strlen($review) > 0) {
+    if (mb_strlen((string) $review) > 0) {
         $xoopsTpl->assign('review', $review);
     }
     if (0 != $mymatch->getVar('server')) {

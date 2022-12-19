@@ -37,7 +37,7 @@ $modversion['config'][] = [
     'description' => 'CO_' . $moduleDirNameUpper . '_' . 'IMAGE_FILE_SIZE_DSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 2000000,
+    'default'     => 2_000_000,
 ]; // =768/16
 
 $modversion['config'][] = [

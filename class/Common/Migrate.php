@@ -23,8 +23,17 @@ namespace XoopsModules\Gamers\Common;
  */
 class Migrate extends \Xmf\Database\Migrate
 {
+    /**
+     * @readonly
+     */
     private string $moduleDirName;
+    /**
+     * @readonly
+     */
     private array  $renameColumns;
+    /**
+     * @readonly
+     */
     private array  $renameTables;
 
     /**
@@ -123,7 +132,7 @@ class Migrate extends \Xmf\Database\Migrate
                 $oldName = $tableName['from'];
                 $newName = $tableName['to'];
                 $attributes = $this->tableHandler->getColumnAttributes($tableName, $oldName);
-                if (false !== \strpos($attributes, ' int(')) {
+                if (strpos((string) $attributes, ' int(') !== false) {
                     $this->tableHandler->alterColumn($tableName, $oldName, $attributes, $newName);
                 }
             }

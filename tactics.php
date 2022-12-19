@@ -181,7 +181,7 @@ if ($xoopsUser) {
                 if ($tacticsHandler->insert($tactic)) {
                     $tacid = $tactic->getVar('tacid');
 
-                    $tacpos = explode(':', $tacpos);
+                    $tacpos = explode(':', (string) $tacpos);
 
                     $tacserrors = 0;
 

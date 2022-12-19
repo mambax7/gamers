@@ -62,9 +62,9 @@ class MatchMapHandler extends \XoopsPersistableObjectHandler
 
     /**
      * @param bool $isNew
-     * @return object
+     * @return MatchMap
      */
-    public function create($isNew = true): object
+    public function create($isNew = true): MatchMap
     {
         $ret = parent::create($isNew);
 

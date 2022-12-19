@@ -17,7 +17,7 @@ class Cloner
         global $patKeys;
         global $patValues;
 
-        $newPath = \str_replace($patKeys[0], $patValues[0], $path);
+        $newPath = \str_replace($patKeys[0], $patValues[0], (string) $path);
 
         if (\is_dir($path)) {
             // create new dir
@@ -37,7 +37,7 @@ class Cloner
             }
         } else {
             $noChangeExtensions = ['jpeg', 'jpg', 'gif', 'png', 'zip', 'ttf'];
-            if (\in_array(\mb_strtolower((string)\pathinfo($path, \PATHINFO_EXTENSION)), $noChangeExtensions, true)) {
+            if (\in_array(\mb_strtolower((string)\pathinfo((string) $path, \PATHINFO_EXTENSION)), $noChangeExtensions, true)) {
                 // image
                 \copy($path, $newPath);
             } else {
@@ -92,8 +92,8 @@ class Cloner
 
         // Write text
         $textColor     = \imagecolorallocate($imageModule, 0, 0, 0);
-        $spaceToBorder = (int)((80 - \mb_strlen($dirname) * 6.5) / 2);
-        \imagefttext($imageModule, 8.5, 0, $spaceToBorder, 45, $textColor, $font, \ucfirst($dirname), []);
+        $spaceToBorder = (int)((80 - \mb_strlen((string) $dirname) * 6.5) / 2);
+        \imagefttext($imageModule, 8.5, 0, $spaceToBorder, 45, $textColor, $font, \ucfirst((string) $dirname), []);
 
         // Set transparency color
         //$white = imagecolorallocatealpha($imageModule, 255, 255, 255, 127);

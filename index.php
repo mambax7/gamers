@@ -211,7 +211,7 @@ switch ($op) {
         $team = $teamHandler->get($teamid);
 
         if ($day && ($month)) {
-            $clock = explode(':', $time);
+            $clock = explode(':', (string) $time);
 
             $hour = (int)$clock[0];
 
@@ -341,7 +341,7 @@ switch ($op) {
         $team = $teamHandler->get($teamid);
 
         if ($day && ($month)) {
-            $clock = explode(':', $time);
+            $clock = explode(':', (string) $time);
 
             $hour = (int)$clock[0];
 
@@ -422,7 +422,7 @@ switch ($op) {
     if (_MD_GAMERS_UPLOAD == $submit) {
         // do some error checking:
 
-        if (!preg_match('/jpeg/', $_FILES['screenshot']['type'])) {
+        if (!preg_match('/jpeg/', (string) $_FILES['screenshot']['type'])) {
             $message = _MD_GAMERS_ERRORNOTJPG;
         }
 
@@ -544,9 +544,9 @@ switch ($op) {
     $hidden_ladders = [];
     foreach ($ladders as $ladderid => $thisladder) {
         if (0 == $thisladder['visible']) {
-            $hidden_ladders[] = mb_strtolower($thisladder['ladder']);
+            $hidden_ladders[] = mb_strtolower((string) $thisladder['ladder']);
         } elseif (0 == $thisladder['scoresvisible']) {
-            $hidden_scores[] = mb_strtolower($thisladder['ladder']);
+            $hidden_scores[] = mb_strtolower((string) $thisladder['ladder']);
         }
     }
     // fetch matches from database
@@ -556,7 +556,7 @@ switch ($op) {
     foreach ($matches as $mid => $match) {
         // only draw match if its ladder is not in $hidden_ladders and match result is not pending
 
-        if (!('Pending' != $match->getVar('matchresult') && in_array(mb_strtolower($match->getVar('ladder')), $hidden_ladders, true))) {
+        if (!('Pending' != $match->getVar('matchresult') && in_array(mb_strtolower((string) $match->getVar('ladder')), $hidden_ladders, true))) {
             $yes = $no = $wins = $losses = $noreply = 0;
 
             $pic = '';
@@ -597,7 +597,7 @@ switch ($op) {
 
                     //Only show scores for matches for non-members if its ladder allows it
 
-                    if (!isset($mapname) || (!$teammember && in_array(mb_strtolower($match->getVar('ladder')), $hidden_scores, true))) {
+                    if (!isset($mapname) || (!$teammember && in_array(mb_strtolower((string) $match->getVar('ladder')), $hidden_scores, true))) {
                         $map[$mapno]['ourscore'] = 0;
 
                         $map[$mapno]['theirscore'] = 0;

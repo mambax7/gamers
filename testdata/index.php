@@ -122,6 +122,7 @@ function loadSampleData(): void
  */
 function saveSampleData(): void
 {
+    $skipColumns = [];
     global $xoopsConfig;
     $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
@@ -164,7 +165,7 @@ function exportSchema(): void
         //        $migrate->saveCurrentSchema();
         //
         //        redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS'));
-    } catch (\Throwable $e) {
+    } catch (\Throwable $exception) {
         exit(constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR'));
     }
 }

@@ -44,7 +44,7 @@ if ('submit' === Request::getString('op', '', 'POST')) {
     $clone = Request::getString('clone', '', 'POST');
 
     //check if name is valid
-    if (empty($clone) || preg_match('/[^a-zA-Z0-9\_\-]/', $clone)) {
+    if (empty($clone) || preg_match('/[^a-zA-Z0-9\_\-]/', (string) $clone)) {
         redirect_header('clone.php', 3, sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_INVALIDNAME'), $clone));
     }
 
@@ -54,19 +54,19 @@ if ('submit' === Request::getString('op', '', 'POST')) {
     }
 
     $patterns = [
-        \mb_strtolower($helper->dirname())          => \mb_strtolower($clone),
-        \mb_strtoupper($helper->dirname())          => \mb_strtoupper($clone),
-        ucfirst(mb_strtolower($helper->dirname())) => ucfirst(mb_strtolower($clone)),
+        \mb_strtolower((string) $helper->dirname())          => \mb_strtolower((string) $clone),
+        \mb_strtoupper((string) $helper->dirname())          => \mb_strtoupper((string) $clone),
+        ucfirst(mb_strtolower((string) $helper->dirname())) => ucfirst(mb_strtolower((string) $clone)),
     ];
 
     $patKeys   = array_keys($patterns);
     $patValues = array_values($patterns);
     Cloner::cloneFileFolder($helper->path());
-    $logocreated = Cloner::createLogo(mb_strtolower($clone));
+    $logocreated = Cloner::createLogo(mb_strtolower((string) $clone));
 
     $msg = '';
-    if (is_dir($GLOBALS['xoops']->path('modules/' . \mb_strtolower($clone)))) {
-        $msg .= sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_CONGRAT'), "<a href='" . XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin'>" . ucfirst(mb_strtolower($clone)) . '</a>') . "<br>\n";
+    if (is_dir($GLOBALS['xoops']->path('modules/' . \mb_strtolower((string) $clone)))) {
+        $msg .= sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_CONGRAT'), "<a href='" . XOOPS_URL . "/modules/system/admin.php?fct=modulesadmin'>" . ucfirst(mb_strtolower((string) $clone)) . '</a>') . "<br>\n";
         if (!$logocreated) {
             $msg .= constant('CO_' . $moduleDirNameUpper . '_' . 'CLONE_IMAGEFAIL');
         }

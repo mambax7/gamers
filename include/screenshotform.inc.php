@@ -49,7 +49,7 @@ for ($mapno = 1; $mapno <= $nummaps; $mapno++) {
 
     echo '<td>' . getSide($thismap->getVar('side')) . '</td>';
 
-    if (mb_strlen($thismap->getVar('screenshot')) > 0) {
+    if (mb_strlen((string) $thismap->getVar('screenshot')) > 0) {
         echo '<td>' . $thismap->getVar('screenshot') . '<br><img src="'. XOOPS_UPLOAD_URL . '/' . $moduleDirName . '/screenshots/thumbs/' . $thismap->getVar('screenshot') . '" alt="" border="0"></td>';
 
         echo '<td><a href="index.php?op=deletescreenshot&matchmapid=' . $thismap->getVar('matchmapid') . '">' . _MD_GAMERS_DELETE . '</a></td>';

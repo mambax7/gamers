@@ -104,7 +104,7 @@ class Blocksadmin
         <th align='center'>" . \constant('CO_' . $this->moduleDirNameUpper . '_' . 'ACTION') . '</th>
         </tr>';
         $blockArray = \XoopsBlock::getByModule($xoopsModule->mid());
-        $blockCount = \count($blockArray);
+        $blockCount = is_countable($blockArray) ? \count($blockArray) : 0;
         $class      = 'even';
         $cachetimes = [
             0       => _NOCACHE,
@@ -117,7 +117,7 @@ class Blocksadmin
             86400   => _DAY,
             259200  => \sprintf(_DAYS, 3),
             604800  => _WEEK,
-            2592000 => _MONTH,
+            2_592_000 => _MONTH,
         ];
         foreach ($blockArray as $i) {
             $groupsPermissions = $grouppermHandler->getGroupIds('block_read', $i->getVar('bid'));
@@ -378,7 +378,7 @@ class Blocksadmin
             /** @var \XoopsTplfileHandler $tplfileHandler */
             $tplfileHandler = \xoops_getHandler('tplfile');
             $btemplate      = $tplfileHandler->find($GLOBALS['xoopsConfig']['template_set'], 'block', (string)$bid);
-            if (\count($btemplate) > 0) {
+            if ((is_countable($btemplate) ? \count($btemplate) : 0) > 0) {
                 $tplclone = $btemplate[0]->xoopsClone();
                 $tplclone->setVar('tpl_id', 0);
                 $tplclone->setVar('tpl_refid', $newid);
@@ -562,7 +562,7 @@ class Blocksadmin
                 || $oldbmodule[$i] !== $bmodule[$i]) {
                 $this->setOrder($bid[$i], $title[$i], $weight[$i], $visible[$i], $side[$i], $bcachetime[$i], $bmodule[$i]);
             }
-            if (!empty($bmodule[$i]) && \count($bmodule[$i]) > 0) {
+            if (!empty($bmodule[$i]) && (is_countable($bmodule[$i]) ? \count($bmodule[$i]) : 0) > 0) {
                 $sql = \sprintf('DELETE FROM `%s` WHERE block_id = %u', $this->db->prefix('block_module_link'), $bid[$i]);
                 $this->db->query($sql);
                 if (\in_array(0, $bmodule[$i], true)) {
@@ -644,11 +644,11 @@ class Blocksadmin
                 /** @var \XoopsTplfileHandler $tplfileHandler */
                 $tplfileHandler = \xoops_getHandler('tplfile');
                 $btemplate      = $tplfileHandler->find($GLOBALS['xoopsConfig']['template_set'], 'block', $block['bid']);
-                if (\count($btemplate) > 0) {
+                if ((is_countable($btemplate) ? \count($btemplate) : 0) > 0) {
                     $form->addElement(new \XoopsFormLabel(\_AM_SYSTEM_BLOCKS_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id=' . $btemplate[0]->getVar('tpl_id') . '">' . \_AM_SYSTEM_BLOCKS_EDITTPL . '</a>'));
                 } else {
                     $btemplate2 = $tplfileHandler->find('default', 'block', $block['bid']);
-                    if (\count($btemplate2) > 0) {
+                    if ((is_countable($btemplate2) ? \count($btemplate2) : 0) > 0) {
                         $form->addElement(new \XoopsFormLabel(\_AM_SYSTEM_BLOCKS_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id=' . $btemplate2[0]->getVar('tpl_id') . '" target="_blank">' . \_AM_SYSTEM_BLOCKS_EDITTPL . '</a>'));
                     }
                 }
@@ -669,7 +669,7 @@ class Blocksadmin
                                           86400   => _DAY,
                                           259200  => \sprintf(_DAYS, 3),
                                           604800  => _WEEK,
-                                          2592000 => _MONTH,
+                                          2_592_000 => _MONTH,
                                       ]);
         $form->addElement($cache_select);
 
